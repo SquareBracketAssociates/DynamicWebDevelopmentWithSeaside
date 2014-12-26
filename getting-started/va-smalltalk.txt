@@ -1,0 +1,1 @@
+@@blockquote ''by John O'Keefe, Principal Software Architect, Instantiations Inc.''In this section we will show you how to get started developing Seaside applications with VA Smalltalk. First we will discuss how to obtain and install Seaside. Then we will show you how to develop your first application: a simple counter.

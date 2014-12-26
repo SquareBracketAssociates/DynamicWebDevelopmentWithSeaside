@@ -1,0 +1,1 @@
+First, create a package for your project. Make sure no package is selected in the top-left pane (ctrl-click on any currently selected package, or select ''Local Image''), then pick ''Package | New Package...''. As a name for our package enter WebCounter, and click OK. Leave the new package selected after it is created.

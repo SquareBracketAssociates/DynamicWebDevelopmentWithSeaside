@@ -1,0 +1,1 @@
+Developers who are already familiar with VisualWorks can skip this section. For those who might be trying VisualWorks for the first time as a development environment for Seaside, a few brief comments about the development environment might be helpful. We'll make these comments in the context of developing the simple counter example.

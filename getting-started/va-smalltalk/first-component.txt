@@ -1,0 +1,1 @@
+Now you are ready to write your first Seaside component. You will code a simple counter in several steps: define an application and a class, define state, and define how the component is rendered. Finally you will declare it as a Seaside application.
