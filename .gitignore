@@ -31,5 +31,5 @@ files/
 /EnterprisePharo.tex
 stderr
 stdout
-*.tex
 /book-result/
+/DynamicWebDevelopmentWithSeaside.tex
