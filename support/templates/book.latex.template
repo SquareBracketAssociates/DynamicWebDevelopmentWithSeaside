@@ -37,11 +37,8 @@
 \setcounter{page}{1}
 \pagestyle{headings}
 %=================================================================
-\author{
-        Damien Cassou\quad \\
-        St\'ephane Ducasse\quad \\
-     	Sven Van Caekenberghe}
-\title{\Huge\bf Enterprise Pharo}
+\author{To be defined}
+\title{\Huge\bf Dynamic Web Development with Seaside}
 \isodate
 \date{\emph{Version of \today}}
 \maketitle
