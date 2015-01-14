@@ -28,7 +28,7 @@ function pillar_one() {
 function mypdflatex() {
   pillar_file="$1"
 
-  pdflatex -halt-on-error -file-line-error -interaction batchmode "$pillar_file" 2>&1 1>/dev/null
+  lualatex -halt-on-error -file-line-error -interaction batchmode "$pillar_file" 2>&1 1>/dev/null
   ret=$?
   if [[ $ret -ne 0 ]]; then
     cat $pillar_file.log
@@ -77,7 +77,7 @@ function compile_latex_book() {
 }
 
 function latex_enabled() {
-  hash pdflatex 2>/dev/null
+  hash lualatex 2>/dev/null
 }
 
 if [[ $# -eq 1 ]]; then
