@@ -33,3 +33,7 @@ stderr
 stdout
 /book-result/
 /DynamicWebDevelopmentWithSeaside.tex
+*.html
+*.md
+*.tex
+*.pdf
