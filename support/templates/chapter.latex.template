@@ -16,8 +16,13 @@
 %	\documentclass[a4paper,11pt,twoside]{book}
 %	\input{../support/latex/common.tex}
 %	\usepackage{a4wide}
-% --------------------------------------------    \graphicspath{{figures/} {../figures/}}
-	\begin{document}
+% --------------------------------------------    
+\graphicspath{
+	{figures/}
+	{../figures/}
+}
+
+\begin{document}
 \fi
 \sloppy
 

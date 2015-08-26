@@ -6,31 +6,11 @@
 % 2006-10-31 - Oscar code macros
 % ...
 
-%=============================================================
-% NB: documentclass must be set in main document.
-% Allows book to be generated in multiple formats.
-%=============================================================
-%:Packages
-\usepackage{fontspec}
+\input{../support/latex/commonLuaTex.tex}
 
-\setmainfont[%
-  Path = ../support/latex/fonts/ ,
-  UprightFont = *-Regular ,
-  BoldFont = *-Bold ,
-  ItalicFont = *-Italic ,
-  BoldItalicFont = *-BoldItalic
-]{FiraSans}
-
-\setmonofont[Path = ../support/latex/fonts/]{FiraMono-Regular.otf}
-\setsansfont[Path = ../support/latex/fonts/]{FiraSans-Regular.otf}
-
-\usepackage[protrusion,expansion=false]{microtype}
-\usepackage{graphicx}
-\usepackage{theorem}
-\usepackage{polyglossia}
-\setdefaultlanguage{english}
 % ON: pdfsync breaks the use of p{width} for tabular columns!
 \ifdefined\usepdfsync\usepackage{pdfsync}\fi % Requires texlive 2007
+
 %=============================================================
 %:More packages
 %Stef should check which ones are used!
@@ -133,6 +113,7 @@
 \newcommand{\nnbb}[2]{\yellowbox{#1} \triangles{#2}}
 \newcommand{\fix}{\yellowbox{FIX!}}
 \newcommand{\here}{\yellowbox{CONTINUE HERE!}}
+
 % editor macros
 \newcommand{\apl}[1]{\nnbb{Alain}{#1}} % Alain
 \newcommand{\ab}[1]{\nnbb{Andrew}{#1}} % Black
@@ -320,7 +301,7 @@
       \fbox{\usebox{\SavedText}}}
   \end{center}}
 % Use this:
-\newcommand{\important}[1]{\begin{doublebox}#1\end{doublebox}}
+
 %=============================================================
 %:Section depth
 \setcounter{secnumdepth}{2}
@@ -438,12 +419,17 @@ Damien Pollet},
 % In-line code (literal)
 % Normally use this for all in-line code:
 % \newcommand{\ct}{\lstinline[mathescape=false,backgroundcolor=\color{white},basicstyle={\sffamily\upshape}]}
+% \newcommand{\ct}[1]{{\sffamily\textup{#1}}}
 \newcommand{\ct}[1]{{\texttt{\textup{#1}}}}
-% \upshape declaration to avoid getting italicized code in \dothis{ } sections
+% apb 2007.8.28 added the \upshape declaration to avoid getting italicized code in \dothis{ } sections.
+% In-line code (latex enabled)
 % Use this only in special situations where \ct does not work
-% (e.g., within section headings):
-\newcommand{\lct}[1]{{\texttt{\textup{#1}}}}
-
+% (within section headings ...):
+\newcommand{\lct}[1]{{\textsf{\textup{#1}}}}
+% Use these for system categories and protocols:
+\newcommand{\scat}[1]{\emph{\textsf{#1}}\xspace}
+\newcommand{\pkg}[1]{\emph{\textsf{#1}}\xspace}
+\newcommand{\prot}[1]{\emph{\textsf{#1}}\xspace}
 % Code environments
 % NB: the arg is for tests
 % Only code and example environments may be tests
@@ -603,6 +589,13 @@ Damien Pollet},
 \setlength{\methodindent}{0.2cm}
 \settowidth{\methodwordlength}{\ M\'ethode\ }
 %=============================================================
+%:Smalltalk macros
+%\newcommand{\sep}{{$\gg$}}
+% \newcommand{\sep}{\mbox{>>}}
+\newcommand{\self}{\lct{self}\xspace}
+% \newcommand{\super}{\lct{super}\xspace}
+\newcommand{\nil}{\lct{nil}\xspace}
+%=============================================================
 % be less conservative about float placement
 % these commands are from http://www.tex.ac.uk/cgi-bin/texfaq2html?label=floats
 \renewcommand{\topfraction}{.9}
@@ -615,6 +608,7 @@ Damien Pollet},
 \setcounter{bottomnumber}{9}
 \setcounter{totalnumber}{20}
 \setcounter{dbltopnumber}{9}
+
 %=============================================================
 % Give information from each chapter's author
 \newcommand{\contact}[2]{\textbf{#1} \textsf{(#2)}}
@@ -652,12 +646,14 @@ Damien Pollet},
 %\newenvironment{note}{\newline Note:}{}
 \newenvironment{note}{\begin{center}\begin{minipage}{8cm}\hrule\vspace{0.2cm}
 \textbf{Note:}}{\vspace{0.3cm}\hrule\end{minipage}\end{center}}
-
 \newenvironment{todo}{\begin{center}\begin{minipage}{8cm}
-\textbf{You should do:}}{\end{minipage}\end{center}}
+\textbf{Book Todo:}}{\end{minipage}\end{center}}
 
 \newenvironment{authorToDo}{\begin{center}\begin{minipage}{8cm}
 \textbf{SHOULD FIX:}}{\end{minipage}\end{center}}
 
 \newenvironment{advanced}{\begin{center}\begin{minipage}{8cm}
 \textbf{Advanced:}}{\end{minipage}\end{center}}
+
+\newenvironment{important}{\begin{center}\begin{minipage}{8cm}
+\textbf{Important:}}{\end{minipage}\end{center}}
