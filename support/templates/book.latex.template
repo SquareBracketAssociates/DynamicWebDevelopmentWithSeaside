@@ -7,22 +7,13 @@
         vmargin={.75in,1in},
         ignoreheadfoot
 ]{geometry}
-\input{../support/latex/common.tex}
+\input{../support/latex/commonLuaTex.tex}
 \setboolean{lulu}{true}
 %=================================================================
 % Add the path for the figures of each chapter here:
 \graphicspath{
-	{../figures/}
-  	{../Copyright/}
-	{../Zinc/}	
-  	{../PillarChap/}
-  	{../Artefact/}
-	{../Zinc-HTTP/}
-	{../Zinc-Encoding-Meta/}
-	{../Zinc-REST/}
-	{../NativeBoostX11/}
-	{../Fuel/}
-	{../STON/}
+        {../figures/}
+        {../Example/}
 }
 %=================================================================
 \let\wholebook=\relax
@@ -37,8 +28,10 @@
 \setcounter{page}{1}
 \pagestyle{headings}
 %=================================================================
-\author{To be defined}
-\title{\Huge\bf Dynamic Web Development with Seaside}
+\author{
+  <Put the authors here>
+}
+\title{\Huge\bf {{{title}}} }
 \isodate
 \date{\emph{Version of \today}}
 \maketitle
