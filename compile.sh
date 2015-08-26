@@ -27,11 +27,13 @@ function pillar_one() {
 
 function mypdflatex() {
   pillar_file="$1"
+  basename=${pillar_file%.*}
 
-  lualatex -halt-on-error -file-line-error -interaction batchmode "$pillar_file" 2>&1 1>/dev/null
+  echo "Compiling PDF from $pillar_file..."
+  lualatex --file-line-error --interaction=batchmode "\input" "$basename" 2>&1 1>/dev/null
   ret=$?
   if [[ $ret -ne 0 ]]; then
-    cat $pillar_file.log
+    cat "$basename".log
     echo "Can't generate the PDF!"
     exit 1
   fi
@@ -48,7 +50,7 @@ function produce_pdf() {
 
   cd "$dir"         # e.g., cd Zinc/
   mypdflatex "$pillar_file" && mypdflatex "$pillar_file"
-  cd ..
+  cd -
 }
 
 function compile_chapters() {
