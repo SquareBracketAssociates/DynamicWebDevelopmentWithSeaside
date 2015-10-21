@@ -1,0 +1,16 @@
+!!Cincom Smalltalk
+@sec:started-cincom
+
+''by Bruce Boyer, Cincom Systems, VisualWorks Development''
+
+In this section we describe how to get started developing a Seaside application
+in VisualWorks. We assume that you already have a 7.7 version of VisualWorks
+installed. If not, go to the Cincom Smalltalk download site
+http://www.cincomsmalltalk.com/. We’ll be working with the noncommercial
+release, although the features that are preloaded into the noncommercial version
+aren’t needed for working with Seaside.
+
+As an alternative, Seaside and VisualWorks are tightly integrated in
+WebVelocity, which is also available on the Cincom Smalltalk download page.
+WebVelocity provides a browser-based development environment and detailed
+documentation that help guide you in developing Seaside applications.

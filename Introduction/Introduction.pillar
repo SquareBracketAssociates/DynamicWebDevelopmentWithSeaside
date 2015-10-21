@@ -1,0 +1,18 @@
+!Introduction
+@sec:introduction
+
+Seaside is an excellent framework for easily developing advanced and dynamic web
+applications. Seaside lets you create reusable components that you can freely
+compose using Smalltalk — a simple and pure object-oriented language.
+
+Seaside offers a powerful callback mechanism that lets you trigger code snippets
+when the users clicks on a link. With Seaside, you can debug your web
+application with a powerful dynamic debugger and modify the code on the fly
+while your server is running. This makes the development of complex dynamic
+applications smooth and fast.
+
+With Seaside, you have the time to focus on your design and solutions to your
+problems. In this chapter, we give an overview of Seaside and present some
+Smalltalk basics to help you to follow along with the book. In the next chapter,
+we will show you how you can program your first Seaside component in just 15
+minutes.
