@@ -16,3 +16,552 @@ problems. In this chapter, we give an overview of Seaside and present some
 Smalltalk basics to help you to follow along with the book. In the next chapter,
 we will show you how you can program your first Seaside component in just 15
 minutes.
+
+!!What is Seaside?
+
+Seaside is a free, open source framework (collection of Smalltalk classes). The
+developer can use and extend these classes to produce highly dynamic web-based
+''applications''. By applications, we mean real applications with potentially
+complex workflows and user interactions, in contrast to just collections of
+static pages. Seaside makes web development simpler and can help you build
+applications that are cleaner and easier to maintain because it has:
+
+- a solid component model and callbacks,
+- support for sequencing interactions,
+- native (Smalltalk) debugging interface, and
+- support for using AJAX and other Web 2.0 technologies.
+
+Seaside applications are based on the composition of independent components.
+Each component is responsible for its rendering, its state, and its own control
+flow. Seaside enables you to freely compose such components, creating advanced
+and dynamic applications comparable to widget libraries such as Swing or
+Morphic. What is really powerful is that the control flow of an application is
+written in plain Smalltalk code.
+
+Seaside was originally created by Avi Bryant and Julian Fitzell. It is supported
+by an active community and enhanced by several Seaside experts. Currently,
+Julian Fitzell, Philippe Marshall, and Lukas Renggli (one of the authors of this
+book), are leading its development.
+
+Seaside is often described as a ''heretic web framework'' because by design it
+goes against what is currently considered best practice for web development -\-
+such as using templates or clean, carefully chosen, meaningful URLs. Seaside
+does not follow REST (Representational State Transfer) by default. Instead, URLs
+hold session key information, and meaningful URLs have to be generated
+explicitly, if needed.
+
+When using a template system (PHP, JSP, ASP, ColdFusion, and so on), the logic
+is scattered across many files, which makes the application hard to maintain.
+Reuse, if possible at all, is often based on copying files. The philosophy of
+the template approach is to separate the responsibilities of designers and
+programmers. This is a good idea that Seaside also embraces. Seaside encourages
+the developer to use CSS to describe the visual appearance of a component, but
+it does not use a templating engine, and encourages developers to
+programmatically generate meaningful and valid XHTML markup.
+
+Seaside is easy to learn and use. By comparison, JSF (JavaServer Faces) requires
+you to use and understand several technologies such as Servlets, XML, JSP,
+navigation configuration in ==faces.config== files, and so on. In Seaside, you
+only need to know Smalltalk, which is more compact and easier to learn than
+Java. Furthermore, it is good to know some basics about CSS. Seaside lets you to
+concentrate on the problem at hand and not on integrating technologies. Seaside
+ensures that you always generate valid XHTML and that all your code is in
+Smalltalk.
+
+In summary, several aspects of Seaside's design differ from most mainstream web
+application frameworks. In Seaside
+
+- Session state is maintained on the server.
+- HTML is generated completely in Smalltalk. There are no templates or "server pages", although it isn't hard to build such things in Seaside.
+- You use callbacks for anchors and buttons, rather than loosely coupled page references and request IDs.
+- You use plain Smalltalk to define the flow of your application. You do not need a dedicated language or XML configuration files.
+
+Combined, these features make working with Seaside much like writing a desktop
+GUI application. Actually, in some ways it is simpler, since the web browser
+takes a lot of the application details out of your hands.
+
+The next section lists some real-world Seaside applications that you can browse
+to understand the kind of applications you can build with Seaside. Each of these
+applications allows complex interaction with the user, rather than a simple
+collection of pages.
+
+!!Seaside Applications
+
+With Seaside, you will be able to build any kind of web application. You can see
+some Seaside applications running on the web. You can find more information at
+*seaside.st/about/users>http://seaside.st/about/users*. Seaside is used in many
+intranet web applications, that are often not readily visible without going
+behind the scenes.
+
+We have selected two Seaside examples from the publicly available projects. Have
+a look at them to see the kind of interaction and application flow that can be
+built with Seaside.
+
+; ""Yesplan"" (*www.yesplan.be>http://www.yesplan.be/*)
+: Yesplan is a collaborative event planning web application. A video on the website shows a nice summary of the application. The user interaction and smooth application flow is really striking and a good illustration of the power of Seaside to build complex applications.
+
+; ""Cmsbox"" (*www.cmsbox.ch>http://www.cmsbox.ch/*)
+: An AJAX-based content management system designed for usability. Here the navigation is more the kind we expect from a web application.
+
+There are also several open-source projects based on Seaside; we list two interesting ones, since you may use them when going through the book.
+
+; ""Pier"" (*www.piercms.com>http://www.piercms.com/*)
+: Pier is a kind of meta content management system into which a Seaside application can be plugged. Pier is the second generation of an industrial strength content application management system. It is based on Magritte, a powerful meta-description framework. Pier enables easy composition and configuration of interactive web sites with new and ready-made Seaside application or components through a convenient web interface without having to write code. The Seaside website is based on Pier, as is the online version of this book.
+
+; ""SqueakSource"" (*www.squeaksource.com>http://www.squeaksource.com/*)
+: SqueakSource is a web-based source management system for Squeak using the Monticello code versioning system and it is more traditional in the kind of flow it presents.
+
+!!What is Smalltalk?
+
+In his book *Beyond Java>http://oreilly.com/catalog/9780596100940/*, Bruce Tate
+asks whether Seaside can really be innovative if it was developed using
+Smalltalk, a language that emerged in the late 80s. It's a relevant question,
+and there is an answer; there are several good reasons why it is so innovative.
+First, the design of Smalltalk is still one of the best in terms of elegance,
+purity, and consistency. Second, the set of tools is really good: debuggers,
+browsers, refactoring engines, and unit testing frameworks were all invented in
+Smalltalk. Third, and most important, in Smalltalk you constantly interact with
+live objects. This is particularly exciting when developing web applications.
+There's no need to constantly recompile your code or restart the server.
+Instead, you debug your applications on the fly, recompile running code, and
+access your business objects right in the browser, which gives you a huge
+productivity gain.
+
+Experience has proven to us that Smalltalk is not difficult to learn, it
+provides many advantages and it's no hindrance to using Seaside. In fact we
+often see people starting to learn Smalltalk because of Seaside. To help you get
+up to speed, we suggest you read ''Pharo by Example''. It is a free book
+available at *www.pharobyexample.org>http://www.pharobyexample.org/*. Chapters
+3, 4 and 5 contain a minimal description of Smalltalk, its object-oriented model
+and the elementary syntax elements that you need to know to follow this book. In
+the next chapter, we will help you to get started with the environment step by
+step.
+
+!!One-Click Image
+
+There are several implementations of Smalltalk. Some are commercial, such as
+Cincom Smalltalk, GemStone Smalltalk, VA Smalltalk, and Dolphin Smalltalk.
+Others are open source, such as Pharo, Squeak and GNU Smalltalk. Seaside is
+developed in Pharo, then ported to the other Smalltalks. The first chapter
+provides an equivalent of a ''Getting Started'' chapter to all major Smalltalk
+implementations.
+
+In this book, we use the ''Seaside 3.1 One Click Image'' which you can find on
+the Seaside website at *www.seaside.st>http://www.seaside.st/*. The One Click
+Image is a bundle of everything you need to run Seaside once you unzip it.
+This book is based on Pharo Smalltalk, a fork of Squeak that is used to build
+the One Click Image. We suggest you use this image to start. It makes things
+much simpler.
+
+The Seaside mailing list is a good place to ask questions because the
+subscribers to the list answer questions quickly. Do not hesitate to join and
+participate in the community.
+
+Okay then, you now have tools at your disposal to help you through any problems
+you might encounter.
+
+!!Structure of the Book
+
+; *ref:../../getting-started*: *../../getting-started*
+: Explains how to get a Seaside application up and running in less than 15 minutes. It will show you some Seaside tools.
+
+; *ref:../../fundamentals*: *../../fundamentals*
+: Shows you how to manipulate basic elements, such as text, anchors, and callbacks, as well as forms. It presents the notion of a ''brush'', which is central to the Seaside API.
+
+; *ref:../../components*: *../../components*
+: Describes components, the basic building blocks of Seaside. It shows how components are defined and can populate the screen or be called and embedded within one another. It also presents tasks that are control flow components and describes how reuse is achieved in Seaside via component decoration. It ends with a discussion of the Slime library, which checks and validates your Seaside code.
+
+; *ref:../../in-action*: *../../in-action*
+: This part develops two little applications \-- a todo list manager and a sudoku player. Then it presents how to serve files, a discussion of character encodings, and how to customize a session to hold application-centric information.
+
+; *ref:../../web-20*: *../../web-20*
+: This part describes how to create an RSS feed, as well as the details of integrating JavaScript into an application. It finishes by showing some push technology such as ''Comet'', which allows you to synchronize multiple applications.
+
+; *ref:../../advanced*: *Advanced>../../advanced*
+: Presents some details that you face when you configure and deploy a Seaside application. It shows how to test Seaside components, and discusses Seaside security by presenting the most common attacks and how Seaside deals with them effectively. Then, even though Seaside is not about persistency, we discuss some persistency approaches in Squeak. Finally, we present Magritte, a meta-data framework, and its Seaside integration. Magritte lets you generate forms on the fly.
+
+!!Formatting Conventions
+
+We need to say a word about formatting conventions before we proceed. In Pharo,
+as in most Smalltalk implementations, you edit code using a code browser as we
+will show you in the next chapter. To look at the code for a method, you select
+a package, then a class, a method category and finally the method you want to
+see. The method's class is always visible. When reading a book, a method's class
+may not be so obvious.
+
+To help your understanding of the code we present, we will follow a common
+convention to display Smalltalk code: we will prefix a method signature with its
+class name. Here is an example. Suppose you need to enter the method
+==renderContentOn:== in your browser, and this method is in the class:
+==WebSudoku==. You will see the following code in your browser.
+
+[[[
+renderContentOn: html
+    html div
+        id: 'board';
+        with: [ html form: [ self renderBoardOn: html ] ]
+]]]
+
+To help you remember that this method is defined in the class ==WebSudoku==, we
+will write it as follows:
+
+[[[
+WebSudoku>>renderContentOn: html
+    html div
+        id: 'board';
+        with: [ html form: [ self renderBoardOn: html ] ]
+]]]
+
+When you enter the text for this method, you do not type ==WebSudoku>>==. It is
+there only so you will know the method's class. We will use a similar convention
+in the running text. To be precise about a method and its class, we will use
+==WebSudoku>>renderContentOn:==.
+
+In Smalltalk, a class and an instance of a class both have methods. The class
+methods are analogous to static methods in Java. Class methods respond to
+messages sent to the class itself. To make it clear that we are talking about a
+class method, we will refer to it using ==WebSudoku class>>canBeRoot==. For
+example, here is the definition of the class method ==canBeRoot==, defined on
+the class ==WebSudoku==:
+
+[[[
+WebSudoku class>>canBeRoot
+    ^ true
+]]]
+
+We use the following annotations for specific notes:
+
+@@note This is a side-note and might be interesting to readers more curious about the topic.
+
+@@advanced This is a remark covering advanced topics. It can be safely skipped on the first pass through the book.
+
+@@important This is an important note, if you do not follow the suggestions you are likely to get into trouble.
+
+!!About the Online Book
+
+A free online version of this book is available at
+*book.seaside.st>http://book.seaside.st*. The online version is always
+up-to-date and permits readers to add notes at the bottom of every page. This
+immediately notifies other readers of problems and helps us to quickly resolve
+remaining issues. We will regularly go through the notes and address the issues
+raised in the main text.
+
+The complete book is written using the Pier content management system that
+itself is written using Seaside. The PDF version of the book is automatically
+rebuilt every night from the contents of the website.
+
+The online version of the book can be navigated using the following keyboard
+shortcuts. This allows you to quickly navigate the contents of the book.
+
+|{!Keys |{!                |{!Action
+| ==k== | ''left-arrow''   | Previous Page
+| ==j== | ''right-arrow''  | Next Page
+| ==p== |                  | Parent Page
+| ==i== |                  | Table of Contents
+
+!!About the PDF Book
+
+You can buy a complete PDF version of this book for ''14 Euros'' (approximately
+19 USD) using the PayPal link below. After the payment process click the link to
+be redirected back to the download area of this website. Don't forget to
+bookmark the download page, if you want to download the latest builds of the PDF
+book in the future. By buying the PDF version you support our hard work on the
+book.
+
+%<form action="https://www.paypal.com/cgi-bin/webscr" method="post" style="text-align: center;"><input type="hidden" name="cmd" value="_s-xclick"><input type="hidden" name="hosted_button_id" value="SD9KU5JYMYHE4" width="122" height="47"><input type="image" src="https://www.paypal.com/en_US/CH/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!"><img alt=\"" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1"></form>
+
+!!About the Print Book
+
+You can buy a softcover copy of this book for ''28 Euros''
+(approximately 40 USD) through Lulu. The printed book is identical with the
+*online>../online-book* and the *PDF>../pdf-book* version of the book at
+''Friday, April 23, 2010''. Due to technical reasons we are unable to update the
+printed versions as frequently as the online and PDF version. By buying the
+printed version you support our hard work on the book.
+
+%<div style="text-align: center"><a href="http://www.lulu.com/commerce/index.php?fBuyContent=8100978"><img src="http://www.lulu.com/services/buy_now_buttons/images/book.gif" border="0" alt="Support independent publishing: Buy this book on Lulu."></a></div>
+
+!!Acknowledgments
+
+We wish to thank all the people who helped to make this book possible. Torsten
+Bergmann, Damien Cassou, Tom Krisch, Philippe Marshall, Ruben Schempp, Roger
+Whitney, and Julian Fitzell carefully reviewed the book and provided valuable
+feedback. Martin J. Laubach for his Sudoku code. Ramon Leon for letting us use
+his ideas described on his blog on SandStoneDB, and Chris Muller for Magma. Jeff
+Dorst provided financial support for supporting student text reading. Markus
+Gaelli for brainstorming on the book title. Samuel Morello for designing the
+cover. We thank the European Smalltalk User Group, Inceptive.be, Cincom Systems,
+GemStone Systems Inc. and Instantiations for the generous financial support.
+
+Furthermore, an uncountable number of people provided feedback through the notes
+on the website:
+aaamos,
+agarcia,
+alamkhan733,
+aldeveron,
+alejperez,
+alex.albitov,
+alleagrastudena,
+amalagsoftware,
+amalawi,
+andre,
+andrew.evil.genius,
+andy.burnett,
+anhlh,
+anitatiwari66,
+anonimo,
+antkrause,
+anukpriya,
+apstein,
+arc,
+ardaliev,
+artem.voroztsov,
+asselinraymond,
+astares,
+awol,
+b.prior,
+bart.gauquie,
+basilmir,
+bendict101,
+benoit.astruc,
+bgridley,
+bilesja,
+bjorn.eiderback,
+blank,
+bonzini,
+bouraqadi,
+brauer,
+briannolan45,
+bromagosa,
+bruefkasten,
+bschwab,
+bugmenot,
+cacciaresi,
+carlg,
+carlos.crosetti,
+cdrick65,
+cems,
+cesar.smx,
+chaetal,
+chicoary,
+chip,
+chris.pollard,
+chrismeyer206,
+christophe.rettien,
+chunsj,
+citizen428,
+cj-bachinger,
+colson,
+craig,
+crystal.dry.eyes,
+cuyeu,
+cy.delaunay,
+dago1965,
+damien.cassou,
+damien.pollet,
+dan,
+danc,
+david,
+davidleonhardt,
+dev,
+didier,
+dmytrenko.d,
+dsblakewatson,
+dvciontu,
+ed.stow,
+efinleyscience,
+elendilo,
+epovazan,
+fabio.braga,
+fgadzinski,
+flipityskipit,
+fractallyte,
+fraggerbe,
+francois.le.coguiec,
+francois.stephany,
+frans,
+frelach,
+friends.prince,
+fritz.schenk,
+galyathee,
+garybarnett,
+gaston.dalloglio,
+geert.wl.claes,
+george,
+ginolee859,
+goaway1000,
+haga551010,
+halcyonshizzle,
+hannes.hirzel,
+hentai,
+hichem_warum_nicht,
+hjhoffmann,
+hm,
+ino.santangelo,
+intrader,
+ismailshuaibu,
+itsme213,
+jailachure11,
+jayers,
+jborden23,
+jeremy.chan,
+jesusalbertosanchez,
+jgarcia,
+jguell,
+jkiggundu,
+jnials,
+joel,
+john.chludzinski,
+john_okeefe,
+josef.springer,
+jpamayag,
+jred_xv,
+jrinkel,
+juanmfernandez,
+junkabyss,
+juraj.kubelka,
+justin.forder,
+karsten,
+kees,
+kjborden23,
+kommentaren,
+kontakinti_11,
+kremerk,
+landriese,
+laurent.laffont,
+lehoanganh.vn,
+lenglish5,
+lgadallah,
+liangbing64,
+linuxghostpower,
+liquidhorse,
+lorenzo,
+luis.ramirez,
+ma.chris.m,
+mani7info,
+manishmore14,
+marcello.rocha,
+marcos.macedo,
+mark.owens999,
+martin.t.krebs,
+matthias.berth,
+mcleod,
+merlyn,
+michael,
+misaeboca,
+miss.martinezsandra,
+mitul_b_shah,
+momode56,
+momoewang,
+morbusg,
+mriffe,
+muzzahmed01,
+nathan_benninghoff,
+nath_kamal,
+ncalexander,
+netprobe,
+nick.ager,
+nielvv,
+nikita.pristupchik,
+niko.saint,
+niko.schwarz,
+nizar.jouini,
+nrf,
+nwmullen,
+offray,
+pat.maddox,
+paulpham,
+pdebruic,
+peterg,
+petton.nicolas,
+pjw1,
+qwe517,
+r.koller,
+rafael.luque.leiva,
+rajat.tags,
+ramiro,
+ramon.leon,
+ramshreyas.rao,
+razavi,
+rene.mages,
+rh,
+rhawley,
+richard_a_green,
+riverdusty,
+robert,
+robert.reitenbach,
+robin.luiten,
+rogthedodge,
+ron.fucci,
+rsiel.455,
+rwelch,
+samoila.mircea,
+samthecool7,
+sean,
+seansorrel,
+seaside.web.macta,
+sebovick,
+sergio,
+sergio.rrd,
+shar_28_min,
+sheshadri.mantha,
+simon,
+simon.denier,
+smalltalk,
+smalltalktelevision,
+snoobabk,
+sokhoeun.kong,
+solveig.instantiations,
+squeakman,
+ssmith,
+stefan.izota,
+stephan,
+stephen.smith,
+steve,
+stevek,
+sthomas1,
+stuart,
+sukumini_g,
+szaidi6,
+t.pierce,
+tallman,
+tanga,
+tariqrauf2002,
+tatacarrera,
+tfahey,
+thewinterlion,
+thiagosl,
+timloo0710,
+tobez,
+tony,
+tony.fleig,
+tpburke,
+tudor.girba,
+tyusupov,
+udo.schneider,
+unixmonkey1,
+vagy,
+vanchau,
+victorct83,
+vinref,
+vmusulainen,
+vsteiss,
+watchlala,
+web.macta,
+wolfopsys,
+wrcstewart,
+wrinkles,
+write.to.me,
+wsgibson,
+xekoukou,
+xs4hkr,
+y2ahsan,
+yanni,
+yasirkaram,
+zanveb82,
+zhangxinchun2008.
+Thank you all.
+
+We give a special thanks to Avi Bryant and Julian Fitzell for inventing Seaside.
+In particular, they showed us that going against the current is possible when
+you have brilliant ideas and a powerful language such as Smalltalk.

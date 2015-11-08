@@ -1,5 +1,5 @@
 !I. Getting Started
-@sec:gettingstarted
+@cha:gettingstarted
 
 This part will show you how to get a simple Seaside application up and running
 in your favourite Smalltalk dialect in less than 15 minutes. There is no point
