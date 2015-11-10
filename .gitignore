@@ -37,3 +37,4 @@ stdout
 *.md
 *.tex
 *.pdf
+/pillarPostExport.sh
