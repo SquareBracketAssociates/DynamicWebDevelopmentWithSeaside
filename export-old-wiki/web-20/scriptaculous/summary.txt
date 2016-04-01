@@ -1,0 +1,1 @@
+As you have seen, introducing JavaScript functionality can allow you to greatly improve the user experience of your applications. Seaside offers a tight integration of JavaScript and AJAX functionality into the core of the framework. It allows you to define JavaScript behaviour using standard Smalltalk, and hides the necessary details from you.

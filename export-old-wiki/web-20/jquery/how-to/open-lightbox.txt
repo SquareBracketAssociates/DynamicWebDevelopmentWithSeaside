@@ -1,0 +1,1 @@
+== | id |== html div==     id: (id := html nextId);==     script: (html jQuery new dialog==         title: 'Lightbox Dialog';==         modal: true);==     with: [ self renderDialogOn: html ]== html anchor==     onClick: (html jQuery id: id) dialog open;==     with: 'Open Lightbox'

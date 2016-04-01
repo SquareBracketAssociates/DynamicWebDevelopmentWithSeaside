@@ -1,0 +1,1 @@
++index:forms+ In this chapter, we describe how to use XHTML forms and controls in Seaside. ''Controls'' such as text input fields, popup lists, radio buttons, check boxes, date inputs, and buttons are always created within an XHTML ==form== element. In this chapter we show how to create this ==form== element and how to use these common controls.

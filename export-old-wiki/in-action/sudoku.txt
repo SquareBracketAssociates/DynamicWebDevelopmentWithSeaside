@@ -1,0 +1,1 @@
+In this chapter we will build a Sudoku web application as shown in *ref:upto6*. This gives us another opportunity to revisit how we build a simple application in Seaside.+upto6|width=60%+

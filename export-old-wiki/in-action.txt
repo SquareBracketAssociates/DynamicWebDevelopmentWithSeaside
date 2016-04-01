@@ -1,0 +1,1 @@
+This part develops two little applications \-- a todo list manager and a sudoku player. Then it presents how to serve files in Seaside as well as character encodings and how to customize sessions to hold application centric information.

@@ -1,0 +1,1 @@
+== html anchor==     onClick: (html jQuery: 'div.help') toggle;==     with: 'About jQuery'.== == html div==     class: 'help';==     style: 'display: none';==     with: 'jQuery is a fast and ...'

@@ -1,0 +1,1 @@
+!!Loading==aQuery load html: [ :r | r div: Time now ].!!No Query==html jQuery ajax.!!Generators==anAjax html: [ :r | r div ].==anAjax script: [ :s | s alert: 'Hello' ].!!Triggering Callbacks==anAjax serialize: aQuery.==anAjax trigger: [ :p | ... ] passengers: aQuery.==anAjax callback: [ :v | ... ] value: anObject.

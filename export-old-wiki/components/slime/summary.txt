@@ -1,0 +1,1 @@
+Slime offers the validation of your code and it will verify some coding practices. Once again, we suggest you run this tool often. This tools as well as your unit tests and the debugger are your best friends to produce good quality code.

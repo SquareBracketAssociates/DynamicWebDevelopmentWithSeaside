@@ -1,0 +1,1 @@
+<div class="table-of-figures">+value:book.figures|target=/book+</div>

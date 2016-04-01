@@ -1,0 +1,1 @@
+== html div==     id: (id := html nextId);==     with: child.== == html anchor==     onClick: ((html jQuery id: id) load==         html: [ :r | ==             child := OtherComponent new;==             r render: child ]);==     with: 'Change Component'

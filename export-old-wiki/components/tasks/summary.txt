@@ -1,0 +1,1 @@
+In this chapter, we presented tasks, subclasses of ==Task==. Tasks are components that do not render themselves but are used to build application flow based on the composition of other components. We saw that the composition is expressed in plain Smalltalk.

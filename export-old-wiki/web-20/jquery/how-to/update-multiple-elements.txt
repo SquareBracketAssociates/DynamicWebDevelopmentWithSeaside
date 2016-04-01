@@ -1,0 +1,1 @@
+== html div id: #date.== html div id: #time.== == html anchor==     onClick: (html jQuery ajax script: [ :s |==         s << (s jQuery: #date)==             html: [ :r | r render: Date today ].==         s << (s jQuery: #time)==             html: [ :r | r render: Time now ] ]);==     with: 'Update'

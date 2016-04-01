@@ -1,0 +1,1 @@
+Since actions on the meta-model can fail. In addition, objects might not match a given meta-model. Finally it is often important to present to the end users readable error messages. Magritte introduces an exception hierarchy which knows about the description, the failure and a human-readable error message as shown in *ref:exceptions*.+exceptions|width=80%+

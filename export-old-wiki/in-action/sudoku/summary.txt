@@ -1,0 +1,1 @@
+While the Sudoku solver introduces some subtleties because of its backtracking behavior, this application shows the power of Seaside to manage state. Now you have a solid basis for building a really powerful Sudoku online application. Have a look at the class ==MLSudoku==. Extend the application by loading challenging Sudoku grids that are defined by a string.

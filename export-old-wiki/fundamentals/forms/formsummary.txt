@@ -1,0 +1,1 @@
+Seaside makes it easy to display forms with buttons, popup lists, checkboxes, etc. It is easy in part because of the callbacks that it uses to inform you of the value of these items. In *ref:/book/fundamentals/anchors*, we saw how callbacks are used with anchors. Seaside uses the power of callbacks to make your job much easier.
