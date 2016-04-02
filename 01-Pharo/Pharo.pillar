@@ -409,6 +409,43 @@ select the expression and execute it using the ''Do it (d)'' menu item or shortc
 
 +Adding the executable comment.>file://figures/executableComment.png|width=100|label=fig:executableComment+
 
+!!!! Adding Behavior
+@pharoAddBehavior
 
+Now we can add some actions to our component. We will start with a very simple
+change; we will let the user change the value of the count variable by defining
+callbacks attached to links (also known as anchors) displayed when the component
+is rendered in a web browser, as shown in Figure *@fig:addLink*. Using callbacks
+allows us to define some code that will be executed when a link is clicked.
 
++A simple counter with actions.>file://figures/addLink.png|width=100|label=fig:addLink+
+
+We modify the method ==WAComponent>>renderContentOn:== as in script
+*@scr:addCallback*.
+
+[[[language=smalltalk|caption=Add anchors and callbacks to your counter|label=scr:addCallback
+
+WebCounter>>renderContentOn: html
+    html heading: count.
+    html anchor
+        callback: [ self increase ];
+        with: '++'.
+    html space.
+    html anchor
+        callback: [ self decrease ];
+        with: '--'
+]]]
+
+@@note Don’t forget that ==WAComponent>>renderContentOn:== is on the ''instance'' side.
+
+Each callback is given a Smalltalk block: an anonymous method (strictly, a
+''lexical closure'') delimited by [ and ]. Here we send the message
+==callback:== (to the result of the anchor message) and pass the block as the
+argument. In other words, we ask Seaside to execute our callback block whenever
+the user clicks on the anchor.
+
+Click on the links to see that the counter get increased or decreased as shown
+in Figure *fig:callbackResult*.
+
++A simple counter with a different value.>file://figures/callbackResult.png|width=100|label=fig:callbackResult+
 
