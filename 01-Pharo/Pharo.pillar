@@ -67,3 +67,39 @@ Try this new knowledge out now: Open a new workspace window. Type ==1 + 1==
 into the window, and select it. Now right-click and select ''Print it'' from the
 context menu. You should see the answer ==2==.
 
+!!! What is a Smalltalk Image?
+@pharoWhatIsSmalltalkImage
+
+All Smalltalk objects live in something called an image. An image is a snapshot
+of memory containing all the objects at a given point in time. This means that
+your business objects, Seaside objects, all classes and their methods (since
+they are also objects), and development tools are all part of the image.
+The Seaside ''One Click Image'' includes a Smalltalk image with Seaside and a
+number of other tools pre-loaded to make it easier for you to get started using
+Seaside.
+
+An image is loaded and executed by a virtual machine. When you ran Pharo in
+Section *:  Using the One Click Image>@pharoOneClickImage* you really were
+running the virtual machine on the pre-packaged ''One Click Image'' image. For
+the sake of brevity we call this "running the image." The Smalltalk image
+includes active processes (Smalltalk processes are more akin to "threads" in
+other languages). When you load an image from a disk file you bring objects that
+were part of that image into RAM and resume execution of the active processes
+that were part of that image. If you were debugging when you saved the image,
+you’ll still be debugging when you load that image. We like to think of this as
+"picking up where you left off" (note that there are limits to this model:
+transient objects like a network connection that was active when the image
+was saved will not be available when the image is re-loaded). As an example, the
+Seaside ''One Click Image'' image was saved with the Comanche web server running
+so, when you load this image that web server process will be running. We’ll say
+more about that later.
+
+Development in Pharo involves making incremental changes to the image (by
+creating classes, methods etc.). You will want to periodically save your
+Smalltalk image to disk so that your changes are saved. To save your image,
+select ''World'' | ''Save'' (i.e., raise the world menu by clicking somewhere in
+the background of the Pharo window, and click “Save” in that menu, as described
+previously). If you quit Pharo using ''World'' | ''Quit'', you will also be
+prompted to save your image. You may resume your development efforts by running
+the image, as we did in Section
+*:  Using the One Click Image>@pharoOneClickImage*.
