@@ -327,3 +327,33 @@ give us output as shown in Figure *@fig:simpleCounter*.
 
 +A simple counter.>file://figures/simpleCounter.png|width=100|label=simpleCounter+
 
+!!!! Registering as a Seaside Application
+@pharoRegisterSeasideApp
+
+We will now register our component as an application so that we can access it
+directly from the web browser. To register a component as an application, we
+need to send the message ==register:asApplicationAt:== to ==WAAdmin==.
+
+==WAAdmin register: WebCounter asApplicationAt: 'webcounter'== will register the
+component ==WebCounter== as the application named ==webcounter==. The argument
+we add to the ==register:asApplicationAt:== message specifies the root component
+and the path that will be used to access the component from the web browser. You
+can reach the application under the URL *http://localhost:8080/webcounter*.
+
+Use ''World'' | ''Workspace'' to open a workspace, which is an area where you
+can run snippets of code. Type the text shown above, then select it with the
+mouse and bring up the context menu and select ''Do it (d)'', alternatively use
+the keyboard shortcut.
+
++Register a component as an application from a workspace.>file://figures/registerComponent.png|width=100|label=fig:registerComponent+
+
+Now you can launch the application in your web browser by going to
+*http://localhost:8080/webcounter/* and you will see your first Seaside
+component running.
+
+@@todo Put the link to section 7.2 in pillar
+
+If you’re already familiar with HTML, you may want to look at the introduction
+to halos in Section 7.2 to learn a little more about how to investigate what’s
+happening under the covers.
+
