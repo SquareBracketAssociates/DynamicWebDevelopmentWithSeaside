@@ -449,3 +449,20 @@ in Figure *fig:callbackResult*.
 
 +A simple counter with a different value.>file://figures/callbackResult.png|width=100|label=fig:callbackResult+
 
+!!!! Adding a Class Comment
+@pharoClassComment
+
+A class comment (along with method comments) can help other developers
+understand a class. With your ==WebCounter== class selected, press the class
+comment button ==?== in the class browser. The code pane in the browser will now
+show a class comment template. Delete this template and enter the comment shown
+in Figure *fig:classComment*. Use the context menu ''Accept (s)'' item to save
+your comment.
+
+When you’re studying a Smalltalk framework, class comments are a pretty good
+place to start reading. Classes that don’t have them require a lot more
+developer effort to figure out so get in the habit of adding these comments to
+all of your classes.
+
++A class comment.>file://figures/classComment.png|width=100|label=fig:classComment+
+
