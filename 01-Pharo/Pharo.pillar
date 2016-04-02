@@ -299,3 +299,31 @@ WebCounter>>decrease
 
 @@note Many programmers like to keep their hands on the keyboard, avoiding the mouse whenever possible. Most of the actions we have described have keyboard shortcuts. Keyboard shortcuts for menu item actions are often indicated in the menu itself. For example the ''Accept (s)'' menu item can be activated by pressing the correct keyboard qualifier key together with the s-key. The keyboard qualifier key depends on what platform you’re using, it may be ''command'', ''control'' or ''alt'' depending on your platform.
 
+!!!! Rendering a Counter
+@pharoRenderCounter
+
+Now we can focus on Seaside specific methods. We will define the method
+==renderContentOn:== to display the counter as a heading. When Seaside needs
+to display a component in the web browser, it calls the ==renderContentOn:==
+method of the component, which allows the component to decide how it should be
+rendered.
+
+Add a new method category called rendering, and add the method definition in
+script *@scr:pharoRenderContentOn*
+
+[[[language=smalltalk|caption=Example of ==renderContentOn:== method|label=scr:pharoRenderContentOn
+
+WebCounter>>renderContentOn: html
+    html heading: count
+
+]]]
+
+We want to display the value of the variable count by using an HTML heading tag.
+In Seaside, rather than having to write the HTML directly, we simply send the
+message ==heading:== to the html object that we were given as an argument.
+
+As we will see later, when we have completed our application, this method will
+give us output as shown in Figure *@fig:simpleCounter*.
+
++A simple counter.>file://figures/simpleCounter.png|width=100|label=simpleCounter+
+
