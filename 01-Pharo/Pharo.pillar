@@ -37,7 +37,7 @@ by double clicking on the icon appropriate for your platform. Windows users
 should double click Seaside.lnk, Linux users Seaside.sh and MacOS/OS-X users
 should simply double click on the application icon created when they unzipped
 the file. After this you should see the Seaside development environment open in
-a single window on your desktop similar to the one presented in
+a single window on your desktop similar to the one presented in Figure 
 *@fig:seasileDesk*.
 
 !!!! Of Mice and Menus
@@ -103,3 +103,38 @@ previously). If you quit Pharo using ''World'' | ''Quit'', you will also be
 prompted to save your image. You may resume your development efforts by running
 the image, as we did in Section
 *:  Using the One Click Image>@pharoOneClickImage*.
+
+!!! The Comanche Server
+@pharoComancheServer
+
+The ''One Click Image'' image includes a web server called "Comanche" listening
+on TCP port 8080. You should check that this server is properly running by
+pointing your web browser to *http://localhost:8080/*. You should see something
+like Figure *@fig:seasideServer*. If you don’t see this page, it is possible
+that port 8080 is already in use by another application on your computer.
+
++The Seaside server running.>file://figures/seasideServer.png|width=100|label=fig:seasideServer+
+
+""Changing the Seaside port number.""
+If you did not see Figure *@fig:seasideServer*, you will need to try modifying
+the workspace to restart the Comanche web server on a different port number
+(like 8081). The script *@scr:startServer* asks the server to stop serving and start
+serving on port 8081.
+
+[[[language=smalltalk|label=scr:startServer|caption=Stop the server and start a new one.
+
+WAKom stop.
+WAKom startOn: 8081.
+
+]]]
+
+To execute this, you would open a new workspace using ''World'' | ''Workspace'',
+enter the text, select it, right-click for the context menu, and select
+''Do it''.
+
+Once you have done this, you can try to view it in your browser making sure you
+use the new port number in your URL. Once you have found an available port, make
+sure you note what port the server is running on. Throughout this book we assume
+port 8080 so if you’re using a different port you will have to modify any URLs
+we give you accordingly.
+
