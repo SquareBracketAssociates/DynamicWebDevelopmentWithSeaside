@@ -466,3 +466,46 @@ all of your classes.
 
 +A class comment.>file://figures/classComment.png|width=100|label=fig:classComment+
 
+!!! Saving your Package to Monticello
+@pharoMonticello
+
+The Smalltalk image is a great place to work with live objects. It has a few
+drawbacks though, so it is useful to have some way to store your Smalltalk code
+in traditional files or on a server to share with others. Pharo uses the
+Monticello (*http://www.wiresong.ca/Monticello/*) source code control system for
+this purpose. Monticello stores code in repositories. These repositories can be
+network servers, databases, email, or just simple directories on a disk. We will
+create a directory repository so that Monticello can store your packages in
+files on your disk.
+
+@@note The Pharo and Squeak communities use a free online repository called SqueakSource at *http://www.squeaksource.com/* for sharing and collaborating on projects. Once you have registered as a member, you will be able to contribute to existing projects or start your own to save and share your code online. See the SqueakSource help pages for details.
+
+;Open Monticello
+:You can open Monticello by using ''World'' | ''Monticello Browser''. You will see two main panes. The left hand pane shows packages installed in your image, and the right hand pane shows the repositories those packages came from.
+
+;Create your package
+:First create a package for your code, by pressing the +Package button. You should call your package ''WebCounter'' to ensure that it is automatically associated with the class category of the same name that you have already created.
+
+;Create a repository
+:Next, create a directory on your hard drive where you would like to store your Smalltalk source code. Now, in the Monticello browser in Pharo make sure no package is selected in the package pane. Click on the +Repository button and pick "Directory" from the resulting popup menu. You will be presented with a file/directory browser. Navigate to, and select, the directory you created. You should see this directory listed in the repository pane of the Monticello browser. Make sure this new repository is highlighted and select ''add to package...'' from the repository pane context menu. Select the ==WebCounter== package from the resulting menu. You will need to navigate past a large number of package names to find the ==WebCounter== package.
+
++Monticello Browser.>file://figures/monticelloBrowser.png|width=100|label=fig:monticelloBrowser+
+
+;Publishing your package
+:With all of this setup out of the way you can now save your package to the repository by selecting your package in the package pane, selecting your new repository in the repository pane and pressing Save. You will be asked to include a comment. Normally you indicate in a few words what you changed since the last time you saved the package. For now we just enter "initial dump" and press ''Accept''.
+
+Normally you would publish a package any time you have made significant changes
+to it. That way if your image should become corrupted you can load the code from
+your last saved version.
+
+Monticello can also be used to facilitate having multiple developers work
+simultaneously on a single package of code. For this you need a FTP or HTTP
+repository like SqueakSource. We will not discuss this advanced usage here,
+though.
+
+;Loading packages
+:Once your package has been published to a Monticello repository, it can be loaded into any Pharo image. To load your package into an image, first make sure that your repository is listed in this new image. If it isn’t, repeat the steps listed in ''Create'' a repository above. Now, in the Monticello browser, select your repository in the right pane and press ''Open''. You will be presented with a repository browser such as the one shown in Figure *@fig:repositoryBrowser*. In the left pane, select the ==WebCounter== package; in the right pane select the version; and then click ''Load''.
+
++Monticello Repository Browser.>file://figures/repositoryBrowser.png|width=100|label=fig:repositoryBrowser+
+
+
