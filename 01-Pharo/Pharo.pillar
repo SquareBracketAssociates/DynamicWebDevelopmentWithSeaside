@@ -508,4 +508,11 @@ though.
 
 +Monticello Repository Browser.>file://figures/repositoryBrowser.png|width=100|label=fig:repositoryBrowser+
 
+!!! Summary
+@pharoSummary
 
+@@todo real pillar link to Part II
+
+You have now learned how to define a component, register it, modify it and save
+your code to a file. Now you are ready to proceed to Part II to learn all the
+details of using Seaside to build powerful web applications.
