@@ -138,3 +138,36 @@ sure you note what port the server is running on. Throughout this book we assume
 port 8080 so if you’re using a different port you will have to modify any URLs
 we give you accordingly.
 
+!!! A First Seaside Component
+@pharoFirstSeasideComponent
+
+Now we are ready to write our first Seaside component. We are going to code a
+simple counter. To do this we will define a component, add some state to that
+component, and then create a couple of methods that define how the component is
+rendered in the web browser. We will then register it as a Seaside application.
+Finally we will see how we can save our work as a "Monticello" package.
+
+!!!! Defineng a Category
+@pharoDefineCategory
+
+To start with, we define a new category that will contain the class that defines
+our component. If you don’t have a class browser open yet, open one using
+''World'' | ''System Browser''. Raise the context menu for the category pane on
+the top left and select ''Add category...''. The menu can be found by
+right-clicking onto the list pane. You will get prompted to give a name as shown
+in Figure *@fig:createCategory*. We will use the name ==WebCounter== for our
+category.
+
++Create a category.>file://figures/createCategory.png|width=100|label=fig:createCategory+
+
+Figure *@fig:categoryCreated* shows that the category has been created. Now we
+are ready to define a component.
+
++An empty category has been created.>file://figures/categoryCreated.png|width=100|label=categoryCreated+
+
+In Pharo images you will often find the terms "Package" and "Category" used
+interchangeably. "Category" is a technical term based on the internal
+implementation, while "Package" better describes the intent of this pane. From
+now on, we will be using the term "Package".
+
+
