@@ -1,0 +1,35 @@
+language: smalltalk
+sudo: false
+
+os:
+  - linux
+
+smalltalk:
+  - Pharo-6.1
+
+# Unit tests run the normal pillar tests
+# Integration tests test that pillar itself can interact with generated files, pdf generation, etc.
+# System tests test that we can install and use pillar as a black box
+env:
+  matrix:
+  - JOB=test TYPE=System ARCHETYPE=book OUTPUT=pdf
+
+install:
+  # Pillar installation
+  - git clone https://github.com/pillar-markup/pillar.git -b newpipeline  # Clone pillar
+  - cd pillar && ./scripts/build.sh && cd ..                              # Run pillar build script. Pillar will be built in `pwd`/build!
+  - . pillar/scripts/ci/ensure_latex.sh                                   # Install latex
+  - ./pillar/scripts/ci/ensure_book_dependencies.sh                       # Install latex dependencies required by pillar
+  
+script:
+  - ./pillar/build/pillar build pdf
+
+deploy:
+- provider: bintray
+  file: .bintray.json
+  on:
+    repo: SquareBracketAssociates/DynamicWebDevelopmentWithSeaside
+  skip_cleanup: true
+  user: ducasse
+  key:
+    secure: osYfgDLs11ifqkHfXXHzpTRD+k1ALVYjM4aDSKNwB0u32DLtL6GyMoDhLZH3ddSxto34TwgiRhnz5lH+PKyjhrnJ8UHe6+V6wIi3sFSIdVeqP8jT8cGi+8O1J+frjCHmEGZEWQQAxbhuJzydd0EfMM6OJE/rA8R/POLprXVdT9c=
