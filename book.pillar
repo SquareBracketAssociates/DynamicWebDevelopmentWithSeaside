@@ -1,0 +1,19 @@
+%${inputFile:Chapters/Introduction.pillar}$
+
+! Getting Started
+
+This part will show you how to get a simple Seaside application up and running
+in less than 15 minutes. 
+
+If you’re new to Pharo, the instructions for Pharo will introduce you to the Seaside One Click Image, which is designed to get you up and running as quickly as possible.
+
+${inputFile:Chapters/01-Pharo/Pharo.pillar}$
+
+!Fundamentals
+In this part we will introduce you to the manipulation of basic elements such as texts, anchors and callbacks as well as forms. It presents the notion of ''brushes'' that is central to the Seaside API. Understanding these concepts will be fundamental to your use of Seaside.
+
+${inputFile:Chapters/02-RenderingComponents/RenderingComponents.pillar}$
+
+! Seaside in Action
+${inputFile:Chapters/04-ASimpleTodoApplication/ASimpleTodoApplication.pillar}$
+

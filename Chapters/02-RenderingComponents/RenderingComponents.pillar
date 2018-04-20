@@ -1,0 +1,275 @@
+!!Rendering Components 
+@cha:gettingstarted-pharo
+
+In this chapter, you will learn the basics of displaying text and other information such as tables and lists with Seaside and its powerful XHTML manipulation interface. You will learn how to create a ''component'' which could include text, a form, a picture, or anything else that you would like to display in a web browser. Seaside's component framework is one of its most powerful features and writing an application in Seaside amounts to creating and manipulating components. You will learn how to use Seaside's API, which is based on the concept of ``brushes\'', to generate valid XHTML.
+
+!!!Brush concept
+
+One of the great features of Seaside is that you do not have to worry about manipulating HTML yourself and creating valid XHTML.  Seaside produces valid XHTML: it automatically generates HTML markup using valid tags, it ensures that the tags are nested correctly and it closes the tags for you.  
+
+Let's look at a simple example: to force a line-break in HTML (for instance, to separate the lines of a postal address) you need to use a break tag: ==<br/>==. Some people use ==<br>== or ==<br></br>==, and neither is valid in XHTML. Some browsers will accept these incorrect forms without a problem, but some will mark them as errors. If your content is getting passed on through RSS or Atom clients, it may fail in unexpected ways. You do not need to worry about any of this when using Seaside.
+
+The basic metaphor used in Seaside for rendering HTML is one of painting on a ''canvas'' using ''brushes''. Methods such as ==renderContentOn:== that are called to render content are passed an argument (by convention named ==html==) that refers to the current canvas object. To render content on this object you can call its methods (or to use the correct Smalltalk terminology, you can pass it messages). In the simple example given above, to add a line-break to a document you would use ==html break==. 
+
+When you send a message to the canvas, you're actually asking it to start using a new ''brush''. Each brush is associated with a specific type of HTML tag, and can be passed arguments defining more detail of what you want to be rendered. So to write out a paragraph of text, you would use ==html paragraph with: 'This is the text'==. This tells the canvas to start using the paragraph brush (which causes ==<p>== to be output), then output the text passed as the argument, and finally to finish using the brush (which causes ==</p>== to be output).
+
+Many brushes can be passed multiple messages before they are finished, by chaining the messages together with ==;== (this is called ''cascading'' messages in Pharo). For example, a generic ''heading'' exists which can be used to generate HTML headings at various levels, by passing it a ==level:== message with an argument specifying the level of heading required:
+
+[[[
+html heading
+   level: 3;
+   with: 'A third level heading'.
+]]]
+
+This will produce the HTML:
+
+=<h3>A third level heading</h3>
+
+You can cascade as many messages as you need to each brush object.
+
+You can easily tell Seaside to nest tags by using Pharo blocks:
+
+[[[
+html paragraph: [
+    html text: 'The next word is '.
+    html strong: 'bold' ].
+]]]
+
+This will produce the HTML:
+
+[[[
+<p>The next word is <strong>bold</strong></p>
+]]]
+
+Note that we've used a very handy shortcut here: many of the brush methods have an equivalent method that can be called with a single argument so instead of typing ==html paragraph with: 'text'== you need only type ==html paragraph: 'text'==.
+
+This is a very brief introduction that will allow you to begin to experiment with how these techniques can be combined into a larger piece of content, as you will see in the following sections. 
+
+
+!!! First component: Hello World
+Our first Seaside component will simply display ''Hello world''. Begin by creating a package called 'SeasideBook-Hello' and then create the class ==ScrapBook== as a subclass of ==WAComponent== as shown below.
+
+[[[
+WAComponent subclass: #ScrapBook
+    instanceVariableNames: ''
+    classVariableNames: ''
+    package: 'SeasideBook-Hello'
+]]]
+
+When we use the term ''component'' in this text we generally mean an instance of a subclass of ==WAComponent==. For now, just think of subclasses of ==WAComponent== as ``visual components\''. When it is time for a component to be displayed, Seaside sends it the message  ==WAComponent>>renderContentOn:== with a single argument (by convention called ==html==) which is an instance of the class ==WARenderCanvas== (the ``canvas\''). Think of the canvas as the medium on which you will paint your component. It provides a transparent interface to XHTML which makes it easy to produce text, anchors, images etc., in a modular way (i.e., attached to each component of your application). To start, we just want to show a simple text message. Fortunately the canvas supports a ==text:== message for just this purpose, which we can use as shown below.
+
+@@note Important Note that all the classes in Seaside are prefixed with ==WA== which acts as a namespace. Do not use this prefix for your components. ==WA== is intended for Seaside framework classes.
+
+[[[
+ScrapBook >> renderContentOn: html
+   html text: 'Hello world'
+]]]
+
+Great, we have a component but how do we get Seaside to serve it? For now, evaluate the following code in a workspace:
+
+[[[
+WAAdmin register: ScrapBook asApplicationAt: 'hello'
+]]]
+
+Now open your web browser and go to *http://localhost:8080/hello*, and you should see something very like *@ref:helloworld*.
+
++Hello World component.>file://figures/hello-world.png|width=100|label=ref:helloworld+
+
+Seaside added XHTML markup for the skeletal structure of an XHTML document (==html==, ==head== and ==body== tags). OK, so what is happening here? Grossly simplified: When we request this URI, Seaside creates a new instance of our class for us and then sends it  ==WAComponent>>renderContentOn:==. After being placed inside a skeleton XHTML document, the XHTML painted onto the canvas is then returned to the web browser to be displayed.
+
+@@note Important Never invoke the method ==renderContentOn:== directly, Seaside will do it for you.
+
+You will never need to send your component the message ==WAComponent>>renderContentOn:== since the Seaside framework takes care of that for you.  When it is time to paint your component, Seaside sends it ==renderContentOn:==.  This is very similar to models used in most GUI frameworks where a component (or window) is told to paint itself whenever the windowing system deems necessary. Also, keep this in mind as you work with Seaside: a rendering method is just for displaying a component not changing its state.
+
+@@note Important Your rendering method is just for painting the current state of your component, it shouldn't be concerned with changing that state.
+
+!!! Fun with Seaside XHTML Canvas
+
+Let's try making our ==ScrapBook== component look a little more exciting. Redefine the method ==renderContentOn:== as follows. Refresh your browser and you should see a situation similar to *@ref:scrap1*.
+
+[[[
+ScrapBook >> renderContentOn: html
+    html paragraph: 'A plain text paragraph.'.
+    html paragraph: [
+        html render: 'A paragraph with plain text followed by a line break.'.
+        html break.
+        html emphasis: 'Emphasized text '.
+        html render: 'followed by a horizontal rule.'.
+        html horizontalRule.
+        html render: 'An image: '.
+        html image url: 'http://www.seaside.st/styles/logo-plain.png' ]
+]]]
+
+
++ScrapBook>file://figures/scrap1.png|width=100|label=ref:scrap1+
+
+You created two paragraphs, added some text, a break, a horizontal rule and an image. But notice that you did not edit any tags directly and you generated valid XHTML! In the following sections we will analyze what we did in detail but for now let's continue to explore what Seaside has generated for us.
+
+Sometimes you would like to know exactly what XHTML elements Seaside is generating for you. Try to use your web browser to view the XHTML source for your ==ScrapBook==. You'll find that it is not particularly readable since it is not formatted for human readers (no line-feeds, indentation, etc) and it contains much more than your single component XHTML. Not to worry, Seaside has a great tool called the ''halos'' that can be used to get to a display of nicely formatted XHTML source code of all the components displayed on a page and do much more as well. At the bottom of your web browser's window you should see a tool bar (see *@ref:toolbar*). The tool bar contains tools that are available in development mode. For now you just have to know that such buttons let you interact with the tools. Note that depending on your Seaside version you may have different tools.
+
+
+
++Seaside toolbar>file://figures/toolbar.png|width=100|label=ref:toolbar+
+
+Halos let you interact directly with the components you are editing. Click the ``Halos\'' link and notice that a border, or `halo', appears around your component's visual representation. *@ref:scrap2* shows the component and its halo. *@ref:scrap3* shows the html generated for the component currently displayed. Even if your component contained links or actions, you can activate them even when browsing the generated XHTML.
+
++ScrapBook>file://figures/scrap2.png|width=100|label=ref:scrap2+
+
+Your component is now displayed in the web browser but it is decorated with a border. On the top you will now see a number of icons and links. For now let's focus on the links ==Render/Source== on the right. The bold ""Render"" means that you are currently seeing your component as normally rendered in your web browser, as seen in *@ref:scrap2*. Pressing ""Source"" will show you the XHTML generated by Seaside for the component. Notice that what you see is just the XHTML for the current component and not the complete application. Notice that ==<br/>== and ==<hr/>== are valid!
+
++ScrapBook>file://figures/scrap3.png|width=100|label=ref:scrap3+
+
+
+
+!!! More fun with the Seaside Canvas
+
+Now let's have even more fun.  Since Seaside uses plain Pharo
+rather than templates to build web pages, we can use Pharo to
+build the logic of our rendering method.  We are only limited by our imagination and artistic taste.  For example, suppose that we want to display 10 Seaside logos.  We can simply use the ==timesRepeat:== Smalltalk loop as shown in the next method.  See the output in *@ref:10images*.
+
+[[[
+ScrapBook >> renderContentOn: html
+    html paragraph: 'Fun with Smalltalk and Seaside.'.
+    html paragraph: [
+        10 timesRepeat: [
+            html image
+                url: 'http://www.seaside.st/styles/logo-plain.png';
+                width: 50 ] ]
+]]]
+
++Using Pharo to write a loop in our rendering method.>file://figures/10images.png|width=100|label=ref:10images+
+
+Since we're writing in Pharo, changes are easy.  In the next example, we added a horizontal rule inside the loop but noticed that it didn't look very nice (see *@ref:10images-vertical*), so we moved it outside the loop (see *@ref:10images-horizontal*).
+
+[[[
+ScrapBook >> renderContentOn: html
+   html paragraph: 'Fun with Smalltalk and Seaside.'.
+   html paragraph: [
+        10 timesRepeat: [
+            html image
+                url: 'http://www.seaside.st/styles/logo-plain.png';
+                width: 50.
+            html horizontalRule ] ]
+]]]
+
+[[[
+ScrapBook>>renderContentOn: html
+    html paragraph: 'Fun with Smalltalk and Seaside.'.
+    html paragraph: [
+        10 timesRepeat: [
+            html image
+                url: 'http://www.seaside.st/styles/logo-plain.png';
+                width: 50 ].
+        html horizontalRule ]
+]]]
+
++ScrapBook with vertical elements. >file://figures/10imagesHR.png|width=100|label=ref:10images-vertical+
+
+
+
++ScrapBook with horizontal elements.>file://figures/10imagesHR2.png|width=100|label=ref:10images-horizontal+
+
+
+Using Seaside's canvas and brushes eliminates many of the errors that occur when manually manipulating tags.
+
+
+
+!!! Rendering Objects
+
+Let's take a moment to step back and review what we have learnt. Consider the following method:
+
+[[[
+ScrapBook>>renderContentOn: html
+    html paragraph: 'A plain text paragraph.'.
+    html paragraph: [
+        html render: 'A paragraph with plain text followed by a line break. '.
+        html break.
+        html emphasis: 'Emphasized text '.
+        html render: 'followed by a horizontal rule.'.
+        html horizontalRule.
+        html render: 'An image URI: '.
+        html image url: 'http://www.seaside.st/styles/logo-plain.png' ]
+]]]
+
+
+There are four patterns that appear in this method.
+
+# ==render: renderableObject==. This message adds the renderable object to the content of the component. It doesn't use any brushes, it just tells the object to render itself. 
+# Message with zero or one argument. These create brushes. Just as a painter is able to use different tools to paint on a canvases, brushes represent the various tags we can use in XHTML, so ==horizontalRule== will produce the tag ==hr==. Some brushes take an argument such as ==emphasis:== other don't. Section *@ref:/book/fundamentals/rendering-components/brush-structure* will cover this in depth. 
+# Composed messages. The expression ==html image== creates an image brush, and then sends it a ==url:== message to configure its attributes.
+# Block passed as arguments. Using a block (code delimited by ==[== and ==]==) allows us to say that the actions in the block are happening in the context of a given tag. In our example, the second paragraph takes an argument. It means that all the elements created within the block will be contained within the paragraph.
+
+""About the ==render:== message."" As you saw, we use the message ==render:== to render objects. Modify the method ==renderContentOn:== of your ScrapBook component as follows.
+
+[[[
+ScrapBook >> renderContentOn: html
+    html paragraph: [
+        html render: 'today: '.
+        html render: Date today ]
+]]]
+
+Refresh your web browser, see *@ref:date*. The method==renderContentOn:== renders a string and the object representing the current date. It uses the method ==render:==. Most of the time you will use the method ==render:== to render objects or other components, see *ref:/book/components/embedding*.
+
+
++Rendering object with the ==render:== method.>file://figures/date.png|width=100|label=ref:date+
+
+
+We use a block as the argument of the ==paragraph:== because we want to specify that the string =='today '== and the textual representation of the current date are both within a paragraph. Seaside provides a shortcut for doing this. If you are sending only the message ==render:== inside a block, just use the renderable object as a parameter instead of the block. The following two methods are equivalent and we suggest you to use the second form, see *@ref:compact*.
+
+Two equivalent methods.
+
+[[[
+ScrapBook >> renderContentOn: html
+    html paragraph: [ html render: 'today: ' ]
+]]]
+
+[[[
+ScrapBook >> renderContentOn: html
+    html paragraph: 'today: '
+]]]
+
++Rendering object with the ==render:== method.>file://figures/compact.png|width=100|label=ref:date+
+
+
+""About the method ==text:=="". You may see some Seaside code using the message ==WAHtmlCanvas>>text:== as follow.
+
+[[[
+renderContentOn: html
+    html text: 'some string'.
+    html text: Date today.
+]]]
+
+The method ==text:== produces the string representation of an object, as would be done in an inspector. You can pass any object and by default its textual representation will be rendered. In Pharo and GemStone the method ==text:== will call the method  ==Object>>asString==. In any case, the string representation is generated by sending the message ==Object>>printOn:== to that object. ==html text: anObject== is an efficient short hand for the expression ==html render: anObject asString== in Pharo.
+
+""About the method ==renderOn:=="". If you browse the implementation of  ==WAHtmlCanvas>>render:== you will see that ==render:== calls ==renderOn:==. Do not conclude that you can send ==renderOn:== in your ==renderContentOn:== method.  ==Object>>renderOn:== is an internal method which is part of a double dispatch between the canvas and an object it is rendering. Do not invoke it directly!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
