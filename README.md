@@ -1,6 +1,6 @@
 # Dynamic Web Development With Seaside
 
-A port of the original
+This book is a port and update of the original
 [Dynamic Web Development with Seaside](http://book.seaside.st/book) book from
 LaTeX/Pier to [Pillar markup](https://github.com/pillar-markup/pillar),
 updated for the latest version of [Seaside](http://www.seaside.st/).
@@ -13,18 +13,9 @@ The general plan of action is as follows.
     (at `original_source`/[book.tex](original_source/book.tex)).
     The images will be committed as each chapter is converted.
 
-2. Create skeleton chapter structure (see
-    [Revised Table of Contents RFC](https://github.com/SquareBracketAssociates/DynamicWebDevelopmentWithSeaside/issues/2)),
-    with initial `.pillar` files for each chapter containing the title and the
-    `@cha:introduction` type anchor tags, so that forward links work.
+2. Convert each chapter to Pillar format, link to figures/images.
 
-3. (Optional) Separate the LaTeX for each chapter into the appropriate
-    directories, for convenience of converting them.
-
-4. Convert each chapter to Pillar format, link to figures/images.
-
-5. Update/revise the chapters to match newer versions of Seaside (and the
-    various Smalltalk distributions).
+5. Update/revise the chapters to match newer versions of Seaside.
 
 ## Contributing
 This book follows the

@@ -1,4 +1,0 @@
-${inputFile:Chapters/Introduction.pillar}$
-${inputFile:Chapters/GettingStarted.pillar}$
-${inputFile:Chapters/01-Pharo.pillar}$
-${inputFile:Chapters/Fundamentals.pillar}$
