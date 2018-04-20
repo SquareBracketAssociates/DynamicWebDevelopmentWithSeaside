@@ -1,7 +1,0 @@
-!II. Fundamentals
-@sec:fundamentals
-
-In this part we will introduce you to the manipulation of basic elements such as
-texts, anchors and callbacks as well as forms. It presents the notion of
-''brushes'' that is central to the Seaside API. Understanding these concepts
-will be fundamental to your use of Seaside.
