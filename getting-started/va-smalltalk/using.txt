@@ -1,1 +1,0 @@
-Once you have the VA Smalltalk image running and Seaside loaded, you can start a Seaside Server.  From the Transcript, select ''Tools | Open Seaside Control Panel'' to open the Seaside Control Pane, see *ref:initial-control-panel*.+initial-control-panel|width=60%+

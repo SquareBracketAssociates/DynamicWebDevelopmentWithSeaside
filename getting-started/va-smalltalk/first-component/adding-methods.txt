@@ -1,1 +1,0 @@
-Now we define some instance methods to initialize and change the value of the counter.==WebCounter>>initialize==   super initialize.==   count := 0==WebCounter>>increase==    count := count + 1==WebCounter>>decrease==    count := count - 1

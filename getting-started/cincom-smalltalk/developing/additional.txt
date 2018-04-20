@@ -1,1 +1,0 @@
-A variety of Seaside expansions, enhancements, and examples are included with Seaside for VisualWorks, also provided as packages for easy loading. In the parcel manager, browse the contents of the Seaside Web Development page. Each component has a comment describing its content.

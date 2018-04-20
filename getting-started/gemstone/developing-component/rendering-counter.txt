@@ -1,1 +1,0 @@
-In order to render the counter in a web browser, we must create a  ==WAComponent>>renderContentOn:==  method. The following method will display the value of the variable ==count== as an HTML heading.==WebCounter>>renderContentOn: html==    html heading: count.

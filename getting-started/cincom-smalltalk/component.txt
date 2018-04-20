@@ -1,1 +1,0 @@
-To illustrate the above points, let's go through the initial steps of developing the Counter example in VisualWorks. We'll use a slightly different name so we won't conflict with the example already loaded with Seaside.Open a System Browser from the Launcher. There is, of course, a tool button for this and for other tools as well.

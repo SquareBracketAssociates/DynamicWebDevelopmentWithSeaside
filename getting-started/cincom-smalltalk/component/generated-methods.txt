@@ -1,1 +1,0 @@
-Select the generated initialize method, and change it to:==WebCounter>>initialize ==     super initialize. ==     count := 0To save the method, select ''Edit | Accept'' or press Ctrl\+S.

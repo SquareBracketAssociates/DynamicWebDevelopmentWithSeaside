@@ -1,1 +1,0 @@
-You have now learned how to define a component, register it, modify it and save your code to a file. Now you are ready to proceed to *ref:../../../fundamentals* to learn all the details of using Seaside to build powerful web applications.

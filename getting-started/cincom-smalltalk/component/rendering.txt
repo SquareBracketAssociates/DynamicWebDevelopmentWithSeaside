@@ -1,1 +1,0 @@
-Each component is responsible for rendering itself in the web browser. This is done in Seaside by implementing a +index:WAComponent!renderContentOn:+ ==WAComponent>>renderContentOn:== method. In this simple case, that means displaying the counter value. Create a new protocol, called rendering, and add this method:==WebCounter>>renderContentOn: html ==    html heading: count
