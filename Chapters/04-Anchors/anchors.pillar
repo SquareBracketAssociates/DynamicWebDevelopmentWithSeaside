@@ -1,0 +1,22 @@
+!!Anchors and Callbacks
+@cha:anchors
+
+
+
+
+%+Essential CSS structural elements.>file://figures/CSSStructure.pdf|width=80|label=ref:cssstru+
+
+
+
+
+In this chapter, you will learn to display anchors, also known as ``links\''. Seaside can generate traditional anchors linking to arbitrary URI's but the most powerful use of anchors is to trigger callbacks (blocks of code) which perform actions in your applications.
+
+
+
+You've already seen that Seaside uses the concepts of the ''canvas'' and ''brushes'' to insulate you from the complexities of generating valid XHTML. Similarly Seaside uses ''callbacks'' to hide the even greater complexities of allowing user interactions over the web.
+
+Traditional web applications are ''stateless'', that is, as soon as they have displayed a page to the user, they forget everything about that page. If the user then clicks a button on that page, the web application knows nothing about what was on the page the user was looking at, how the user got there, what choices they had made previously, and so on. If the web developers want to keep track of such information, they have to do so explicitly, by hiding information on the web page, or by saving records into a datastore every time they send a page to the user. Setting up, accessing and managing these structures takes up much of the time and energy of web developers.
+
+In Seaside, you don't have these problems: the current state of the program, all its variables and methods, and its history, are all stored automatically whenever a page is sent to the user, and this information is all restored for you behind the scenes if the user then performs any actions on that page.
+
+This section will show you how to make use of all these features. We'll introduce you to your first real web application, ``iAddress\'', which is a simple address book application to illustrate the points presented in this chapter and the following ones. 
