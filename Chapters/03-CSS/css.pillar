@@ -7,6 +7,51 @@ The idea behind CSS is to decouple the presentation from the document itself. Th
 
 !!! CSS Principles
 
+Basically, a CSS specification contains a set of rules. A rule is a description of a stylistic aspect of one or more elements. A rule is composed of a ''selector'' and a ''declaration''. In the following rule ==h1== is a selector which specifies that the following declaration ==color: red== will be applied to all the first-level headings, see *@ref:cssstru*. The rule has the effect that all the first level headings will be red.
 
-+Hello World component.>file://figures/hello-world.png|width=100|label=ref:helloworld+
+[[[
+h1 { color: red; }
+]]]
+
+A declaration is composed of two parts separated by a colon and ended with a semicolon. The first part is the ''property'' being specified, and the second is the ''value'' assigned to that property.
+
+We can group multiple CSS selectors to share the same property. The following rules:
+
+[[[
+h1 { color: red; }
+h2 { color: red; }
+h3 { color: red; }
+]]]
+
+are equivalent to this single rule:
+
+[[[
+h1, h2, h3 { color: red; }
+]]]
+
+Similarly, it is possible to assign several values to a single selector. For example, the following rule changes the alignment and color of headings.
+
+[[[
+h1 { color: red; text-align: center; }
+]]]
+
+
++Essential CSS structural elements.>file://figures/CSSStructure.pdf|width=80|label=ref:cssstru+
+
+
+
+Most declarations are inherited from higher levels of your document tree. CSS property values assigned to one element are transferred down the tree to its descendants. For example, a property value set in the body of a document will be propagated to all its children, which may then redefine the value locally. This is true for color, font, etc., but not for other properties like width, height, and positioning, for which inheriting would not make sense.
+
+While CSS declarations can be embedded in your document using a ==style== tag, it is a good practice to have your CSS in a separate file. Then, if you were writing your XHTML by hand, you would add a reference to your CSS file in the head section of your document as follows.
+
+[[[
+<head>
+<link rel="stylesheet" type="text/css" href="mystyle.css" />
+</head>
+]]]
+
+It's not necessary to write this in Seaside though. The CSS will be served by using either the Seaside file library or with Apache, see Chapter *ref:/book/advanced/deployment/deployment-apache/serving-files*. For rapid prototyping, you can define the CSS of a component by overriding its  ==WAComponent>>style== method.
+
+
+
 
