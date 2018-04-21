@@ -249,6 +249,296 @@ The method ==text:== produces the string representation of an object, as would b
 
 
 
+!!! Brush Structure
+
+In the previous section you played with several brushes and painted a canvas with them. Now we will explain in detail how brushes work. A canvas provides a simple pattern for creating and using these brushes as shown in *@ref:brush-principle*.
+
+# Tell the canvas what type of brush you are using.
+# Configure the brush, specifying any special options that it may use.
+# Render the contents of this brush. This is often done by passing an object such as a string or a block to ==with:==. 
+
+@@note It is not always necessary to send a brush the ==with:== message. Do so only if you want to specify the contents of the body of the XHTML tag. Since this message causes the XHTML tag to be rendered, it should be sent ''last''.
+
++Select brush, configure it, and render it.>file://figures/brushPrinciple.pdf|width=100|label=ref:brushPrinciple+
+
+
+Here is an example:
+
+[[[
+html heading level: 1; with: 'Hello world'.
+]]]
+
+produces the following XHTML
+
+[[[
+<h1>Hello world</h1>
+]]]
+
+In this example
+
+# We first specify the brush (tag) we are using with ==html heading==.
+# We then send that brush the ==level: 1== message to indicate that this should be a level 1 heading.
+# We tell the brush the contents of the heading and cause it to be rendered using ==with:==.
+
+Here are some examples that show that it is not necessary to use ==with:== if you do not specify the attributes of the brush.
+
+""Just a brush""
+[[[
+html paragraph
+]]]
+''produces''
+[[[
+<p></p>
+]]]
+
+""A brush with implicit content""
+
+[[[
+html paragraph: 'foo'
+]]]
+''produces'' 
+[[[
+<p>foo</p>
+]]]
+
+""Setting the content explicitly""
+
+[[[
+html paragraph with: 'foo'
+]]]
+''produces'' 
+[[[
+<p>foo</p>
+]]]
+
+""Setting attributes directly""
+[[[
+html paragraph class: 'cool'; with: 'foo'
+]]]
+''produces'' 
+[[[
+<p class="cool">foo</p>
+]]]
+
+If no configuration of the brush is necessary, it is usually possible to specify it with a keyword parameter which becomes the contents of the tag. Thus the two following expressions are equivalent
+
+[[[
+html heading level: 1; with: 'Hello world'.
+html heading: 'Hello World'.
+]]]
+since level 1 is the default level for a heading.
+
+As you can see, there are two cases where you can write more compact code. These are summarized in *@ref:brush-principle-compact*. There is a style checking tool called Slime that checks for such cases. Slime is explained in *ref:/book/components/slime*.
+
+
++Select brush, configure it, and render it.>file://figures/brushPrincipleCompact2.pdf|width=90|label=ref:brush-principle-compact+
+
+The next section will show you what the other brushes are and how to find information about them within Seaside.
+
+
+!!! Learning Canvas and Brush APIs
+
+
+
+!!! Rendering Lists and Tables
+
+We will modify our ==ScrapBook== to display the site contents using a list. We want to use an ordered list so we'll ask the canvas for an ==WAHtmlCanvas>>orderedList== brush, which answers with an instance of  ==WAListTag==. Inside the body of that tag we want a collection of list item tags (==li==) which we get with the canvas'  ==WAHtmlCanvas>>listItem:== method. We use the short form so we don't have to use ==with:== for each list item.
+
+[[[
+ScrapBook >> renderContentOn: html
+    html heading level: 1; with: 'Hello world'.
+    html paragraph: 'Welcome to my Seaside web site.  In the
+        future you will find all sorts of applications here
+        such as:'.
+    html orderedList with: [
+        html listItem: 'Calendars'.
+        html listItem: 'Todo lists'.
+        html listItem: 'Shopping carts'.
+        html listItem: 'And lots more...' ]
+]]]
+
+Let's use our earlier suggestions to write this code more succinctly. We'll use ==heading:== instead of ==html heading level1==, and we'll use the ordered list shortcut +index:WAHtmlCanvas!orderedList:+ ==WAHtmlCanvas>>orderedList:==. We can use this last shortcut since we aren't configuring the ordered list tag.
+
+[[[
+ScrapBook >> renderContentOn: html
+    html heading: 'Hello world'.
+    html paragraph: 'Welcome to my Seaside web site.  In the
+        future you will find all sorts of applications here
+        such as:'.
+    html orderedList: [
+        html listItem: 'Calendars'.
+        html listItem: 'Todo lists'.
+        html listItem: 'Shopping carts'.
+        html listItem: 'And lots more...' ]
+]]]
+
+Open this component in your web browser and you should see something similar to *@ref:hello-world-list*.
+
++A list of items.>file://figures/hello-world-list.png|width=100|label=ref:hello-world-list+
+
+As good Pharoers following the DRY (Don't Repeat Yourself) principle, we can refactor this method to avoid an explicit enumeration as follows. This demonstrates the power of having a programmatic way to specify the component contents.
+
+[[[
+ScrapBook >> items
+    ^ #('Calendars' 'Todo lists' 'Shopping carts' 'And lots more...')
+]]]
+
+[[[
+ScrapBook >> renderContentOn: html
+    html heading:  'Hello world'.
+    html paragraph: 'Welcome to my Seaside web site.  In the
+        future you will find all sorts of applications here
+        such as:'.
+    html orderedList: [
+        self items do: [ :each | html listItem: each ] ]
+]]]
+
+Let's create a table of expected delivery dates. +index:lists!ordered+ We suggest you perform a similar refactoring of the following method which illustrates ==tableRow:== and ==tableData:== +index:tables+.
+
+[[[
+ScrapBook >> renderContentOn: html
+    html heading: 'Hello world'.
+    html paragraph: 'Welcome to my Seaside web site.  In the
+        future you will find all sorts of applications here
+        such as:'.
+    html table: [
+        html tableRow: [
+            html tableHeading: 'Calendars'.
+            html tableData: '1/1/2006'.
+            html tableData: 'Track events, holidays etc'] .
+        html tableRow: [
+            html tableHeading: 'Todo lists'.
+            html tableData: '5/1/2006'.
+            html tableData: 'Keep track of all the things to remember to do.' ].
+        html tableRow: [
+            html tableHeading: 'Shopping carts'.
+            html tableData: '8/1/2006'.
+            html tableData: 'Enable your customers to shop online.' ] ]
+]]]
+
+Notice that we generate table text entries in a fashion that is very similar to what we did in the list example. Note also that we used +index:WAHtmlCanvas!tableHeading:+ ==WAHtmlCanvas>>tableHeading:== to designate a cell that represents a row header.+index:rendering!lists+ +index:rendering!tables+
+
++A table of items.>file://figures/hello-world-table.png|width=100|label=ref:hello-world-table+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+!!! Style Sheets
+
+The visual design of most modern web applications is controlled with Cascading Style Sheets (CSS). Seaside provides a simple method to add a style sheet to a component.  Override the ==WAComponent>>style== method in your component to return a CSS style sheet as a string, for example as follows:
+
+[[[
+ScrapBook>>style
+    ^ 'h1 { text-align: center; }'
+]]]
+
+
+Now, refresh your browser and you should see a centered ``Hello world\''. Bring up the halo on this component and click the pencil. Notice that you can edit the component's style method here. If you save your changes then the component's style method will be updated.
+
+Use of the  ==WAComponent>>style== method is discouraged for anything but writing sample code and rapid development while experimenting with component styles.  There are several reasons for this:
+
+- It places too much emphasis on presentation at the component level and makes it difficult to reuse components in applications with a different ``look\''.  The same motivation for having XHTML separate from CSS applies to separating style documents from components.
+- Having many small ==style== methods increases the load time of your pages. Each ==WAComponent>>style== method is loaded as a separate document.
+- Having a ==style== method at the component level may give you the false impression that this style only applies to that component. In fact, CSS style sheets are loaded in the XHTML ==head== section of the document and apply to the entire document, which means you have to be careful to get your CSS selectors right. It can be very difficult to track down an errant style selector when it is hidden in a component.
+- It makes it more difficult to work with other non-Smalltalk developers to style your documents.
+
+As you work through this book use the ==style== method but keep in mind that a more complex application would use an external style sheet as described in Chapter *@ref:/book/fundamentals/css* or file library style sheet as described in Chapter *@ref:/book/in-action/serving-files*.
+
+If you've used CSS regularly then you're already familiar with using ==div== (block elements) and ==span== (inline elements) with the ==class== attribute to help you select specific parts of a document to style.
+
+Here's how one would, for example, give a red background to error text:
+
+
+[[[
+ScrapBook >> renderContentOn: html
+    " code from previous example "
+    html span
+        class: 'error';
+        with: 'This site does not work yet'
+]]]
+
+[[[	
+ScrapBook >> style
+    ^ 'h1 { text-align: center; }
+   span.error { background-color: red; }'
+]]]
+
+This book is not about XHTML or CSS but *@ref:/book/fundamentals/css* provides a quick overview of CSS. We do have a few suggestions:
+
+- Use ==span== and ==div== with CSS classes to mark content generated by your components. Quite often, components render themselves entirely within a ==div== whose CSS class is the name of the component's Smalltalk class. This makes it easier for CSS developers to locate the XHTML elements that they want to style. Come up with conventions that work for you and stick to them.
+- Your component's ==renderContentOn:== method should be simple. Do not include style information, otherwise it will be difficult to customize the way in which your component is displayed.
+- Your component's ==renderContentOn:== method should be short. If your method gets longer than a couple of lines create intention-revealing helper methods following the naming pattern ==renderSomethingOn:==. This is especially useful if you start to use conditional statements and loops. This technique will also allow you to override certain aspects of the rendering process in subclasses of your component.
+- Use component ==style== method only when the style elements are very specific to that component. Otherwise use style libraries as discussed later in *ref:/book/in-action/serving-files*.
+- Try to use style sheets to structure your document's overall presentation, rather than XHTML tables. There are many good CSS references which show you how to lay out pages.
+
+
+
+
+
+
+
+!!! Summary
+We have shown that you can specify the visual aspect of your component using the Seaside brush API.  These brushes will make it easy to produce valid XHTML code. We have also demonstrated that you can use all the power of Smalltalk to specify your content, and that all the visual aspects of your application can be specified using CSS.
+
+The method ==renderContentOn:== is automatically invoked by Seaside. It allows you to specify the output of the application. Brushes are used to paint XHTML tags onto a canvas object. Blocks are used to create a scope within tags. For example:
+
+[[[
+html paragraph with: [ html render: 'today' ]
+]]]
+
+renders the string =='today'== within ==<p>today</p>==. A brush is an expression of the form:
+
+[[[
+html brush 
+    attributes1; 
+    attributes2;
+    with: anObject
+]]]
+Code can be made more compact in two ways.
+
+# When the nested expression is a single object you can avoid blocks. The expression ==html paragraph with: [ html render: 'today' ]== is equivalent to ==html paragraph with: 'today'==.
+# When you don't need to configure the brush's attributes, you don't need to use ==with:==. The expression ==html paragraph with: 'today'== is equivalent to ==html paragraph: 'today'==.
+
+In conclusion the following three code snippets create exactly the same output. For readability and to avoid having to type unnecessary code, we usually choose the shortest version possible:
+
+[[[
+html paragraph with: [ html render: 'today' ].
+html paragraph with: 'today'.
+html paragraph: 'today'.
+]]]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
