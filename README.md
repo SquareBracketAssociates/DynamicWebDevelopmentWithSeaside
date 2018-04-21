@@ -5,6 +5,16 @@ This book is a port and update of the original
 LaTeX/Pier to [Pillar markup](https://github.com/pillar-markup/pillar),
 updated for the latest version of [Seaside](http://www.seaside.st/).
 
+The current book use the newpipeline branch of Pillar. 
+You can find here its build 
+
+[![Build status][badge]][travis]
+
+[travis]: https://travis-ci.org/SquareBracketAssociates/DynamicWebDevelopmentWithSeaside
+[badge]: https://travis-ci.org/SquareBracketAssociates/DynamicWebDevelopmentWithSeaside.svg?branch=master
+
+The result from the latest successful Travis build can be found [on Bintray (PDF)](https://bintray.com/squarebracketassociates/wip/download_file?file_path=Seaside-wip.pdf).
+
 ## Roadmap
 
 The general plan of action is as follows.
