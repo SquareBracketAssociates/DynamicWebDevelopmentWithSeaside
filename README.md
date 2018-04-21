@@ -17,6 +17,17 @@ The general plan of action is as follows.
 
 5. Update/revise the chapters to match newer versions of Seaside.
 
+## Important Points	
+
+1. We should remove as many as possible points related to click here and define this protocol.
+
+2. We should not migrate the Magritte chapter since it is in another booklet
+
+3. We should get a chapter on Bootstrap and MDL, probably one on WebSocket usage, many be Mustaside
+
+4. We should add point to Voyage
+
+
 ## Contributing
 This book follows the
 [fork-and-pull](https://help.github.com/articles/using-pull-requests/#fork--pull)
