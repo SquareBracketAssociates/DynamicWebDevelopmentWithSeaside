@@ -7,6 +7,7 @@ updated for the latest version of [Seaside](http://www.seaside.st/).
 
 
 ## Status
+
 [![Build status][badge]][travis]
 [travis]: https://travis-ci.org/SquareBracketAssociates/DynamicWebDevelopmentWithSeaside
 [badge]: https://travis-ci.org/SquareBracketAssociates/DynamicWebDevelopmentWithSeaside.svg?branch=master
