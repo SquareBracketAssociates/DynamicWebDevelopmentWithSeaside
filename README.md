@@ -16,13 +16,13 @@ The result from the latest successful Travis build can be found [on Bintray (PDF
 ## Roadmap
 The general plan of action is as follows.
 
-1. *(done)* Commit the LaTeX source code for the original book.
-    (at `original_source`/[book.tex](original_source/book.tex)).
-    The images will be committed as each chapter is converted.
+0. Pick one Seaside image and Pharo 70.
 
-2. Convert each chapter to Pillar format, link to figures/images.
+1. Convert each chapter to Pillar format, link to figures/images.
 
-5. Update/revise the chapters to match newer versions of Seaside.
+2. Update/revise the chapters to match newer versions of Seaside.
+
+3. Add/integrate new contents as it comes.
 
 ## Important Points	
 
