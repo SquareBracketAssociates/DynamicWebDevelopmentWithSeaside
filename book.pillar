@@ -8,7 +8,7 @@ in less than 15 minutes.
 If you’re new to Pharo, the instructions for Pharo will introduce you to the Seaside One Click Image, which is designed to get you up and running as quickly as possible.
 
 ${inputFile:Chapters/01-Pharo/Pharo.pillar}$
-%should do a pass 
+%should do a pass for Zinc, redo screenshots
 
 %Should add Gemstone chapter
 
