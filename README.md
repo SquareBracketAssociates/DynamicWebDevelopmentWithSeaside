@@ -2,21 +2,18 @@
 
 This book is a port and update of the original
 [Dynamic Web Development with Seaside](http://book.seaside.st/book) book from
-LaTeX/Pier to [Pillar markup](https://github.com/pillar-markup/pillar),
+LaTeX/Pier to [Pillar markup](https://github.com/pillar-markup/pillar) (Pay attention the book uses the newpipeline branch of Pillar)
 updated for the latest version of [Seaside](http://www.seaside.st/).
 
-The current book use the newpipeline branch of Pillar. 
-You can find here its build 
 
+## Status
 [![Build status][badge]][travis]
-
 [travis]: https://travis-ci.org/SquareBracketAssociates/DynamicWebDevelopmentWithSeaside
 [badge]: https://travis-ci.org/SquareBracketAssociates/DynamicWebDevelopmentWithSeaside.svg?branch=master
 
 The result from the latest successful Travis build can be found [on Bintray (PDF)](https://bintray.com/squarebracketassociates/wip/download_file?file_path=Seaside-wip.pdf).
 
 ## Roadmap
-
 The general plan of action is as follows.
 
 1. *(done)* Commit the LaTeX source code for the original book.
