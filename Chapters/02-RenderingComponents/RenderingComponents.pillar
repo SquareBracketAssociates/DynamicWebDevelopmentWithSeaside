@@ -179,7 +179,7 @@ Using Seaside's canvas and brushes eliminates many of the errors that occur when
 Let's take a moment to step back and review what we have learnt. Consider the following method:
 
 [[[
-ScrapBook>>renderContentOn: html
+ScrapBook >> renderContentOn: html
     html paragraph: 'A plain text paragraph.'.
     html paragraph: [
         html render: 'A paragraph with plain text followed by a line break. '.
@@ -357,7 +357,7 @@ ScrapBook >> renderContentOn: html
         html listItem: 'And lots more...' ]
 ]]]
 
-Let's use our earlier suggestions to write this code more succinctly. We'll use ==heading:== instead of ==html heading level1==, and we'll use the ordered list shortcut +index:WAHtmlCanvas!orderedList:+ ==WAHtmlCanvas>>orderedList:==. We can use this last shortcut since we aren't configuring the ordered list tag.
+Let's use our earlier suggestions to write this code more succinctly. We'll use ==heading:== instead of ==html heading level1==, and we'll use the ordered list shortcut ==WAHtmlCanvas>>orderedList:==. We can use this last shortcut since we aren't configuring the ordered list tag.
 
 [[[
 ScrapBook >> renderContentOn: html
@@ -393,7 +393,7 @@ ScrapBook >> renderContentOn: html
         self items do: [ :each | html listItem: each ] ]
 ]]]
 
-Let's create a table of expected delivery dates. +index:lists!ordered+ We suggest you perform a similar refactoring of the following method which illustrates ==tableRow:== and ==tableData:== +index:tables+.
+Let's create a table of expected delivery dates.  We suggest you perform a similar refactoring of the following method which illustrates ==tableRow:== and ==tableData:==.
 
 [[[
 ScrapBook >> renderContentOn: html
@@ -416,7 +416,7 @@ ScrapBook >> renderContentOn: html
             html tableData: 'Enable your customers to shop online.' ] ]
 ]]]
 
-Notice that we generate table text entries in a fashion that is very similar to what we did in the list example. Note also that we used +index:WAHtmlCanvas!tableHeading:+ ==WAHtmlCanvas>>tableHeading:== to designate a cell that represents a row header.+index:rendering!lists+ +index:rendering!tables+
+Notice that we generate table text entries in a fashion that is very similar to what we did in the list example. Note also that we used  ==WAHtmlCanvas>>tableHeading:== to designate a cell that represents a row header.
 
 +A table of items.>file://figures/hello-world-table.png|width=100|label=ref:hello-world-table+
 
