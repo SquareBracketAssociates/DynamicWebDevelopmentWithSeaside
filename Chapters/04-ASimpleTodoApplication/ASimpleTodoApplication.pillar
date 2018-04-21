@@ -163,7 +163,7 @@ ToDoListView class >> initialize
 
 You can see that the todo application is now registered by pointing your browser to *http://localhost:8080/config/* as shown in *@fig:todoregistered*.
 
-+ The application is registered in Seaside (sd).>file://figures/todoregistered.png|width=40|label=fig:todoregistered+
++ The application is registered in Seaside (sd).>file://figures/todoRegistered.png|width=40|label=fig:todoregistered+
 
 If you click on the todo link in the config list you will get an empty browser window. This is to be expected since so far the application does not do any rendering. Now if you click on the halo you should see that your application is present on the page as shown in *@fig:halosonemptytodo*.
 
