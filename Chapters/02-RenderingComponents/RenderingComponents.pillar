@@ -338,7 +338,206 @@ The next section will show you what the other brushes are and how to find inform
 
 !!! Learning Canvas and Brush APIs
 
+As we proceed and introduce new brushes, we will provide a table describing the parts of the Brush API that are essential for this book. Once you've used the table to find the brush to use for a given tag, you can read the source code for that brush class to find out how to use it. For example, if you want to produce a heading such as ==<h1>Something great</h1>== you'll see that you should use the ==WAHtmlCanvas>>heading== message which produces a brush instance of ==WAHeadingTag== which has the following API:
 
+|{!Methods in ==WAHeadingTag== |!Description
+|{ ==level:== | Specify ==anInteger== as the heading level for this brush.
+|{ ==with:== | Render this heading tag with ==anObject== as its body.
+
+
+To help you to find the correct brush, the brushes are presented from
+the perspective of the HTML tags in the following table:
+
+
+=HTML         Factory Selector    Brush Class
+=----------------------------------------------------------
+=a            anchor              WAAnchorTag
+=a            map                 WAImageMapTag
+=a            popupAnchor         WAPopupAnchorTag
+=abbr         abbreviated         WAGenericTag
+=acronym      acronym             WAGenericTag
+=address      address             WAGenericTag
+=big          big                 WAGenericTag
+=blockquote   blockquote          WAGenericTag
+=br           break               WABreakTag
+=button       button              WAButtonTag
+=caption      tableCaption        WAGenericTag
+=cite         citation            WAGenericTag
+=code         code                WAGenericTag
+=col          tableColumn         WATableColumnTag
+=colgroup     tableColumnGroup    WATableColumnGroupTag
+=dd           definitionData      WAGenericTag
+=del          deleted             WAEditTag
+=dfn          definition          WAGenericTag
+=div          div                 WADivTag
+=dl           definitionList      WAGenericTag
+=dt           definitionTerm      WAGenericTag
+=em           emphasis            WAGenericTag
+=fieldset     fieldSet            WAFieldSetTag
+=form         form                WAGenericTag
+=h1           heading             WAHeadingTag
+=hr           horizontalRule      WAHorizontalRuleTag
+=iframe       iframe              WAIframeTag
+=img          image               WAImageTag
+=input        cancelButton        WACancelButtonTag
+=input        checkbox            WACheckboxTag
+=input        fileUpload          WAFileUploadTag
+=input        hiddenInput         WAHiddenInputTag
+=input        imageButton         WAImageButtonTag
+=input        passwordInput       WAPasswordInputTag
+=input        radioButton         WARadioButtonTag
+=input        submitButton        WASubmitButtonTag
+=input        textInput           WATextInputTag
+=ins          inserted            WAEditTag
+=kbd          keyboard            WAGenericTag
+=label        label               WALabelTag
+=legend       legend              WAGenericTag
+=li           listItem            WAGenericTag
+=object       object              WAObjectTag
+=ol           orderedList         WAOrderedListTag
+=optgroup     optionGroup         WAOptionGroupTag
+=option       option              WAOptionTag
+=p            paragraph           WAGenericTag
+=param        parameter           WAParameterTag
+=pre          preformatted        WAGenericTag
+=q            quote               WAGenericTag
+=rb           rubyBase            WAGenericTag
+=rbc          rubyBaseContainer   WAGenericTag
+=rp           rubyParentheses     WAGenericTag
+=rt           rubyText            WARubyTextTag
+=rtc          rubyTextContainer   WAGenericTag
+=ruby         ruby                WAGenericTag
+=samp         sample              WAGenericTag
+=script       script              WAScriptTag
+=select       multiSelect         WAMultiSelectTag
+=select       select              WASelectTag
+=small        small               WAGenericTag
+=span         span                WAGenericTag
+=strong       strong              WAGenericTag
+=sub          subscript           WAGenericTag
+=sup          superscript         WAGenericTag
+=table        table               WATableTag
+=tag:         tag:                WAGenericTag
+=tbody        tableBody           WAGenericTag
+=td           tableData           WATableDataTag
+=textarea     textArea            WATextAreaTag
+=tfoot        tableFoot           WAGenericTag
+=th           tableHeading        WATableHeadingTag
+=thead        tableHead           WAGenericTag
+=tr           tableRow            WAGenericTag
+=tt           teletype            WAGenericTag
+=ul           unorderedList       WAUnorderedListTag
+=var          variable            WAGenericTag
+
+
+@@note Pharo typically encourages explicit naming and avoids abbreviations \-- the few seconds per day you save by typing an abbreviated method or variable name may often come back much later to haunt you or someone else reading your code as minutes or even hours spent trying to debug code with poor readability.
+
+
+This book is not a complete Seaside reference. Once you're done reading it you will want to discover new brushes and brush options yourself. Let's take a few moments to describe how you would do that.
+
+Suppose you know a specific XHTML tag you want to use and need to find the appropriate brush method. Some brush method names are the same as the corresponding XHTML tag name. For example you create a ==div== tag using the ==WAHtmlCanvas>>div== brush method. In other cases the brush name is the long form of the equivalent XHTML tag (==WAHtmlCanvas>>paragraph== creates a ==p== tag, ==WAHtmlCanvas>>unorderedList== creates a ==ul== tag etc). This choice makes your methods a lot more readable than if the XHTML tags were used everywhere. Compare the following two code fragments.
+
+[[[
+This is not working code"
+html p with: 'Hello world.'.
+html ol with: [
+   html li: 'Item 1'.
+   html li: 'Item 2' ].
+]]]
+
+[[[
+Working version"
+html paragraph with: 'Hello world.'.
+html orderedList with: [
+   html listItem: 'Item 1'.
+   html listItem: 'Item 2' ].
+]]]
+
+If you can't guess the brush method name just open a class browser on the canvas class ==WARenderCanvas==. Keep in mind that the method you're interested in may be in a superclass, see the hierarchy below.
+
+Normally, the brush configuration methods that set tag attributes, use the same name as the attribute. So, for example, to set the ==altText== attribute for an ==IMG== (image) tag you'd send the ==image== brush the ==WAImageTag>>altText:== message. If you don't know the tag attribute you need to open a class browser on the specific brush class. Once again, keep in mind that the method you're interested in may be in a superclass. In addition to tag attributes, many of the Seaside brushes support convenience methods and common Javascript hacks (like setting the focus of an input field). The best way to find these is to use your  tools.
+
+When you first begin using Seaside your canvas and brush vocabulary will be limited and it might take you a few minutes to find what you're looking for. After a while you'll discover that there is a significant shared API (implemented in the abstract superclasses) and that you are already familiar with many of the brushes. Also helpful is the autocompletion mechanism in the development environment.
+
+=WABrush
+=   WACompound
+=      WADateInput
+=      WATimeInput
+=   WATagBrush
+=      WAAnchorTag
+=         WAImageMapTag
+=         WAPopupAnchorTag
+=      WAAudioTag
+=      WABasicFormTag
+=         WAFormTag
+=      WABreakTag
+=      WACanvasTag
+=      WACollectionTag
+=         WADatalistTag
+=         WAListTag
+=            WAOrderedListTag
+=            WAUnorderedListTag
+=         WASelectTag
+=            WAMultiSelectTag
+=      WACommandTag
+=      WADetailsTag
+=      WADivTag
+=      WAEventSourceTag
+=      WAFieldSetTag
+=      WAFormInputTag
+=         WAAbstractTextAreaTag
+=            WAColorInputTag
+=            WAEmailInputTag
+=            WASearchInputTag
+=            WASteppedTag
+=               WAClosedRangeTag
+=                  WANumberInputTag
+=                  WARangeInputTag
+=                  WATimeInputTag
+=               WADateInputTag
+=               WADateTimeInputTag
+=               WADateTimeLocalInputTag
+=               WAMonthInputTag
+=               WAWeekInputTag
+=            WATelephoneInputTag
+=            WATextAreaTag
+=            WATextInputTag
+=               WAPasswordInputTag
+=            WAUrlInputTag
+=         WAButtonTag
+=         WACheckboxTag
+=         WAFileUploadTag
+=         WAHiddenInputTag
+=         WARadioButtonTag
+=         WASubmitButtonTag
+=            WACancelButtonTag
+=            WAImageButtonTag
+=      WAGenericTag
+=         WAEditTag
+=      WAHeadingTag
+=      WAHorizontalRuleTag
+=      WAIframeTag
+=      WAImageTag
+=      WAKeyGeneratorTag
+=      WALabelTag
+=      WAMenuTag
+=      WAMeterTag
+=      WAObjectTag
+=      WAOptionGroupTag
+=      WAOptionTag
+=      WAParameterTag
+=      WAProgressTag
+=      WARubyTextTag
+=      WAScriptTag
+=      WASourceTag
+=      WATableCellTag
+=         WATableColumnGroupTag
+=            WATableColumnTag
+=         WATableDataTag
+=            WATableHeadingTag
+=      WATableTag
+=      WATimeTag
+=      WAVideoTag
 
 !!! Rendering Lists and Tables
 
@@ -480,7 +679,7 @@ This book is not about XHTML or CSS but *@ref:/book/fundamentals/css* provides a
 - Use ==span== and ==div== with CSS classes to mark content generated by your components. Quite often, components render themselves entirely within a ==div== whose CSS class is the name of the component's Smalltalk class. This makes it easier for CSS developers to locate the XHTML elements that they want to style. Come up with conventions that work for you and stick to them.
 - Your component's ==renderContentOn:== method should be simple. Do not include style information, otherwise it will be difficult to customize the way in which your component is displayed.
 - Your component's ==renderContentOn:== method should be short. If your method gets longer than a couple of lines create intention-revealing helper methods following the naming pattern ==renderSomethingOn:==. This is especially useful if you start to use conditional statements and loops. This technique will also allow you to override certain aspects of the rendering process in subclasses of your component.
-- Use component ==style== method only when the style elements are very specific to that component. Otherwise use style libraries as discussed later in *ref:/book/in-action/serving-files*.
+- Use component ==style== method only when the style elements are very specific to that component. Otherwise use style libraries as discussed later in Chapter *ref:/book/in-action/serving-files*.
 - Try to use style sheets to structure your document's overall presentation, rather than XHTML tables. There are many good CSS references which show you how to lay out pages.
 
 
