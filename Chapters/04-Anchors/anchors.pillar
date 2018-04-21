@@ -2,13 +2,6 @@
 @cha:anchors
 
 
-
-
-
-
-
-
-
 In this chapter, you will learn to display anchors, also known as ``links\''. Seaside can generate traditional anchors linking to arbitrary URI's but the most powerful use of anchors is to trigger callbacks (blocks of code) which perform actions in your applications.
 
 
@@ -90,7 +83,7 @@ This method ==renderContentOn:== creates an anchor element by sending ==WAHtmlCa
 
 When the user clicks on the anchor labelled "click to increment", the callback block is executed: it sends the message ==anchorClicked== to the component which in turn increments the count. Once this callback is processed, Seaside renders our component (which will show the new count).
 
-Register the above application as “anchor” and view it in your browser, see Figure *@increment-anchor*. Clicking on the link will increment the count.
+Register the above application as “anchor” and view it in your browser, see Figure *@ref:increment-anchor*. Clicking on the link will increment the count.
 
 
 
@@ -118,7 +111,7 @@ Another problem that new Seasiders might run into is that they try to change the
 !!! Contact Information Model
 
 In the next few chapters we will develop a simple application, named iAddress, which
-manages an email address book. We will begin by creating a new category ==iAddress==, and creating in this category a class whose instances will represent the contacts in our address book. 
+manages an email address book. We will begin by creating a new package ==iAddress==, and creating in this package a class whose instances will represent the contacts in our address book. 
 
 [[[
 Object subclass: #Contact
@@ -144,7 +137,7 @@ Contact >> name
 Contact >> name: aString
     name := aString
 ]]]
-Next we provide an instance creation method and a method that creates a sample database of ==Contact== instances. Note that these are ''class side'' methods, and should be put in an ==initialization== method category.
+Next we provide an instance creation method and a method that creates a sample database of ==Contact== instances. Note that these are ''class side'' methods, and should be put in an ==initialization== method protocol.
 
 [[[
 Contact class >> name: nameString emailAddress: emailString
