@@ -25,7 +25,7 @@ The general plan of action is as follows.
 
 3. We should get a chapter on Bootstrap and MDL, probably one on WebSocket usage, many be Mustaside
 
-4. We should add point to Voyage
+4. We should add point to Voyage, Willow... 
 
 
 ## Contributing
