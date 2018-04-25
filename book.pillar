@@ -7,7 +7,7 @@ in less than 15 minutes.
 
 If you’re new to Pharo, the instructions for Pharo will introduce you to the Seaside One Click Image, which is designed to get you up and running as quickly as possible.
 
-${inputFile:Chapters/01-Pharo/Pharo.pillar}$
+%${inputFile:Chapters/01-Pharo/Pharo.pillar}$
 %should do a pass for Zinc, redo screenshots
 
 %Should add Gemstone chapter
@@ -15,17 +15,18 @@ ${inputFile:Chapters/01-Pharo/Pharo.pillar}$
 !Fundamentals
 In this part we will introduce you to the manipulation of basic elements such as texts, anchors and callbacks as well as forms. It presents the notion of ''brushes'' that is central to the Seaside API. Understanding these concepts will be fundamental to your use of Seaside.
 
-${inputFile:Chapters/02-RenderingComponents/RenderingComponents.pillar}$
+%${inputFile:Chapters/02-RenderingComponents/RenderingComponents.pillar}$
 %ready to review and fix figures
 
-${inputFile:Chapters/03-CSS/CSS.pillar}$
+%${inputFile:Chapters/03-CSS/CSS.pillar}$
 %ready to review and fix figures
 
-${inputFile:Chapters/04-Anchors/anchors.pillar}$
+%${inputFile:Chapters/04-Anchors/anchors.pillar}$
 
+${inputFile:Chapters/05-Forms/forms.pillar}$
 
 ! Seaside in Action
-${inputFile:Chapters/04-ASimpleTodoApplication/ASimpleTodoApplication.pillar}$
+%${inputFile:Chapters/04-ASimpleTodoApplication/ASimpleTodoApplication.pillar}$
 
 
 ! Advanced Topics

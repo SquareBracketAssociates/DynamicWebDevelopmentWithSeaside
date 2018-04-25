@@ -78,7 +78,8 @@ When the user's browser submits this form, first all the input callbacks are pro
 
 Register this component as a new application called ``contact\'', see *ref:/pharo/first-component/registering* for details. Point your web browser to *http://localhost:8080/contact* and you should see the form as shown in *@ref:personalinformationview1*. Try entering values and submitting the form.
 
-%+personalinformationview1|width=90%+
+
++Filling up our contact view.>file://figures/personalinformationview1.png|width=80|label=@ref:personalinformationview1+
 
 ""Brush Message Summary""
 The two following tables show a summary of the most useful  ==textInput== and  ==submitButton== brush methods.
@@ -192,7 +193,7 @@ Contact >> beFemale
     gender := #Female
 ]]]
 
-We would like to add a drop-down menu to our editor that allows the user to indicate the gender of someone in the contact list. The simplest way to do this is with the canvas' ==select== method. This method returns a +index:WASelectTag+ ==WASelectTag==.
+We would like to add a drop-down menu to our editor that allows the user to indicate the gender of someone in the contact list. The simplest way to do this is with the canvas' ==select== method. This method returns a ==WASelectTag==.
 
 The following method shows how the ==select== brush can be parametrized to render a list for gender selection.
 
@@ -232,6 +233,10 @@ ContactView >> save
 Try the application now. You should see a drop-down menu to select the gender, as shown in *ref:personalInformationView3*.
 
 %+personalInformationView3|width=90%+
+
++Filling up our contact view.>file://figures/personalinformationview3.png|width=80|label=@ref:personalinformationview3+
+
+
 
 Modify the gender input so that it specifies a list size:
 
@@ -414,48 +419,154 @@ This is because the  ==on:of:== method expects the property to have accessors an
 | ==value: aBoolean==| Specify the initial value for the checkbox. 
 
 
+!!! Date Inputs
 
+Using the canvas' ==dateInput== method is the simplest way to provide a date editor. It produces a ==WADateInput==, which understands the messages ==callback:== and ==value:==.  
 
+First, add a ==birthdate== instance variable to the class ==Contact== and produce accessor methods for it. You should be familiar with how to do this by now. If not, look back at the changes you've made in the previous sections.
 
-
-
-
-!!! From Anchors to Callbacks
-
-You can generate run-of-the-mill HTML anchors by creating an anchor brush (send ==WAHtmlCanvas>>anchor== to the canvas), then configuring the anchor to be associated with a URL using  ==WAAnchorTag>>url:== and specifying the text for the anchor using ==WAAnchorTag>>with:==. Here is a simple component that displays an anchor that displays a link to the Seaside web site.
+Then add the following code to the  ==form:== block on your ==renderContentOn:== method:
 
 [[[
-WAComponent subclass: #SimpleAnchor
-    instanceVariableNames: ''
-    classVariableNames: ''
-    package: 'SeasideBook-Anchors'
+    html dateInput
+        callback: [ :value | self contact birthdate: value ];
+        with: self contact birthdate.
+    html break.
+]]]
+
+For those who like to see the date presented in a different order, cascade-send ==options: #(day month year)== to the brush.
+
+Your ==renderContentOn:== method should now look like this:
+
+[[[
+ContactView >> renderContentOn: html
+    | group |
+    html form: [
+        html text: 'Name:'.
+        html textInput on: #name of: self contact.
+        html break.
+        html text: 'Email address:'.
+        html textInput on: #emailAddress of: self contact.
+        html break.
+        html text: 'Gender: '.
+        group := html radioGroup.
+        group radioButton
+            selected: self contact isMale;
+            callback: [ self contact beMale ].
+        html text: 'Male'.
+        group radioButton
+            selected: self contact isFemale;
+            callback: [ self contact beFemale ].
+        html text: 'Female'.
+        html break.
+        html text: 'Send email updates: '.
+        html checkbox
+            value: self contact requestsEmailUpdates;
+            callback: [ :value | self contact requestsEmailUpdates: value ].
+        html break.
+
+        "Date Input"
+        html text: 'Birthday: '.
+        html dateInput
+            callback: [ :value | self contact birthdate: value ];
+            with: self contact birthdate.
+        html break.
+
+        html submitButton on: #save of: self ]
+]]]
+
+Finally update our display method, as below:
+
+[[[
+ContactView >> save
+    self inform: self contact name ,
+        '--' , self contact emailAddress ,
+        '--' , self contact gender ,
+        '--' , self contact requestsEmailUpdates printString ,
+        '--' , self contact birthdate printString
+]]]
+
+%+personal-information-view7|width=90%+
+   
+
+
+Because the ==birthdate== instance variable is ==nil==, the date is displayed with the current date. Your final version of the application should look something like *@ref:personal-information-view7*.
+
+""Date Message Summary."" The following table shows the messages of the ==dateInput== brush.
+
+
+|{!Methods on ==WADateInput== |!Description
+| ==callback: aBlock==| Specify a single argument callback block which is passed a ==Date== object representing the date entered by the user. 
+|  ==with: aDate==|Specifies the date with which we will initialize our date editor. If ==aDate== is ==nil==, today's date is used.
+| ==options: anArray==| Specify the order in which the ==#day==, ==#month== and ==#year== fields are rendered.
+
+
+!!! File Uploads
+
+You can use a form to allow a user to upload a file. Here is how you
+would construct a simple form for a file upload.
+
+[[[
+UploadForm >> renderContentOn: html
+    html form multipart; with: [
+        html fileUpload
+            callback: [ :value | self receiveFile: value ].
+        html submitButton: 'Send File' ]
+]]]
+	
+This code will produce a form, as shown in *ref:file-upload-form*. Some browsers may also display a text input field so you can enter the file path. 
+
+%+file-upload-form|width=90%+
+
+@@note Important You must send the ==multipart== message to the form brush if you want to use the form for file uploads (as shown in this example). If you forget to do this, the upload won't work.
+
+Press the ''Choose File'' button to select the file, then press ''Send File'' to start the upload. When the upload completes, Seaside will invoke our callback which sends the ==receiveFile:== message with a ==WAFile== object that represents your file. As an example, the method below will save the file in a directory called ==uploads== in Pharo.
+
+@@todo change fileDirectory....
+
+[[[
+UploadForm >> receiveFile: aFile
+    | stream |
+    stream := (FileDirectory default directoryNamed: 'uploads')
+        assureExistence;
+        forceNewFileNamed: aFile fileName.
+    [ stream binary; nextPutAll: aFile rawContents ] 
+        ensure: [ stream close ]
+]]]
+
+Note that it is possible to press the ''Send File'' button before selecting a file. In this case the callback is not triggered.
+
+To make this method more robust, you could also check for empty files and devise a check that would prevent malicious persons from uploading many large files in an attempt to fill up your disk space. Note also that this method will quietly replace an existing file with the same name. You could easily change this method so that it checks for duplicate file names or tests the size of the file before saving it.
+
+Alternatively you can offer to download the file again. Add an instance variable called ==file== and change your code according to the following example:
+
+[[[
+UploadForm >> renderContentOn: html
+    html form multipart; with: [
+        html fileUpload
+            callback: [ :value | file := value ].
+        html submitButton: 'Send File' ].
+    file notNil ifTrue: [
+        html anchor
+            callback: [ self downloadFile ];
+            with: 'Download' ]
 ]]]
 
 [[[
-SimpleAnchor >> renderContentOn: html
-    html anchor
-        url: 'http://www.seaside.st';
-        with: 'Seaside Website'
+UploadForm >> downloadFile
+    self requestContext respond: [ :response |
+        response
+            contentType: file contentType;
+            document: file rawContents asString;
+            attachmentWithFileName: file fileName ]
 ]]]
-
-Register this component as ``simple-anchor\'' then view the component through your browser and you should see a page similar to *@ref:anchor-1*.
-
-%+A simple anchor.>file://figures/simple-anchor.png|width=80|label=ref:anchor-1+
-
-Clicking on the ''Seaside Website'' anchor will bring you to the website.
-
-
-
-
-
-Note that rather than manipulating strings in this way, experienced Smalltalkers might want to actually define an ``email address\'' class to handle the different representations of email addresses. In fact, Seaside 3.0 already defines a class WAEmailAddress which may be used for this very purpose.
-
-
-
-
-
 
 
 !!! Summary
 
-In this chapter you saw callbacks, a powerful feature of Seaside. Using a callback, we can attach an action or a small program to a link or button that will be executed only when the element is activated. What is really powerful is that you can write any Pharo code in a callback. In the next chapter, we will continue to enhance the iAddress application to show you how to handle forms.
+Seaside makes it easy to display forms with buttons, popup lists, checkboxes, etc. It is easy in part because of the callbacks that it uses to inform you of the value of these items. In *ref:/book/fundamentals/anchors*, we saw how callbacks are used with anchors. Seaside uses the power of callbacks to make your job much easier.
+
+
+%+A simple anchor.>file://figures/simple-anchor.png|width=80|label=ref:anchor-1+
+
+
