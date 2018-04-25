@@ -1,0 +1,150 @@
+!!Forms
+@cha:forms
+
+In this chapter, we describe how to use XHTML forms and controls in Seaside. Controls such as text input fields, popup lists, radio buttons, check boxes, date inputs, and buttons are always created within an XHTML element. In this chapter we show how to create this element and how to use these common controls.
+
+
+
+!!! Text Input Fields and Buttons
+
+Let's continue with the same ==Contact== domain model class that we used in *cha:anchors*. We wish to create a form that allows the user to update the name and email address for a ==Contact==. Smalltalkers are generally very careful to separate presentation from the core of the data model, so we will create a component that will hold the user interface code to allow the user to edit the underlying ==Contact== instance:
+
+
+[[[
+WAComponent subclass: #ContactView
+    instanceVariableNames: 'contact'
+    classVariableNames: ''
+    package: 'iAddress'
+]]]
+
+Notice that we've specified a ==contact== instance variable; this will be used to hold a reference to the instance of the ==Contact== class that we want to edit. Now we create the accessors for the ==contact== instance variable. 
+
+@@note Look carefully at the ==contact== method below. Before returning the value of the ==contact== instance variable, it checks that it has been set. If it hasn't been set, the code in the block is executed which assigns a sensible value to the variable. This ''lazy initialisation'' is a common idiom in Smalltalk code. At the moment we want to test this component as a stand alone component, so the accessor method will lazily load one of the contacts for us.
+
+[[[
+ContactView >> contact
+    ^ contact ifNil: [ contact := Contact contacts first ]
+]]]
+
+[[[
+ContactView >> contact: aContact
+    contact := aContact
+]]]
+
+Next, we introduce our first new canvas message: the message  ==form==. This method returns an instance of  ==WAFormTag==. The only message in  ==WAFormTag== of interest to us right now is  ==with:== which, as we've seen before, takes an argument and renders that argument between the open and close XHTML tags (i.e. the ==<form>== and ==</form>== tags in this case). Controls such as input fields, buttons, popups, list boxes, and so on must all be placed inside a ==form== element.
+
+@@note Important Forgetting to add the form element is a common mistake. Controls such as input fields, buttons, popups, list boxes etc., must all be placed inside a ==form== tag. If not, they may not be rendered, or they may be rendered but then ignored by the browser.
+
+Our form will have three elements: two text boxes, one each for the name and the email address; and a button for the user to submit their changes.
+
+Let's look first at the text fields for the name and e-mail address inputs. These fields are created by the canvas'  ==textInput== message which returns a  ==WATextInputTag==. For each brush we use two methods ==value:== and ==callback:== . The ==value:== method determines what should be put into this field when it is displayed to the user; here we use the accessor methods on the ==Contact== instance to give these values. The ==callback:== method takes a block that has a single argument. When the user submits the form, the block will have the new contents of the field passed to it using this argument; here we use this to update the ==Contact== instance (via its accessor methods).
+
+Finally we would like our component to have a ''Save'' button. We create a button with the canvas ==submitButton== method, which answers a  ==WASubmitButtonTag==. We assign a callback so that when the user presses this button the message ==save== is sent.
+
+Here's the rendering method which creates two text inputs and a submit
+button:
+
+
+[[[
+ContactView >> renderContentOn: html
+    html form: [
+        html text: 'Name: '.
+        html textInput
+            callback: [ :value | self contact name: value ];
+            value: self contact name.
+        html break.
+        html text: 'Email address: '.
+        html textInput
+            callback: [ :value | self contact emailAddress: value ];
+            value: self contact emailAddress.
+        html break.
+        html submitButton
+            callback: [ self save ];
+            value: 'Save']
+]]]
+
+[[[
+ContactView >> save
+    "For now let's just display the contact information"
+    self inform: self contact name , '--' , self contact emailAddress
+]]]
+
+
+@@note In Seaside 3.0, the brushes ==submitButton== and ==textInput== you can also use the message ==value:== and ==with:== interchangeably. They both define the contents of the button of text input field.
+
+When the user's browser submits this form, first all the input callbacks are processed, then the (single) submit button callback will be processed. The order is important because the input callbacks set the corresponding field in the ==Contact== instance. The ==save== method expects those fields to be set before it is invoked.
+
+@@note Important You should remember that Seaside processes all input field callbacks before the submit button callback.
+
+Register this component as a new application called ``contact\'', see *ref:/pharo/first-component/registering* for details. Point your web browser to *http://localhost:8080/contact* and you should see the form as shown in *@ref:personalinformationview1*. Try entering values and submitting the form.
+
+%+personalinformationview1|width=90%+
+
+""Brush Message Summary""
+The two following tables show a summary of the most useful  ==textInput== and  ==submitButton== brush methods.
+
+
+|{!Methods on ==WATextInputTag== |!Description
+|  ==callback: aBlock==|Specify a single argument callback block which is passed the string value entered by the user.
+|  ==value: aString==|Specify an initial value for the text input. 
+|  ==on: aSymbol of: anObject==|This is a convenience method explained in the next section. 
+
+
+|{!Methods on ==WASubmitButton== |!Description
+|  ==callback: aBlock==| Specify a zero-argument callback block which is invoked when the user clicks this button. 
+|  ==value: aString==| Specify a label for this submit button.
+|  ==on: aSymbol of: anObject==|This is a convenience method explained in the next section.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+!!! From Anchors to Callbacks
+
+You can generate run-of-the-mill HTML anchors by creating an anchor brush (send ==WAHtmlCanvas>>anchor== to the canvas), then configuring the anchor to be associated with a URL using  ==WAAnchorTag>>url:== and specifying the text for the anchor using ==WAAnchorTag>>with:==. Here is a simple component that displays an anchor that displays a link to the Seaside web site.
+
+[[[
+WAComponent subclass: #SimpleAnchor
+    instanceVariableNames: ''
+    classVariableNames: ''
+    package: 'SeasideBook-Anchors'
+]]]
+
+[[[
+SimpleAnchor >> renderContentOn: html
+    html anchor
+        url: 'http://www.seaside.st';
+        with: 'Seaside Website'
+]]]
+
+Register this component as ``simple-anchor\'' then view the component through your browser and you should see a page similar to *@ref:anchor-1*.
+
+%+A simple anchor.>file://figures/simple-anchor.png|width=80|label=ref:anchor-1+
+
+Clicking on the ''Seaside Website'' anchor will bring you to the website.
+
+
+
+
+
+Note that rather than manipulating strings in this way, experienced Smalltalkers might want to actually define an ``email address\'' class to handle the different representations of email addresses. In fact, Seaside 3.0 already defines a class WAEmailAddress which may be used for this very purpose.
+
+
+
+
+
+
+
+!!! Summary
+
+In this chapter you saw callbacks, a powerful feature of Seaside. Using a callback, we can attach an action or a small program to a link or button that will be executed only when the element is activated. What is really powerful is that you can write any Pharo code in a callback. In the next chapter, we will continue to enhance the iAddress application to show you how to handle forms.
