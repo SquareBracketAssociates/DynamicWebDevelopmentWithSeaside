@@ -327,10 +327,91 @@ The ==callback:== method should be a zero argument callback block which is execu
 | ==callback: aBlock==|Specify a zero argument callback block which is called if this button is selected when the submit button is pressed.
 
 
+!!! Check Boxes
 
 
+Let's modify our model class again. This time we will add an instance variable (and accessors) for a Boolean property that indicates if a contact wants to receive e-mail updates from us.
+
+[[[
+Object subclass: #Contact
+    instanceVariableNames: 'name emailAddress gender requestsEmailUpdates'
+    classVariableNames: 'Database'
+    package: 'iAddress'
+]]]
+
+[[[
+Contact >> requestsEmailUpdates
+    ^ requestsEmailUpdates ifNil: [ requestsEmailUpdates := false ]
+]]]
+
+[[[
+Contact >> requestsEmailUpdates: aBoolean
+    requestsEmailUpdates := aBoolean
+]]]
+
+We will use the canvas' ==checkbox== method to produce a  ==WACheckboxTag== as shown in the following method. Checkboxes are useful for boolean inputs such as ==requestsEmailUpdates==.
+
+[[[
+ContactView >> renderContentOn: html
+    | group |
+    html form: [
+        html text: 'Name:'.
+        html textInput on: #name of: self contact.
+        html break.
+        html text: 'Email address:'.
+        html textInput on: #emailAddress of: self contact.
+        html break.
+        html text: 'Gender: '.
+        group := html radioGroup.
+        group radioButton
+            selected: self contact isMale;
+            callback: [ self contact beMale ].
+        html text: 'Male'.
+        group radioButton
+            selected: self contact isFemale;
+            callback: [ self contact beFemale ].
+        html text: 'Female'.
+        html break.
+
+        "Checkbox"
+        html text: 'Send email updates: '.
+        html checkbox
+            value: self contact requestsEmailUpdates;
+            callback: [ :value | self contact requestsEmailUpdates: value ].
+        html break.
+
+        html submitButton on: #save of: self ]
+]]]
+
+Next, update the display method to show the value of this flag. *@ref:personal-information-view6* shows our new form.
+
+[[[
+ContactView >> save
+    self inform: self contact name ,
+        '--' , self contact emailAddress ,
+        '--' , self contact gender ,
+        '--' , self contact requestsEmailUpdates printString
+]]]
+
+Try the application now. Fill out the form and submit it to see that the checkbox is working.
+
+%+personal-information-view6|width=90%+
 
 
+""Model adaptation."" It often requires some work to get the model and the UI (web or graphical) to communicate with each other effectively. For example, we can't write this inside the render method:
+
+==html textInput on: #gender of: model
+
+This is because the  ==on:of:== method expects the property to have accessors and mutators. In this case we can either configure the brush with  ==callback:>>callback:== and  ==value:==, or use a go-between or adapter method in our view class. This is what we did in the example above. Callbacks are flexible and designed for specifying such an interface.
+
+
+""Checkbox Brush Message Summary."" The following table shows a summary of the most important messages of the ==checkbox== brush. 
+
+|{!Methods on ==WACheckboxTag== |!Description
+| ==callback: aBlock== | Specify a one-argument callback block which will be passed true or false.
+|  ==on: aSymbol of: anObject==| This is a convenience method.
+|  ==onTrue: aBlock onFalse: aBlock== | Specify two zero-argument blocks. One is performed if the box is checked when the form is submitted, and the other if the box is not  checked.
+| ==value: aBoolean==| Specify the initial value for the checkbox. 
 
 
 
