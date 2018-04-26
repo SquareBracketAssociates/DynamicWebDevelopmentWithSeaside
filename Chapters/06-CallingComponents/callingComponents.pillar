@@ -21,9 +21,9 @@ The delegate may be a complex component with its own control flow and state. If 
 
 To illustrate that mechanism, let's use the ==ContactListView== and ==ContactView== components developed in earlier chapters. Our goal is simple: in a ==ContactListView== component, we will display a link to edit the contacts (as shown in *@ref:list-contact*), and when the user selects that link, display the ==ContactView== on that ==Contact==. We accomplish this using the ==call:== message.
 
-%+Filling up our contact view.>file://figures/personal-information-view1.png|width=80|label=@ref:personalinformationview1+
++New version of the ==ContactListView==.>file://figures/listContact.png|width=80|label=@ref:list-contact+
 
-%+list-contact|width=90%+
+
 
 The ==editContact:== method is passed a contact as an argument. It creates a ==ContactView== component for the contact and calls this new component by sending it the message ==call:==.
 
@@ -66,8 +66,8 @@ Interact with this application now and follow the link. Fill out the resulting f
 
 !!! Call/Answer Explained
 
-%+call|width=70%+ 
-%+Filling up our contact view.>file://figures/personal-information-view1.png|width=80|label=@ref:personalinformationview1+
+
++Call and Answer at Work.>file://figures/flow_basics|width=80|label=@ref:cal+
 
 *@ref:call* illustrates the call/answer principle. The application is showing our ==ContactListView== component. 
 
@@ -120,8 +120,8 @@ ContactView >> renderSaveOn: html
         html submitButton on: #save of: self
 ]]]
 
-%+cancel|width=80%+
-%+Filling up our contact view.>file://figures/personal-information-view1.png|width=80|label=@ref:personalinformationview1+
+
++Contact edition with a cancel button.>file://figures/withCancel.png|width=80|label=ref:cancel+
 
 Redefine the following methods to cancel and save the editing.
 
