@@ -189,9 +189,127 @@ How do you find related methods? Looking through  ==WAComponent== reveals:
 - ==WAComponent>>request:==, ==WAComponent>>request:default:==, ==WAComponent>>request:label:==, and   ==WAComponent>>request:label:default:== display a message, an optional label and an input box. The string entered into the input box is returned. If the ==default:== argument is specified it is used for the initial contents of the input box.
 -  ==WAComponent>>chooseFrom:==, ==WAComponent>>chooseFrom:caption:==, ==WAComponent>>chooseFrom:default:==, and ==WAComponent>>chooseFrom:default:caption:== display a drop-down list with different choices to let the user choose from. A default selection and a title can be given. The methods answer the selected item.
 
+!!! Handling The Back Button
 
+Web browsers allow you to navigate your browsing history using the back button. The problem is that when you press the back button, the application interface and the underlying model can be out of sync. When you press the back button, only the browser is involved and not the server and the server has no way to know that you changed. Therefore your UI can be out of sync from its domain. Seaside offers you a way to control the back button effect.
 
+There are two kinds of synchronization problems: UI state and model state. Seaside offers a good solution for UI state synchronization.
 
+""Experiment with the problem."" In this section, we show the back button problem and show how Seaside makes it easy to handle. Perform the following experiment.
 
+# Browse the ==WebCounter== application that we developed in the first chapter of this book.
+# Click on the ''\+\+'' link to increase the value of the counter until the counter shows a value of 5.
+# Press the back button two times: you should see 3 now.
+# Click on the ''\+\+'' link.
 
+Your web browser does not show you 4 as you would expect, but instead displays 6. This is because the ==WebCounter== component was not aware that you had pressed the back button. This situation can also arise if you open two windows that interact with the same application.
 
+""Solving the Problem."" Seaside offers an elegant way to fix this problem. Define the method  ==WAComponent>>states== so that it returns an array that contains the objects that you want to keep in sync. In our ==WebCounter== example we want to keep the count instance variable synchronized so we write the method as follows.
+
+[[[
+WebCounter>>states
+    ^ Array with: count
+]]]
+
+This is not really what we want because the Seaside backtracking support is mostly intended for UI state and not model state. We want to backtrack the counter component, not the integer instance variable.
+
+[[[
+WebCounter>>states
+    ^ Array with: self
+]]]
+Redo our back button experiment and you will see that after pressing the back button two times you can correctly increment the counter from 3 to 4.
+
+!!! Show/Answer Explained
+
+This section explains the method ==show:== in ==WAComponent==. ==show:== is a variation of ==call:==. You may want to skip this section if you are new to Seaside. You will find it helpful later on if you need to have more control on how components replace each other.
+
+The method ==show:== passes the control from the receiving component to the component given as the first argument. As with ==call:== the receiver will be temporarily replaced by ==aComponent==. However, as opposed to ==call:==, ==show:== does not block the flow of control and immediately returns.
+
+If we replace the ==call:== in the method ==editContact:== with ==show:== the application does not behave the same way as before anymore:
+
+[[[
+ContactListView >> editContact: aContact
+    | view |
+    view := ContactView new.
+    view contact: aContact.
+    self show: view.
+    self inform: 'Thanks for editing  ' , aContact name
+]]]
+
+The reason is that ==show:== does not block and the confirmation is displayed immediately, effectively replacing the ==ContactView==. Clicking on the ''Ok'' then reveals the ==ContactView==. Of course this is not the intended behavior. We can fix this issue by assigning an answer handler to the view that displays the confirmation:
+
+[[[
+ContactListView >> editContact: aContact
+    | view |
+    view := ContactView new.
+    view contact: aContact.
+    view onAnswer: [ :answer |
+        self inform: 'Thanks for editing  ' , aContact name ].
+    self show: view
+]]]
+
+This solves our problem, but is arguably not very readable. Luckily there is ==show:onAnswer:== that combines the two method calls:
+
+[[[
+ContactListView >> editContact: aContact
+    | view |
+    view := ContactView new.
+    view contact: aContact.
+    self show: view onAnswer: [ :answer |
+        self inform: 'Thanks for editing  ' , aContact name ]
+]]]
+
+In fact, what we did above is continuation-passing style. Like this we can emulate the blocking behavior of ==call:== by using ==show:== and a block that defines what happens afterwards. Any code that uses ==call:== can be transformed like this, however in case of loops that can become quite complicated (see *ref:transforming*).
+
+!!! Transforming a Call to a Show
+
+Why is ==show:== useful at all? 
+
+- First of all ==show:== allows one to replace multiple components in one request. This is not possible with ==call:== as it blocks the flow of execution and the developer has no possibility to display another component at the same time. 
+- Another reason to use ==show:== is that it is more lightweight and that it uses fewer resources than ==call:==. This means that if the blocking behavior is not needed, then ==show:== is more memory friendly. 
+- Finally some Smalltalk dialects cannot implement ==call:== due to limitations in their VM.
+
+If you want or must get rid of the ==call:== statements in a sequence of calls things are relatively simple. Transform code using ==call:==
+
+[[[
+Task >> go
+  | a b c |
+  a := self call: A.
+  b := self call: B.
+  c := self call: C.
+  ...
+]]]
+
+to the following using ==show:onAnswer:==
+
+[[[
+Task >> go
+  self show: A onAnswer: [ :a |
+    self show: B onAnswer: [ :b |
+      self show: C onAnswer: [ :c |
+        ... ] ] ]
+]]]
+
+If you have a loop like the following one, things are slightly more complicated:
+
+[[[
+Task >> go
+  [ self call: A ]
+     whileTrue: [ self call: B ]
+]]]
+
+The example below shows an equivalent piece of code that uses recursion to implement the loop:
+
+[[[
+Task >> go
+  self show: A onAnswer: [ :a |
+    a ifTrue: [
+      self show: B onAnswer: [ :b |
+        self go ] ] ]
+]]]
+
+The transformation technique applied here is called ''continuation-passing style'' or short ''CPS''. The ==onAnswer:== block implements the continuation of the flow after the shown component answered. Unfortunately for more complicated flows CPS leads to messy code pretty quickly.
+
+!!! Summary
+
+In this chapter we showed how to display component using the ==call:== method. In the next chapter we will demonstrate how to embed components within each other.
