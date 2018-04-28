@@ -2,7 +2,7 @@
 
 In this chapter we will build a Sudoku web application as shown in Figure *@fig:upTo6*. This gives us another opportunity to revisit how we build a simple application in Seaside.
 
-+Just started playing.>file://figures/upTo6.png|width=80|label=fig:upTo6+
++Just started playing.>file://figures/upTo6.png|width=70|label=fig:upTo6+
 
 
 !!! The solver
@@ -161,7 +161,7 @@ WebSudoku >> renderContentOn: html
 
 %+rowOfNumbers|width=50%+
 
-+The column labels look like this.>file://figures/rowOfNumbers.png|width=80|label=fig:rowOfNumbers+
++The column labels look like this.>file://figures/rowOfNumbers.png|width=60|label=fig:rowOfNumbers+
 
 
 If you run the application again, you should see the column labels as shown in Figure *@fig:rowOfNumbers*.
@@ -185,7 +185,7 @@ If you have entered everything correctly, your page should now look like Figure 
 
 %+tableOfNumbers|width=50%+
 
-+Row labels are letters, column labels are numbers.>file://figures/table-of-numbers.png|width=80|label=fig:tableOfNumbers+
++Row labels are letters, column labels are numbers.>file://figures/table-of-numbers.png|width=50|label=fig:tableOfNumbers+
 
 
 
@@ -223,7 +223,7 @@ If you refresh your page again, you should finally see a styled Sudoku grid as s
 
 %+empty-sudoku|width=70%+
 
-+The Sudoku board with the style sheet applied.>file://figures/empty.png|width=80|label=fig:empty-sudoku+
++The Sudoku board with the style sheet applied.>file://figures/empty.png|width=70|label=fig:empty-sudoku+
 
 
 Next we will use a small helper method ==asCompactString== that given a collection returns a string containing all the elements printed one after the other without spaces. Again, you do not need to type this method, it was loaded with the ML-Sudoku code.
@@ -263,7 +263,7 @@ WebSudoku >> renderCellAtRow: rowInteger col: colInteger on: html
 Refresh your application again, and your grid should appear as in *@fig:with-possibilities*.
 
 %+with-possibilities|width=80%+
-+The Sudoku grid is showing the possible values for each cell.>file://figures/incomplete.png|width=80|label=fig:with-possibilities+
++The Sudoku grid is showing the possible values for each cell.>file://figures/incomplete.png|width=70|label=fig:with-possibilities+
 
 
 !!! Adding Input
@@ -301,7 +301,7 @@ The above code renders a text input box within a form tag, in each cell where th
 
 %+incomplete|width=70%+
 
-+A partially filled Sudoku grid.>file://figures/incomplete.png|width=80|label=fig:incomplete+
++A partially filled Sudoku grid.>file://figures/incomplete.png|width=70|label=fig:incomplete+
 
 
 
@@ -320,7 +320,7 @@ WebSudoku>>renderContentOn: html
 
 Note that the solver uses backtracking, i.e., it finds a missing number by trying a possibility and if it fails to find a solution, it restarts with a different number. To backtrack the solver works on copies of the Sudoku grid, throwing away grids that don't work and restarting. This is why we need to assign the result of sending the message ==solve== since it returns a new Sudoku grid. Figure *@fig:complete* shows the result of clicking on Solve.
 
-+A solved Sudoku grid.>file://figures/complete.png|width=80|label=fig:complete+
++A solved Sudoku grid.>file://figures/complete.png|width=70|label=fig:complete+
 
 
 !!! Back Button
@@ -336,7 +336,7 @@ WebSudoku >> setCell: currentCell to: anInteger
 
 If you change the definition of ==setCell:to:== and try to replace 6 with 7 you will get a stack error similar to that shown in *@fig:error*.
 
-+Error when trying to replace 6 by 7.>file://figures/error.png|width=80|label=fig:error+
++Error when trying to replace 6 by 7.>file://figures/error.png|width=70|label=fig:error+
 
 
 
