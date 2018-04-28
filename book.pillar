@@ -1,4 +1,4 @@
-%${inputFile:Chapters/Introduction.pillar}$
+${inputFile:Chapters/Introduction.pillar}$
 
 ! Getting Started
 
@@ -7,7 +7,7 @@ in less than 15 minutes.
 
 If you’re new to Pharo, the instructions for Pharo will introduce you to the Seaside One Click Image, which is designed to get you up and running as quickly as possible.
 
-%${inputFile:Chapters/01-Pharo/Pharo.pillar}$
+${inputFile:Chapters/01-Pharo/Pharo.pillar}$
 %should do a pass for Zinc, redo screenshots
 
 !! Gemstone version
@@ -16,15 +16,15 @@ If you’re new to Pharo, the instructions for Pharo will introduce you to the S
 !Fundamentals
 In this part we will introduce you to the manipulation of basic elements such as texts, anchors and callbacks as well as forms. It presents the notion of ''brushes'' that is central to the Seaside API. Understanding these concepts will be fundamental to your use of Seaside.
 
-%${inputFile:Chapters/02-RenderingComponents/RenderingComponents.pillar}$
+${inputFile:Chapters/02-RenderingComponents/RenderingComponents.pillar}$
 %ready to review and fix figures
 
-%${inputFile:Chapters/03-CSS/css.pillar}$
+${inputFile:Chapters/03-CSS/css.pillar}$
 %ready to review and fix figures
 
-%${inputFile:Chapters/04-Anchors/anchors.pillar}$
+${inputFile:Chapters/04-Anchors/anchors.pillar}$
 
-%${inputFile:Chapters/05-Forms/forms.pillar}$
+${inputFile:Chapters/05-Forms/forms.pillar}$
 
 
 ! Using Components
@@ -37,15 +37,13 @@ You will also see how a pre-defined component can be given different behaviour a
 
 Finally, you will see a discussion of ``Slime\'', which despite its name is an extremely useful library to check and validate your Seaside code.
 
-
-%${inputFile:Chapters/06-CallingComponents/callingComponents.pillar}$
-%${inputFile:Chapters/07-EmbeddingComponents/embeddingComponents.pillar}$
-%${inputFile:Chapters/08-Tasks/tasks.pillar}$
-%${inputFile:Chapters/09-Slime/slime.pillar}$
+${inputFile:Chapters/06-CallingComponents/callingComponents.pillar}$
+${inputFile:Chapters/07-EmbeddingComponents/embeddingComponents.pillar}$
+${inputFile:Chapters/08-Tasks/tasks.pillar}$
+${inputFile:Chapters/09-Slime/slime.pillar}$
 
 ! Seaside in Action
-%${inputFile:Chapters/04-ASimpleTodoApplication/ASimpleTodoApplication.pillar}$
+${inputFile:Chapters/04-ASimpleTodoApplication/ASimpleTodoApplication.pillar}$
 ${inputFile:Chapters/11-Sudoko/sudoko.pillar}$
-
 
 ! Advanced Topics
