@@ -118,7 +118,6 @@ WebSudoku >> renderHeaderFor: aString on: html
         with: aString
 ]]]
 
-
 [[[
 WebSudoku >> renderContentOn: html
     self renderHeaderFor: 'This is a test' on: html
@@ -131,14 +130,12 @@ We need two helper methods when creating the labels for the ==x== and ==y== axis
 [[[
 Integer >> asSudokuCol
     "Label for columns"
-
     ^ ($1 to: $9) at: self
 ]]]
 
 [[[
 Integer >> asSudokuRow
     "Label for rows"
-
     ^ ($A to: $I) at: self
 ]]]
 
@@ -162,7 +159,7 @@ WebSudoku >> renderContentOn: html
 
 %+rowOfNumbers|width=50%+
 
-+The column labels look like this.>file://figures/rowOfNumbers.png|width=80|label=fig:tableOfNumbers+
++The column labels look like this.>file://figures/rowOfNumbers.png|width=80|label=fig:rowOfNumbers+
 
 
 If you run the application again, you should see the column labels as shown in Figure *@fig:rowOfNumbers*.
@@ -353,7 +350,7 @@ MLSudoku >> verifyPossibility: anInteger for: aCell
         ifFalse: [ Error signal ]
 ]]]
 
-In fact when you pressed the ''Back'' button, the Sudoku UI was refreshed but its model was still holding the old values. What we need to do is to indicate to Seaside that when we press the ''Back'' button the state of the model should be kept in sync and rollback to the corresponding older version. We do so by defining the method +index:WAComponent!states+ ==states== which returns the elements that should be kept in sync.
+In fact when you pressed the ''Back'' button, the Sudoku UI was refreshed but its model was still holding the old values. What we need to do is to indicate to Seaside that when we press the ''Back'' button the state of the model should be kept in sync and rollback to the corresponding older version. We do so by defining the method ${index:WAComponent!states}$ ==states== which returns the elements that should be kept in sync.
 
 [[[
 WebSudoku >> states
