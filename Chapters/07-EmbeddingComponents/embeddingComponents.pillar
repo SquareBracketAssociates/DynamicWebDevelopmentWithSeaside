@@ -486,7 +486,7 @@ WAFormDialog >> buttons
     ^ #(ok)
 ]]]
 
-""Using Decorations in the Contacts application."" You can add a  ==WAFormDecoration== to ==ContactView== as follows: define an ==initialize== method to add the decoration, and remove the superfluous rendering calls from ==renderContentOn:==, to leave simpler code and an unchanged application (see *ref:form-contact*).
+""Using Decorations in the Contacts application."" You can add a  ==WAFormDecoration== to ==ContactView== as follows: define an ==initialize== method to add the decoration, and remove the superfluous rendering calls from ==renderContentOn:==, to leave simpler code and an unchanged application (see *@ref:form-contact*).
 
 [[[
 ContactView>>initialize
@@ -506,7 +506,7 @@ We chose ==cancel== and ==save== as our button names since these methods were al
 
 %+form-contact|width=75%+
 
-+Using a decoration to add buttons and form to a ContactView.>file://figures/WindowDecoration.png|width=80|label=ref:window-decoration+
++Using a decoration to add buttons and form to a ContactView.>file://figures/formContact.png|width=80|label=ref:form-contact+
 
 
 
