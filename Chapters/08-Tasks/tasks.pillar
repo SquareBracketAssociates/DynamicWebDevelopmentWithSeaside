@@ -1,0 +1,21 @@
+!! Tasks
+
+
+%+Embedding a ContactView into another component.>file://figures/iAddress-ListAndEditor.png|width=80|label=ref:listAndItem+
+
+In Seaside, it is possible to define components whose responsibility is to represent the flow of control between existing components. These components are called tasks. In this chapter, we explain how you can define a task. We also show how Seaside supports application control flow by isolating certain paths from others. We will start by presenting a little game, the number guessing game. Then, we will implement two small hotel registration applications using the calendar component to illustrate tasks.
+
+!!! Sequencing Components
+
+!!! Hotel Reservation: Tasks vs. Components
+
+
+!!! Summary
+
+In this chapter, we presented tasks, subclasses of Task. Tasks are components that do not render themselves but are used to build application flow based on the composition of other components. We saw that the composition is expressed in plain Pharo.
+
+
+
+
+
+

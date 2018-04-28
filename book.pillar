@@ -19,7 +19,7 @@ In this part we will introduce you to the manipulation of basic elements such as
 ${inputFile:Chapters/02-RenderingComponents/RenderingComponents.pillar}$
 %ready to review and fix figures
 
-${inputFile:Chapters/03-CSS/CSS.pillar}$
+${inputFile:Chapters/03-CSS/css.pillar}$
 %ready to review and fix figures
 
 ${inputFile:Chapters/04-Anchors/anchors.pillar}$
@@ -40,9 +40,9 @@ Finally, you will see a discussion of ``Slime\'', which despite its name is an e
 
 ${inputFile:Chapters/06-CallingComponents/callingComponents.pillar}$
 ${inputFile:Chapters/07-EmbeddingComponents/embeddingComponents.pillar}$
-
+${inputFile:Chapters/08-Tasks/tasks.pillar}$
 ! Seaside in Action
-${inputFile:Chapters/04-ASimpleTodoApplication/ASimpleTodoApplication.pillar}$
+%${inputFile:Chapters/04-ASimpleTodoApplication/ASimpleTodoApplication.pillar}$
 
 
 ! Advanced Topics
