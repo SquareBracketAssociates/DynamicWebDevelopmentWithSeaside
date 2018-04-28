@@ -1,0 +1,246 @@
+!! Serving Files
+
+
+%+Just started playing.>file://figures/upTo6.png|width=70|label=fig:upTo6+
+
+Most web-based applications make heavy use of static resources. By ``static\'' we mean resources whose contents are not sensitive to the context in which they are used. These resources are not dependent on the user or session state and while they may change from time to time they typically don't change during the time span of a single user's session. Static resources include for example images, style sheets and JavaScript files. 
+
+Using these resources in a Seaside application need be no different from using them in any other web application development framework: when deploying your application you can serve these resources using a web server and reference them in your Seaside application, as described in Chapter *@cha:deployment*. 
+
+In addition, Seaside supports a more tightly integrated file serving technique, called ''FileLibrary'', which has some advantages over using a separate web server. In this chapter we will cover how to reference external resources and how to use the integrated FileLibrary to serve them from your Smalltalk image. Note that using FileLibrary to serve static resources is often slower than using a dedicated web server. In Chapter *cha:deployment* we explain how to serve static files in a more efficient way using Apache.
+
+
+!!! Images
+
+We illustrate the inclusion of static resources by displaying an external picture within an otherwise empty component. Create
+a component and use the method ==WAImageTag>>url:== to add a URL to an image as follows:
+
+[[[
+ComponentWithExternalResource >> renderContentOn: html
+    html image url: 'http://www.seaside.st/styles/logo-plain.png'
+]]]
+
+%+external-resource|width=70%+
+  
+If you have many static files that all live in the same location, it is annoying to have to repeat the base-path over and over again. In this case you should use  ==WAImageTag>>resourceUrl:== to provide the tail of the URL.
+
+[[[
+ComponentWithExternalResource >> renderContentOn: html
+    html image resourceUrl: 'styles/logo-plain.png'
+]]]
+
+
+To tell Seaside about the part of the URL that you left out in your rendering code you have to go to the application configuration page (at *http://localhost:8080/config*) and specify the ''Resource Base URL'' in the server settings. Just enter ==http://www.seaside.st==. Seaside will automatically prepend this string to all URLs specified using  ==resourceUrl:>>resourceUrl:==. This reduces your code size and can be very useful if you want to move the resource location during deployment.
+
+%+resource-base-url|width=60%+
+
+Be careful where you put the slash. Normally directories in URLs end with a slash, that's why we specified the resource base URL ending with a slash. Thus, you should avoid putting a slash at the beginning of the URL fragments you pass to ==resourceUrl:==.
+
+Another interesting way to serve a picture is to use a dynamically generated picture from within your image. In Pharo it is possible to use ==WAImageTag>>form:== to pass a Pharo  ==Form== directly to the image brush.
+
+[[[
+ComponentWithForm >> renderContentOn: html
+    html image form: aForm
+]]]
+
+That works reasonably well for simple graphics, however most visual things in Pharo are made using morphs. Luckily it is simple to convert a morph to a form:
+
+[[[
+ComponentWithForm >> renderContentOn: html
+    html image form: (EllipseMorph new 
+       color: Color orange;
+       extent: 200 @ 100;
+       borderWidth: 3;
+       imageForm)
+]]]
+
+You can also use ==WAImageTag>>document:== as follows:
+
+[[[
+html image document: EllipseMorph new
+]]]
+
+%+resource-form-morph|width=70%+
+
+If you are using Pharo, have a look at the example implemented in the class  ==WAScreenshot==. It demonstrates a much more sophisticated use of  ==WAImageTag>>form:== and presents the Pharo desktop as part of a web application. Furthermore it allows basic interactions with your windows from the web browser.
+
+!!! Including CSS and Javascript
+
+So far, we've been including style information for our components by implementing the ==style== method on our components. This is great for dynamic development, but there are a number of problems with this approach: 
+
+- Seaside is generating a style sheet file each time your component is rendered. This takes time to generate.
+- Each generated stylesheet has the session key embedded in its URL, and so is seen as a unique file by your browser, and so loaded again.
+- As you integrate more components in your page, each is generating its own stylesheet, so you can end up with many resources to be downloaded for each page.
+
+Once your application's look and feel has begun to stabilise, you will want to think about using static stylesheets. These are typically included by using ==link== tags in the ==head== section of the XHTML document. This presents us with a problem: by the time your component gets sent ==renderContentOn:==, the canvas has already generated the ==head== section.
+
+Fortunately, Seaside provides a hook method called ==WAComponent>>updateRoot:== which is sent to all components which are reachable directly or indirectly through children or a ==call:== message \-- which means basically to all visible components. This message is sent during the generation of the body of the ==head== tag and can be extended to add elements to this tag. The argument to ==updateRoot:== is an instance of ==WAHtmlRoot== which supports the access to document elements such as ==<title>==, ==<meta>==, ==<javascript>== and ==<stylesheet>== with their corresponding messages (==WAHtmlRoot>>title==, ==WAHtmlRoot>>meta==,  ==WAHtmlRoot>>javascript== and  ==WAHtmlRoot>>stylesheet==). It also allows you to add attributes to the ==<head>== or ==<body>== tags  using the messages ==WAHtmlRoot>>headAttributes==,  ==WAHtmlRoot>>bodyAttributes==. 
+
+In particular,  ==WAHtmlRoot== offers the possibility to add new styles or script using the messages ==WAHtmlRoot>>addScript:== and  ==WAHtmlRoot>>addStyles:==.
+
+The object returned by both ==stylesheet== and  ==javascript== understands ==url:== which allows you to specify the URL of the stylesheet or JavaScript file. Suppose we have a stylesheet being served from *http://seaside.st/styles/main.css*. We could adopt this style in our document by extending ==updateRoot:== as follows:
+
+
+[[[
+WAComponent subclass: #ComponentWithStyle
+    instanceVariableNames: ''
+    classVariableNames: ''
+    package: 'Serving-Files'
+]]]
+
+[[[
+ComponentWithStyle >> updateRoot: anHtmlRoot
+    super updateRoot: anHtmlRoot.
+    anHtmlRoot stylesheet url: 'http://seaside.st/styles/main.css'
+]]]
+
+[[[
+ComponentWithStyle >> renderContentOn: html
+    html heading level: 1; with: 'Seaside'.
+    html text: 'This component uses the Seaside style.'
+]]]
+
+Running the example should give you the following *@ref:withStyle*:
+
+%+withStyle|width=80%+
+  
+Now we will show how you can replace the stylesheet using the FileLibrary. 
+
+!!! Working with File Libraries
+
+Seaside includes a library for serving files called ''FileLibrary''. This solution is handy for rapid application development and is suitable for deployed applications which only make use of a small number of small files. It has the advantage that all of the resources are contained in your Smalltalk image and can be versioned with your favorite Smalltalk version management tools. However this also means that these resources are ""not"" reachable where most of your operating system's tools are accustomed to find things.
+
+FileLibrary has the primary advantage that it is a portable way to serve static contents directly from Seaside without the need to setup a standalone web server. See Chapter  *cha:deployment* to read about Apache configuration for static file serving.
+
+
+!!!! Creating a File Library
+
+Setting up a file library is easy. Here are the steps you need to follow.
+
+# Put your static files in a directory. The location of the directory is not significant. From within the directory, the files can reference each other using their file names.
+# Create a file library by subclassing ==WAFileLibrary==. For the rest of this text we assume its name is  ==MyFileLibrary==.
+# Add files to your file library. There are three ways to add files to your file library:
+#- Programmatically. 
+#- Via the web interface.
+#- By editing your ==MyFileLibrary== directly in your image.
+
+""Adding files programmatically."" You can add files programmatically by using the class side methods  ==addAllFilesIn:== and ==addFileAt:== in ==MyFileLibrary==. For example:
+
+[[[
+MyFileLibrary addAllFilesIn: '/path/to/directory'
+MyFileLibrary addFileAt: '/path/to/background.png'
+]]]
+
+
+""Adding files via the config interface."" Open the config application at *http://localhost:8080/config* and click the ``configure\'' link for file libraries as shown in *ref:configureMyFileLibrary*. This will show which file libraries are available.  
+
+%+configureFiles|width=70%+
+
+Click the configure link for ==MyFileLibrary== as shown in *ref:configureMyFileLibrary* right. 
+
+%+configureMyFileLibrary|width=70%+
+
+There you can add a file by uploading it (select the file, then click the ''Add'' button as shown by *ref:addingMyFileLibrary*).
+
+%+addingMyFileLibrary|width=70%+
+   
+
+@@important When you add a file to a file library, Seaside creates a method with the file contents.  If you find that there is an unusually long wait after pressing the ''Add'' button, make sure that the system (Squeak/Pharo) isn't waiting for you to type your initials to confirm that you want to create a new method.
+
+""Adding a file by editing the class."" File libraries are just objects and ``files\'' in the file library are just methods so you can always add and modify FileLibrary entries using your normal class browser but be sure to follow the method naming convention mentioned above. You'll probably find it pretty inconvenient to edit images within the browser though.
+
+Adding a file to a file library either programmatically or using the configuration interface defines a corresponding method in the file library class, with the file name determining the name of the method. The dot is removed and the first letter of the suffix is capitalized. For example, the file main.css becomes the method ==MyFileLibrary>>mainCss==. This puts certain limitations on the allowed file names. For example, the main part of the file name may not be all digits.
+
+Once your files have been imported into the file library they are maintained independently from the files on your computer's file system. If you modify your files you will have to re-add them to the file library.
+
+Once your files are stored in a FileLibrary they will be available to be served through Seaside.
+
+
+
+
+
+!!!! Referencing FileLibrary files by URL
+
+How you use a file library depends on what you want to do with the files in it. As you've seen in the previous sections, using image, music, style sheets and JavaScript files requires knowing their URL. You can find the URL of any document in your file library by sending the class ==WAFileLibrary class>>urlOf:==. For example, if you had added the file ==picture.jpg== to your library and you want to display it in a component you would write something like: 
+
+[[[
+MyClass>>renderContentOn: html
+    html image url: (MyFileLibrary urlOf: #pictureJpg)
+]]]
+
+
+The URL returned by ==urlOf:== is relative to the current server. It does not contain the *http://servername.com/* - the so-called ``method'' and ``host'' - portion of the URL. Note that WAFileLibrary implements a class method called ==/==, so the expression ==MyFileLibrary / #pictureJpeg== is equivalent to ==MyFileLibrary urlOf: #pictureJpeg==.
+
+Once you know the URL of the FileLibrary resources you can use them to include style sheets and JavaScript in your components as we have already discussed.
+
+
+
+!!! Example of FileLibrary in Use
+
+We've gone on long enough without a working hands-on example. To illustrate how to use a file library, we will show how to add some resources to the WebCounter application we defined in the first chapter of this book (*http://localhost:8080/webcounter*) or can also use the version that comes with Seaside (*http://localhost:8080/examples/counter*). First we create a new subclass of  ==WAFileLibrary== named ==CounterLibrary== as follows:
+
+[[[
+WAFileLibrary subclass: #CounterLibrary
+    instanceVariableNames: ''
+    classVariableNames: ''
+    package: 'Test'
+]]]
+
+%+WACounterFileLibraryEmpty|width=70%+
+
+%+AddedCounterLibrary|width=70%+
+
+We will follow the steps presented in the previous section and associate two resources to our library. One is an icon named ==seaside.png== and the other is a CSS file named ==seaside.css== \-- you can download the ones from the Seaside website we mentioned before:
+
+; seaside.png
+: *http://www.seaside.st/styles/logo-plain.png* (rename once downloaded).
+; seaside.css
+: *http://seaside.st/styles/main.css* 
+
+@@important Pay attention that the file name of your resources does not contain non-alphabetic characters since it may cause problems. 
+
+Now we change the method ==renderContentOn:== \-- this shows how we access resources using the  ==urlOf:==.
+
+[[[
+WebCounter >> renderContentOn: html
+    html image url: (CounterLibrary urlOf: #seasidePng).
+    html heading: count.
+    html anchor
+        callback: [ self increase ];
+        with: '++'.
+    html space.
+    html anchor
+        callback: [ self decrease ];
+        with: '--'
+]]]
+
+Next we implement ==updateRoot:== so that our component contains a link to our style sheet:
+
+[[[
+WebCounter >> updateRoot: anHtmlRoot
+   super updateRoot: anHtmlRoot.
+   anHtmlRoot stylesheet url: (CounterLibrary urlOf: #seasideCss)
+]]]
+
+This causes the look of our application to change. It now uses the CSS file we added to our file library as shown by *@ref:counterNoCss*.
+
+%+counterNoCss|width=20%+
+
+Have a look at the XHTML source generated by Seaside by using your browser's View Source option. You will see that the links are added to the head section of the HTML document as shown below:
+
+[[[
+...
+<link rel="stylesheet" type="text/css" href="/files/CounterLibrary.css"/>
+</head>
+<body onload="onLoad()" onkeydown="onKeyDown(event)">
+  <img alt="" src="/files/CounterLibrary/seaside.png"/>
+  <h1>0</h1>
+  <a href="http://localhost:8080/WebCounter?_s=UwGcN6vwGVmj9icD&amp;_k=D6Daqxer&amp;1">++</a>&nbsp;
+  <a href="http://localhost:8080/WebCounter?_s=UwGcN6vwGVmj9icD&amp;_k=D6Daqxer&amp;2">--</a>
+...
+]]]
+
+
+!!! Which method should I use?
+
+!!! A Word about Character Encodings
