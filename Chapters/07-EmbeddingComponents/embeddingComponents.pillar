@@ -1,17 +1,12 @@
-
-%+Filling up our contact view.>file://figures/personal-information-view1.png|width=80|label=@ref:personalinformationview1+
-
-
 !! Embedding Components
 
 Building reusable components and frameworks is the goal of all developers in almost all parts of their applications. The dearth of truly reusable (canned) component libraries for most of the existing web development frameworks is a good indication that this is difficult to do.
 
-Seaside is among the few frameworks poised to change this. It has a solid component model giving one all of the mechanisms necessary to develop well encapsulated components and application development frameworks. We have seen in *ref:../calling/modal-display* that components can be sequenced. In this chapter we show how to embed one component inside another component. In *ref:decorations*, we will see how to decorate a component to add functionality or change its appearance and as such reuse behavior. With a good component model, the possibility to display components and create new ones by reusing existing ones, writing Seaside applications is very similar to writing GUI applications.
+Seaside is among the few frameworks poised to change this. It has a solid component model giving one all of the mechanisms necessary to develop well encapsulated components and application development frameworks. We have seen in *ref:../calling/modal-display* that components can be sequenced. In this chapter we show how to embed one component inside another component. In *@ref:decorations*, we will see how to decorate a component to add functionality or change its appearance and as such reuse behavior. With a good component model, the possibility to display components and create new ones by reusing existing ones, writing Seaside applications is very similar to writing GUI applications.
 
 We will start by writing an application which embeds one component, then refactor it into an application built out of two components. Finally we will discuss reuse and show how component decoration support this. We will show how components can be plugged together using events to maximize reuse.
 
 !!! Principle: Component Children
-
 
 When we want to display several components on the same page, we can embed the components into each other. Usually a Seaside application consists of a main component which is usually called the root component. All the child components of the root component and their recursive children form a tree of nested components.
 
@@ -46,7 +41,7 @@ WAComponent subclass: #IAddress
     package: 'iAddress'
 ]]]
 
-We add an instance variable, ==editor==, to the class ==IAddress== which is a reference to the editor that we will embed within our ==IAddress== component. It is not always necessary to maintain a reference to an embedded component: we could also create the component on the fly (as soon as it is returned as part of the component' children). In our case, since the elements of our application are stateful objects, it is better to reuse components, taking advantage of the fact that they can store state, rather than recreating them. We will revisit this issue in *ref:/book/components/embedding/coupling*.
+We add an instance variable, ==editor==, to the class ==IAddress== which is a reference to the editor that we will embed within our ==IAddress== component. It is not always necessary to maintain a reference to an embedded component: we could also create the component on the fly (as soon as it is returned as part of the component' children). In our case, since the elements of our application are stateful objects, it is better to reuse components, taking advantage of the fact that they can store state, rather than recreating them. We will revisit this issue in *@ref:coupling*.
 
 ""Initialize instances."" The ==initialize== method creates the editor and gives it a default contact to edit. We can then reuse the editor to edit other contacts, avoiding the need to create a new editor every time we want to edit something.
 
@@ -99,8 +94,7 @@ IAddress >> removeContact: aContact
         ifTrue: [ Contact removeContact: aContact ]
 ]]]
 
-%+list-editor-with-halo|width=75%+
-%+Filling up our contact view.>file://figures/personal-information-view1.png|width=80|label=@ref:personalinformationview1+
++Embedding a ContactView into another component with Halos.>file://figures/iAddress-ListAndEditorWithHalos.png|width=80|label=ref:ref:list-editor-with-halo+
 
 
 Embedding a ContactView into another component with Halos.
@@ -162,9 +156,12 @@ Register the application as "iAddress" and try it out. Make sure that the editor
 
 The changes to your code in this section are presented purely to help you explore the embedding of components: they are not an example of good UI design, and are not required to progress with the following sections.
 
-Let's define a component that manages our list of contacts using components all the way down. *ref:pluggable-halos* shows that we will build our application out of two components: ==PluggableContactListView== and ==ContactView==. In addition, ==PluggableContactListView== will be composed of several ==ReadOnlyOneLinerContactView== components. We really get a tree of components. This exercise shows that a component should be designed to be pluggable. It also shows how to plug components together.
+Let's define a component that manages our list of contacts using components all the way down. Figure *@ref:pluggable-halos* shows that we will build our application out of two components: ==PluggableContactListView== and ==ContactView==. In addition, ==PluggableContactListView== will be composed of several ==ReadOnlyOneLinerContactView== components. We really get a tree of components. This exercise shows that a component should be designed to be pluggable. It also shows how to plug components together.
 
 %+pluggable-halos|width=75%+
++With components all the way down.>file://figures/PluggableHalos.png|width=80|label=@ref:pluggable-halos+
+
+PluggableHalos
 
 ""A Minimal Contact Viewer."" We would like to have a compact contact viewer. First we will subclass the ==ContactView== class to create the class ==ReadOnlyOneLinerContactView==. This class has an instance variable ==parent== which will hold a reference to the component that will contain it, since it should know how to invoke the contact editor.
 
@@ -334,7 +331,7 @@ The ==onAnswer:== method is an important protocol for handling components and th
 
 !!! A Word about Reuse
 
-Suppose you wanted a component that shows only the name and email of our ==ContactView== component. There are no special facilities in Seaside for doing this, so you may be tempted to use template methods and specialize hooks in the subclasses. This may lead to the definition of empty methods in subclasses and may force you to define as many subclasses as situations you want to cover, for example if you want to create a ==SimpleContactView== and a ==ReadyonlyContactView==.
+Suppose you wanted a component that shows only the name and email of our ==ContactView== component. There are no special facilities in Seaside for doing this, so you may be tempted to use template methods and specialize hooks in the subclasses. This may lead to the definition of empty methods in subclasses and may force you to define as many subclasses as situations you want to cover, for example if you want to create a ==SimpleContactView== and a ==ReadyonlyContactView==. See Figure *@ref:readonly* below.
 
 An alternative approach is to build more advanced components using the messages ==perform:== or ==perform:with:== with a list of method selectors to be sent:
 
@@ -378,12 +375,13 @@ ContainingComponent >> renderContentOn: html
 
 If you need more sophisticated dynamic control over the rendering of your component, you may want to use ''Magritte'' with Seaside. Magritte is a framework which allows you to define ''descriptions'' for your domain objects. It then uses these descriptions to perform automatic actions (loading, saving, generating SQL...). The Magritte/Seaside integration allows one to automatically  generate forms and Seaside components from domain object described with Magritte descriptions, see *ref:/book/advanced/magritte*. Magritte also offers ways to construct different views on the same objects and so the possibility to create multiple varieties of components: either by selecting a subset of fields to display, or by offering read-only or editable components. As such, it is an extremely useful addition to plain Seaside.
 
-%+readonly-contact-view|width=75%+
 
++A readonly view of the ContactView.>file://figures/readonlyContactView.png|width=80|label=ref:readonly+
 
 
 
 !!! Decorations
+@ref:decorations
 
 Sometimes we would like to reuse a component while adding something to it, such as an information message or extra buttons. Seaside has facilities for doing this. In Seaside parlance, this is called ``decorating\'' a component. Note that this is ''not'' implemented using the design pattern of the same name, but rather as a ''Chain of Responsibility''. This means that decorations form a chain of special components into which your component is inserted, and that a given message pass through the chain of decorators.
 
@@ -408,7 +406,7 @@ There are three kinds of decorations:
 
 !!!! Visual Decorations
 
-""Message Decorations.""  ==WAMessageDecoration== renders a heading above the component using the message ==WAComponent>>addMessage:==. As an example we add a message to the ==ContactView== component by sending it ==addMessage:==, see *ref:add-message*.
+""Message Decorations.""  ==WAMessageDecoration== renders a heading above the component using the message ==WAComponent>>addMessage:==. As an example we add a message to the ==ContactView== component by sending it ==addMessage:==, see *@ref:add-message*.
 
 [[[
 IAddress >> initialize
@@ -420,7 +418,10 @@ IAddress >> initialize
 ]]]
 
 
-%+add-message|width=75%+
+
+
++Adding a message around a component.>file://figures/AddMessage.png|width=80|label=ref:add-message+
+
 
 Note that the ==WAComponent>>addMessage:== returns the decoration, so you may want to also use the ==yourself== message if you need to refer to the component itself:
 
@@ -431,7 +432,7 @@ SomeComponent >> renderContentOn: html
 
 ""Window Decoration."" ==WAWindowDecoration== renders a border with a close widget around the component.
 
-The following example adds a window decoration to the ==ContactView== component. To see it in action, use the contacts application implemented by the ==ContactList== component (probably at *http://localhost:8080/contacts*. The result of clicking on an edit link is shown in *ref:window-decoration*.
+The following example adds a window decoration to the ==ContactView== component. To see it in action, use the contacts application implemented by the ==ContactList== component (probably at *http://localhost:8080/contacts*. The result of clicking on an edit link is shown in *@ref:window-decoration*.
 
 [[[
 ContactView >> initialize
@@ -441,6 +442,11 @@ ContactView >> initialize
 ]]]
 
 %+window-decoration|width=75%+
+
+
++Decorating a component with a window.>file://figures/WindowDecoration.png|width=80|label=ref:window-decoration+
+
+
 
 @@note You may see that your ''Save'' and ''Cancel'' buttons are duplicated: you can remove this duplication by commenting out the ==self renderSaveOn: html== line from ==ContactView>>renderContentOn:==.
 
@@ -499,6 +505,10 @@ ContactView>>renderContentOn: html
 We chose ==cancel== and ==save== as our button names since these methods were already defined in the class, but we could have used any names we wanted as long as we implemented the corresponding methods.
 
 %+form-contact|width=75%+
+
++Using a decoration to add buttons and form to a ContactView.>file://figures/WindowDecoration.png|width=80|label=ref:window-decoration+
+
+
 
 !!!! Behavioral Decorators
 

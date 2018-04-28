@@ -37,8 +37,8 @@ You will also see how a pre-defined component can be given different behaviour a
 Finally, you will see a discussion of ``Slime\'', which despite its name is an extremely useful library to check and validate your Seaside code.
 
 
-${inputFile:Chapters/06-CallingComponents/callingComponents.pillar}$
-
+%${inputFile:Chapters/06-CallingComponents/callingComponents.pillar}$
+${inputFile:Chapters/07-EmbeddingComponents/embeddingComponents.pillar}$
 
 ! Seaside in Action
 %${inputFile:Chapters/04-ASimpleTodoApplication/ASimpleTodoApplication.pillar}$
