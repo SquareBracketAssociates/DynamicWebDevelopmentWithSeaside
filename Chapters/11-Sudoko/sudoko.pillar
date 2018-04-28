@@ -1,7 +1,9 @@
-!! Writing good Seaside Code
+!! A Web Sudoku Player
 
+In this chapter we will build a Sudoku web application as shown in Figure *@fig:upTo6*. This gives us another opportunity to revisit how we build a simple application in Seaside.
 
-%+Embedding a ContactView into another component.>file://figures/iAddress-ListAndEditor.png|width=80|label=ref:listAndItem+
++Just started playing.>file://figures/upTo6.png|width=80|label=fig:upTo6+
+
 
 !!! The solver
 
