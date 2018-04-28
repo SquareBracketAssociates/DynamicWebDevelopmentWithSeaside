@@ -1,5 +1,5 @@
 !!Rendering Components 
-@cha:gettingstarted-pharo
+@cha:rendering-components
 
 In this chapter, you will learn the basics of displaying text and other information such as tables and lists with Seaside and its powerful XHTML manipulation interface. You will learn how to create a ''component'' which could include text, a form, a picture, or anything else that you would like to display in a web browser. Seaside's component framework is one of its most powerful features and writing an application in Seaside amounts to creating and manipulating components. You will learn how to use Seaside's API, which is based on the concept of ``brushes\'', to generate valid XHTML.
 

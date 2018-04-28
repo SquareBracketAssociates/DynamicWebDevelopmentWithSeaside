@@ -50,7 +50,7 @@ While CSS declarations can be embedded in your document using a ==style== tag, i
 </head>
 ]]]
 
-It's not necessary to write this in Seaside though. The CSS will be served by using either the Seaside file library or with Apache, see Chapter *ref:/book/advanced/deployment/deployment-apache/serving-files*. For rapid prototyping, you can define the CSS of a component by overriding its  ==WAComponent>>style== method.
+It's not necessary to write this in Seaside though. The CSS will be served by using either the Seaside file library or with Apache, see Chapter *@cha:serving-files*. For rapid prototyping, you can define the CSS of a component by overriding its  ==WAComponent>>style== method.
 
 !!!CSS Selectors
 
@@ -60,54 +60,70 @@ CSS allows you to select individual elements of an XHTML document, or groups of 
 
 The tag selector applies to specific XHTML tags, as we saw in the previous examples. The selector consists simply of the tag name as it appears in the XHTML source, but without the angle brackets. The following example removes the underlining from all anchor elements and changes the base font-size of the text within the page to 20 points. The ==body== tag is one of the top-level tags automatically created by Seaside enclosing the whole page.
 
-=a { text-decoration: none; }
-=body { font-size: 20pt; }
+[[[
+a { text-decoration: none; }
+body { font-size: 20pt; }
+]]]
 
 !!!! Class Selector 
 The class selector is by far the most often used CSS selector. It starts with a period and usually defines a visual property that can be added to XHTML tags. The following CSS fragment defines the ==center== and the ==highlight== classes.
 
-=.center { text-align: center; }
-=.highlight { color: yellow; }
+[[[
+.center { text-align: center; }
+.highlight { color: yellow; }
+]]]
 
 To use class selectors, simply set the ==WAGenericTag>>class:== attribute of the tag you want to change. Here we associate the class selector ==.center== to a given div element and ==.highlight== to a given paragraph.
 
-==html div
-==    class: 'center';
-==    with: 'Seaside is cool'.
-==html paragraph
-==    class: 'highlight';
-==    with: 'Highlighted text'
+[[[
+html div
+    class: 'center';
+    with: 'Seaside is cool'.
+html paragraph
+    class: 'highlight';
+    with: 'Highlighted text'
+]]]
 
 The generated XHTML code looks like this:
 
-=<div class="center">Seaside is cool</div>
-=<p class="highlight">Highlighted text</p>
+[[[
+<div class="center">Seaside is cool</div>
+<p class="highlight">Highlighted text</p>
+]]]
 
 Multiple classes can be added to a single XHTML tag. So the following code will display a single text that is centered and highlighted:
 
-==html div
-==    class: 'center';
-==    class: 'highlight';
-==    with: 'Centered and Highlighted'
+[[[
+html div
+    class: 'center';
+    class: 'highlight';
+    with: 'Centered and Highlighted'
+]]]
 
 The generated XHTML code looks like this:
 
-=<div class="center highlight">Centered and Highlighted</div>
+[[[
+<div class="center highlight">Centered and Highlighted</div>
+]]]
 
 Often CSS classes are used to conditionally highlight certain elements of a page depending on the state of the application. Seaside provides the convenience method 
  ==WAGenericTag>>class:if:== to make this as concise as possible. The following code snippet creates ten ==div== tags and adds the CSS class ==even== only if the condition ==index even== evaluates to ==true==. This is shorter than to manually build an ==ifTrue:ifFalse:== construct.
 
-==1 to: 10 do: [ :index |
-==    html div
-==        class: 'even' if: index even;
-==        with: index ]
+[[[
+1 to: 10 do: [ :index |
+    html div
+        class: 'even' if: index even;
+        with: index ]
+]]]
 
 !!!! Pseudo Class Selector
 
 Pseudo classes are similar to CSS classes, but they don't appear in the XHTML source code. They are automatically applied to elements by the web browser, if certain conditions apply. These conditions can be related to the content, or to the actions that the user is carrying out while viewing the page. To distinguish pseudo classes from normal CSS selectors they all start with a colon.
 
-=:focus { background-color: yellow; }
-=:hover { font-weight: bold; }
+[[[
+:focus { background-color: yellow; }
+:hover { font-weight: bold; }
+]]]
 
 The first rule specifies that elements (typically input fields of a form) get a yellow background, if they have focus. The second rule specifies that all elements will appear in bold while the mouse cursor hovers over them.
 
@@ -126,21 +142,27 @@ The following table gives a brief overview of pseudo classes supported by most o
 
 A reference or ID is the name of ''a particular'' XHTML element on the page. Thus, the given style will affect only the element with the unique ID ==error== (if defined). The ID selector is indicated by prefixing the ID with a ==#== character:
 
-=#error { background-color: red; }
+[[[
+#error { background-color: red; }
+]]]
 
 To create a tag with the given ID use the following Seaside code:
 
-==html div
-==    id: 'error';
-==    with: 'Some error message'
+[[[
+html div
+    id: 'error';
+    with: 'Some error message'
+]]]
 
 The generated XHTML code looks like this:
 
-=<div id="error">Some error message</div>
+[[[
+<div id="error">Some error message</div>
+]]]
 
-There are a couple of issues to be aware of when using IDs in your XHTML. IDs have to be unique on a XHTML page. If you use the same ID multiple times, some web browsers may not render your page as you expect, or may even refuse to render it at all. Furthermore some Javascript libraries dynamically apply their own IDs to identify page elements and these may override your carefully chosen IDs, causing your styling to fail in mysterious ways. See Chapter *ref:/book/web-20* on Javascript programming.
+There are a couple of issues to be aware of when using IDs in your XHTML. IDs have to be unique on a XHTML page. If you use the same ID multiple times, some web browsers may not render your page as you expect, or may even refuse to render it at all. Furthermore some Javascript libraries dynamically apply their own IDs to identify page elements and these may override your carefully chosen IDs, causing your styling to fail in mysterious ways. See Chapter *@ref:web-20* on Javascript programming.
 
-@@note Important So, to avoid invalid XHTML and conflicts with JavaScript code, do not use IDs for styling. Exclusively use CSS classes for styling, even if the particular style is used only once.
+@@important So, to avoid invalid XHTML and conflicts with JavaScript code, do not use IDs for styling. Exclusively use CSS classes for styling, even if the particular style is used only once.
 
 !!!! Composed Selectors 
 
@@ -157,4 +179,3 @@ are not affected.
 Explorer.
 
 There are a few more selectors available in modern web browsers to allow other criteria such as matching adjacent siblings. Since these selectors are not widely implemented in web browsers yet, we don’t discuss them here.
-

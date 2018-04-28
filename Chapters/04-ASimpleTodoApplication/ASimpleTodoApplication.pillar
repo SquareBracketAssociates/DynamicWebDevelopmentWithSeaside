@@ -1,10 +1,10 @@
 !! A Simple ToDo Application
+@cha:todoApp
 
 The objective of this chapter is to highlight the important issues when building a Seaside application: defining a model, defining a component, rendering the component, adding callbacks, and calling other components. This chapter will repeat some elements already presented before but within the context of a little application. It is a kind of summary of the previous points.
 
 
 !!! Defining a Model
-
 It is a good software engineering practice to clearly separate the domain from its views. This is a common practice which allows one to change the rendering or even the rendering framework without having to deal with the internal aspects of the model. Thus, we will begin by presenting a simple model for a todo list that contains todo items as shown by Figure *@fig:todoUML*.
 
 +A simple model with items and an item container.>file://figures/todoUML.png|width=70|label=fig:todoUML+
@@ -55,7 +55,7 @@ ToDoItem >> initialize
 ]]]
 
 
-@@note ""A word about ==initialize== and ==new==."" Pharo and Squeak are the only Smalltalk dialect that performs automatic object initialization. This greatly simplifies the definition of classes. If you have defined an ==initialize== method, it will be automatically called when you send the message ==new== to your classes. In addition, the method ==initialize== is defined in the class ==Object== so you can (and are encouraged) to invoke potential ==initialize== methods of your superclasses using ==super initialize== in your own ==initialize== method. If you want to write code that is portable between dialects, you should redefine the method ==new== in all your root classes (subclasses of ==Object==) as shown below and you should ""not"" invoke ==initialize== via a super call in your root classes.
+@@note ""A word about ==initialize== and ==new==."" Pharo and Squeak are the only Smalltalk dialects that perform automatic object initialization. This greatly simplifies the definition of classes. If you have defined an ==initialize== method, it will be automatically called when you send the message ==new== to your classes. In addition, the instance method ==initialize== is defined in the class ==Object== so you can (and are encouraged) to invoke potential ==initialize== methods of your superclasses using ==super initialize== in your own ==initialize== method. If you want to write code that is portable between dialects, you should redefine the method ==new== in all your root classes (subclasses of ==Object==) as shown below and you should ""not"" invoke ==initialize== via a super call in your root classes.
 
 [[[
 ToDoItem class >> new
@@ -153,7 +153,7 @@ WAComponent subclass: #ToDoListView
     package: 'ToDo-View'
 ]]]
 
-We can register the application by defining the class method initialize as shown and by executing ToDoListView>>initialize.
+We can register the application by defining the class method initialize as shown and by executing ==ToDoListView>>initialize==.
 
 [[[
 ToDoListView class >> initialize
@@ -163,7 +163,7 @@ ToDoListView class >> initialize
 
 You can see that the todo application is now registered by pointing your browser to *http://localhost:8080/config/* as shown in *@fig:todoregistered*.
 
-+ The application is registered in Seaside (sd).>file://figures/todoRegistered.png|width=40|label=fig:todoregistered+
++ The application is registered in Seaside.>file://figures/todoRegistered.png|width=40|label=fig:todoregistered+
 
 If you click on the todo link in the config list you will get an empty browser window. This is to be expected since so far the application does not do any rendering. Now if you click on the halo you should see that your application is present on the page as shown in *@fig:halosonemptytodo*.
 
@@ -230,7 +230,7 @@ ToDoListView >> renderContentOn: html
 
 As you see, we are rendering the todo items as an unordered list. We also conditionally assign CSS classes to each list item, depending on its state. To do this, we will use the handy method ==class:if:== since it allows us to write the condition and the class name in the cascade of the brush. Each item will get a class that indicates whether it is completed or overdue. The CSS will cause each item to be displayed with a color determined by its class. Because we haven't defined any CSS yet, if you refresh your browser now, you will see the plain list. 
 
-Next, we edit the style of this component either by clicking on the halos and the pencil and editing the style directly, or by defining the method ==style== on the class ==ToDoListView== in your code browser. Check *ref:/book/fundamentals/css* to learn more about the use of style-sheets and CSS classes.
+Next, we edit the style of this component either by clicking on the halos and the pencil and editing the style directly, or by defining the method ==style== on the class ==ToDoListView== in your code browser. Check Chapter *@ref:css* to learn more about the use of style-sheets and CSS classes.
 
 [[[
 ToDoListView >> style
@@ -258,14 +258,14 @@ li.done {
 }'
 ]]]
 
-Refresh your browser and you should see the list of items and the todo list title as shown in *ref:todoWithItems*.
+Refresh your browser and you should see the list of items and the todo list title as shown in *@fig:todoWithItems*.
 
 + Our todo application, displaying its title and a list of its items colored according to status.>file://figures/todoWithItems.png|width=70|label=fig:todoWithItems+
 
 
 !!! Adding Callbacks
 
-As we saw in *ref:/book/fundamentals/anchors*, Seaside offers a powerful way to define a user action: ''callbacks''. We can use callbacks to make our items editable. We will extend the method ==renderItem:on:== with ''edit'' and ''remove'' actions. To do this, we render two additional links with every item.
+As we saw in Chapter *@cha:anchors*, Seaside offers a powerful way to define a user action: ''callbacks''. We can use callbacks to make our items editable. We will extend the method ==renderItem:on:== with ''edit'' and ''remove'' actions. To do this, we render two additional links with every item.
 
 [[[
 ToDoListView >> renderItem: anItem on: html
@@ -297,7 +297,7 @@ ToDoListView >> remove: anItem
         ifTrue: [ self model remove: anItem ]
 ]]]
 	
-You should now be able to click on the links attached to an item to invoke the ==edit== and ==remove== methods as shown in  *ref:todoWithAnchors*. 
+You should now be able to click on the links attached to an item to invoke the ==edit== and ==remove== methods as shown in  *@fig:todoWithAnchors*. 
 
 +Our todo application with anchors.>file://figures/todoWithAnchors.png|width=70|label=fig:todoWithAnchors+
 
@@ -305,7 +305,7 @@ You should now be able to click on the links attached to an item to invoke the =
 
 You can have a look at the generated XHTML code by turning on the halos and selecting the ''source'' link. You will see that Seaside is automatically adding lots of information to the links on the page. This is part of the magic of Seaside which frees you from the need to do complex request parsing and figure out what context you were in when defining the callback.
 
-Now it would be good to allow users to add a new item. The following code will just add a new anchor under the title (see *ref:todoWithAdd*): 
+Now it would be good to allow users to add a new item. The following code will just add a new anchor under the title (see *@fig:todoWithAdd*): 
 
 [[[
 ToDoListView >> renderContentOn: html
@@ -320,8 +320,8 @@ ToDoListView >> renderContentOn: html
 For now, we will define a basic version of the addition behavior by simply defining ==add== as the addition of the new item in the list of items. Later on we will open an editor to let the user define new todo items in place. 
 
 [[[
-ToDoListView>>add
-    self model add: (ToDoItem new)
+ToDoListView >> add
+    self model add: ToDoItem new
 ]]]
 
 +Our todo application with add functionality.>file://figures/todoWithAdd.png|width=70|label=fig:todoWithAdd+
@@ -407,7 +407,7 @@ ToDoItemView >> renderContentOn: html
             callback: [ :value | self model due: value ] ]
 ]]]
 
-Finally, we make sure that this new component is used when we edit an item. To do this, we redefine the method ==edit:== of the class ==ToDoListView== so that it calls the new component on the item we want to edit. Note that the method ==call:== takes a component as a parameter and that this component will be displayed in place of the calling component, see *ref:/book/components*.
+Finally, we make sure that this new component is used when we edit an item. To do this, we redefine the method ==edit:== of the class ==ToDoListView== so that it calls the new component on the item we want to edit. Note that the method ==call:== takes a component as a parameter and that this component will be displayed in place of the calling component, see Chapter *cha:components*.
 
 [[[
 ToDoListView >> edit: anItem
@@ -483,16 +483,16 @@ ToDoList >> replace: aTodoItem with: anotherItem
     self items at: (self items indexOf: aTodoItem) put: anotherItem
 ]]]
 
-@@note Advanced! ""Magritte Support."" Replacing a copied object works well in our example, but does not if there are other references to the object (because you end up with a new object). One of the advanced features of Magritte (that we present in *ref:/book/advanced/magritte*) is that it uses a ''Memento'' to support the automatic cancellation of  edited objects: in other words, it copies the whole object during the edit operation into an internal data-structure and then edits only this object. As soon as the changes are saved, it walks over the Memento and pushes the changes to the real object. 
+@@advanced ""Magritte Support."" Replacing a copied object works well in our example, but does not if there are other references to the object (because you end up with a new object). One of the advanced features of Magritte is that it uses a ''Memento'' to support the automatic cancellation of  edited objects: in other words, it copies the whole object during the edit operation into an internal data-structure and then edits only this object. As soon as the changes are saved, it walks over the Memento and pushes the changes to the real object. 
 
 
 !!! Embedding Child Components
 
-So far, we have seen how a component displays itself and how a component can invoke another one. This component invocation has behaved like a modal interface in which you can interact only with one dialog at a time. Now, we will demonstrate the real power of Seaside: creating an application by simply plugging together components which may have been independently developed. How do we get several components to display on the same page? By simply having a component identify its subcomponents. This is done by implementing the ${index:WAComponent!children}$ ==children== method.
+So far, we have seen how a component displays itself and how a component can invoke another one. This component invocation has behaved like a modal interface in which you can interact only with one dialog at a time. Now, we will demonstrate the real power of Seaside: creating an application by simply plugging together components which may have been independently developed. How do we get several components to display on the same page? By simply having a component identify its subcomponents. This is done by implementing the ==children== method.
 
 +Getting an editor to edit new item.>file://figures/editorEmbedded.png|width=70|label=fig:editorEmbedded+
 
-Suppose that we would like to add an item to our list. Normally a web application developer would use a single form which would be used both to edit and to add a todo item, but for demonstration purposes we take a different approach. We would like to display the editor below the list. That is, we want to ''embed'' a ==ToDoItemView== in a ==ToDoListView==. Our solution is to allow the user to add an item by pressing a button which will display an editor for the new item, as seen in *ref:editorEmbedded*. 
+Suppose that we would like to add an item to our list. Normally a web application developer would use a single form which would be used both to edit and to add a todo item, but for demonstration purposes we take a different approach. We would like to display the editor below the list. That is, we want to ''embed'' a ==ToDoItemView== in a ==ToDoListView==. Our solution is to allow the user to add an item by pressing a button which will display an editor for the new item, as seen in *@fig:editorEmbedded*. 
 
 We begin by adding an instance variable named ==editor== to the ==ToDoListView== class as follows:
 
@@ -504,7 +504,6 @@ WAComponent subclass: #ToDoListView
 ]]]
 
 Then, we define the method ==children== that returns an array containing all the subcomponents of our component. This array contains just the element ==editor== since list items are rendered by the list component itself. Note that Seaside automatically ignores component children that are nil, so we don't have to worry if it is not initialized.
-
 
 [[[
 ToDoListView >> children
@@ -538,7 +537,7 @@ ToDoListView >> add
 
 
 ""Notification of ==answer:== messages.""
-How do we update the todo list model?  Suppose the user cancels the editing. How do we handle that situation?  We need a way to know when a subcomponent executed the method. You can get notified of ${index:WAComponent!answer:}$ ==answer:== execution by using the method ==onAnswer:==. Using ==onAnswer:== involves modifying the ==initialize== method of the parent component to specify what should be done when one of the subcomponents executes ==answer:==. The method ==onAnswer:== requires a block whose argument represents the object that got answered (==parent onAnswer: [ :object | ... ]==).
+How do we update the todo list model?  Suppose the user cancels the editing. How do we handle that situation?  We need a way to know when a subcomponent executed the method. You can get notified of ==answer:== execution by using the method ==onAnswer:==. Using ==onAnswer:== involves modifying the ==initialize== method of the parent component to specify what should be done when one of the subcomponents executes ==answer:==. The method ==onAnswer:== requires a block whose argument represents the object that got answered (==parent onAnswer: [ :object | ... ]==).
 
 The ==onAnswer:== block will be executed with the answered object as its argument. Since the editor will return ==nil== when the user cancels editing, we need to check the value passed in. We modify the ==add== method as follows:
 
@@ -554,7 +553,7 @@ ToDoListView >> add
  +Our final todo App>file://figures/todoFinal.png|width=70|label=fig:todoFinal+
  
    
-Note that the ''Save'' button is different from the ''Add'' button since the ''Save'' button (so far) does nothing but submit the form. In the AJAX chapter, we will see that this situation can be avoided altogether (see *ref:/book/web-20*).
+Note that the ''Save'' button is different from the ''Add'' button since the ''Save'' button (so far) does nothing but submit the form. In the AJAX chapter, we will see that this situation can be avoided altogether (see Chapter *cha:web-20*).
 
 If you get the error "Children not found while processing callbacks", check that the ==children== method returns all the direct subcomponents. The halos are another good tool for understanding the nesting and structure of components. We suggest you turn on the halos while developing your applications, as seen in *@fig:todoFinal*.
 
