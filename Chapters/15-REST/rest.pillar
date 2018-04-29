@@ -14,10 +14,10 @@ REST (Representational State Transfer) refers to an architectural model for the 
 
 This last point is essential in REST architecture. HTTP commands have precise semantics:
 
-- GET lists or retrieves a resource at a given URI. +index:REST!GET+
-- PUT replaces or updates a resource at a given URI. +index:REST!PUT+
-- POST creates a resources at a given URI. +index:REST!POST+
-- DELETE removes the resources at a given URI. +index:REST!DELETE+
+- GET lists or retrieves a resource at a given URI. 
+- PUT replaces or updates a resource at a given URI. 
+- POST creates a resources at a given URI. 
+- DELETE removes the resources at a given URI. 
 
 Seaside takes a different approach by default: Seaside generates URIs automatically, Seaside keeps state on the server, and Seaside does not interact well with HTTP commands. While the approach of Seaside simplifies a lot of things in web development, sometimes it is necessary to play with the rules. REST is used by a large number of web products and adhering to the REST standard might increase the usability of an application.
 
