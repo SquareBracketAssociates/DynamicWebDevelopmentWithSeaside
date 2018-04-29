@@ -12,7 +12,7 @@ In addition, Seaside supports a more tightly integrated file serving technique, 
 
 !!! Images
 
-We illustrate the inclusion of static resources by displaying an external picture within an otherwise empty component. Create
+We illustrate the inclusion of static resources by displaying an external picture within an otherwise empty component as shown in Figure *@fig:external*. Create
 a component and use the method ==WAImageTag>>url:== to add a URL to an image as follows:
 
 [[[
@@ -20,6 +20,7 @@ ComponentWithExternalResource >> renderContentOn: html
     html image url: 'http://www.seaside.st/styles/logo-plain.png'
 ]]]
 
++Including an external picture into your components.>file://figures/external.png|width=70|label=fig:external+
 %+external-resource|width=70%+
   
 If you have many static files that all live in the same location, it is annoying to have to repeat the base-path over and over again. In this case you should use  ==WAImageTag>>resourceUrl:== to provide the tail of the URL.
@@ -30,13 +31,18 @@ ComponentWithExternalResource >> renderContentOn: html
 ]]]
 
 
-To tell Seaside about the part of the URL that you left out in your rendering code you have to go to the application configuration page (at *http://localhost:8080/config*) and specify the ''Resource Base URL'' in the server settings. Just enter ==http://www.seaside.st==. Seaside will automatically prepend this string to all URLs specified using  ==resourceUrl:>>resourceUrl:==. This reduces your code size and can be very useful if you want to move the resource location during deployment.
+To tell Seaside about the part of the URL that you left out in your rendering code you have to go to the application configuration page (at *http://localhost:8080/config*) and specify the ''Resource Base URL'' in the server settings. Just enter ==http://www.seaside.st== as shown in Figure *@fig:baseUrl*. Seaside will automatically prepend this string to all URLs specified using  ==resourceUrl:>>resourceUrl:==. This reduces your code size and can be very useful if you want to move the resource location during deployment.
 
 %+resource-base-url|width=60%+
 
++Including an external picture into your components.>file://figures/resourcebase.png|width=950|label=fig:baseUrl+
+
 Be careful where you put the slash. Normally directories in URLs end with a slash, that's why we specified the resource base URL ending with a slash. Thus, you should avoid putting a slash at the beginning of the URL fragments you pass to ==resourceUrl:==.
 
-Another interesting way to serve a picture is to use a dynamically generated picture from within your image. In Pharo it is possible to use ==WAImageTag>>form:== to pass a Pharo  ==Form== directly to the image brush.
+
+!!!! Serving a generated image
+
+Another interesting way to serve a picture is to use a dynamically generated picture from within your image (see Figure *@fig:form*). It is possible to use ==WAImageTag>>form:== to pass a Pharo  ==Form== directly to the image brush.
 
 [[[
 ComponentWithForm >> renderContentOn: html
@@ -62,7 +68,10 @@ html image document: EllipseMorph new
 
 %+resource-form-morph|width=70%+
 
-If you are using Pharo, have a look at the example implemented in the class  ==WAScreenshot==. It demonstrates a much more sophisticated use of  ==WAImageTag>>form:== and presents the Pharo desktop as part of a web application. Furthermore it allows basic interactions with your windows from the web browser.
++Displaying Pharo graphical object..>file://figures/form-morph.png|width=70|label=fig:form+
+
+
+Have a look at the example implemented in the class  ==WAScreenshot==. It demonstrates a much more sophisticated use of  ==WAImageTag>>form:== and presents the Pharo desktop as part of a web application. Furthermore it allows basic interactions with your windows from the web browser.
 
 !!! Including CSS and Javascript
 
@@ -100,9 +109,10 @@ ComponentWithStyle >> renderContentOn: html
     html text: 'This component uses the Seaside style.'
 ]]]
 
-Running the example should give you the following *@ref:withStyle*:
+Running the example should give you the following *@fig:withStyle*:
 
 %+withStyle|width=80%+
++Application with enabled style sheet.>file://figures/withStyle.png|width=80|label=fig:withStyle+
   
 Now we will show how you can replace the stylesheet using the FileLibrary. 
 
@@ -136,13 +146,18 @@ MyFileLibrary addFileAt: '/path/to/background.png'
 
 %+configureFiles|width=70%+
 
-Click the configure link for ==MyFileLibrary== as shown in *ref:configureMyFileLibrary* right. 
++Configuring file libraries through the web interface: clicking on files - configure.>file://figures/configureFiles.png|width=80|label=ref:configureFiles+
+
+Click the configure link for ==MyFileLibrary== as shown in *@ref:configureMyFileLibrary* right. 
 
 %+configureMyFileLibrary|width=70%+
++File libraries.>file://figures/configureMyFileLibrary.png|width=80|label=ref:configureMyFileLibrary+
 
-There you can add a file by uploading it (select the file, then click the ''Add'' button as shown by *ref:addingMyFileLibrary*).
+
+There you can add a file by uploading it (select the file, then click the ''Add'' button as shown by *@ref:addingMyFileLibrary*).
 
 %+addingMyFileLibrary|width=70%+
++File libraries.>file://figures/AddedToMyFileLibrary.png|width=80|label=ref:addingMyFileLibrary+
    
 
 @@important When you add a file to a file library, Seaside creates a method with the file contents.  If you find that there is an unusually long wait after pressing the ''Add'' button, make sure that the system (Squeak/Pharo) isn't waiting for you to type your initials to confirm that you want to create a new method.
@@ -188,9 +203,18 @@ WAFileLibrary subclass: #CounterLibrary
 
 %+WACounterFileLibraryEmpty|width=70%+
 
+First as you can see in Figure *@ref:counterLibraryEmpty* the counter library is empty.
+
++An empty CounterLibrary.>file://figures/WACounterFileLibraryEmpty.png|width=80|label=ref:counterLibraryEmpty+
+
+
+
 %+AddedCounterLibrary|width=70%+
 
-We will follow the steps presented in the previous section and associate two resources to our library. One is an icon named ==seaside.png== and the other is a CSS file named ==seaside.css== \-- you can download the ones from the Seaside website we mentioned before:
++Adding files to the CounterLibrary.>file://figures/WACounterFileLibraryAdded.png|width=80|label=ref:counterLibraryAdded+
+
+
+We follow the steps presented in the previous section and associate two resources to our library (see Figure *@ref:counterLibraryAdded*). One is an icon named ==seaside.png== and the other is a CSS file named ==seaside.css== \-- you can download the ones from the Seaside website we mentioned before:
 
 ; seaside.png
 : *http://www.seaside.st/styles/logo-plain.png* (rename once downloaded).
@@ -226,6 +250,8 @@ This causes the look of our application to change. It now uses the CSS file we a
 
 %+counterNoCss|width=20%+
 
++Counter with the updateRoot: method defined.>file://figures/counterNoCss.png|width=80|label=ref:counterNoCss+
+
 Have a look at the XHTML source generated by Seaside by using your browser's View Source option. You will see that the links are added to the head section of the HTML document as shown below:
 
 [[[
@@ -256,10 +282,9 @@ You have the following choices for serving static files with your Seaside applic
 
 Character encoding is an area that we programmers tend to avoid as much as possible, often fixing problems by trial and errors. With web-development you will sooner or later be bitten by character encoding bugs, no matter how you try to escape them. As soon as you are getting inputs from the user and displaying information in your web-browser, you will be confronted with character encoding problems. However, the basic concepts are simple to understand and the difficulty often lies in the extra layers that typically a web developer does not have to worry about such as the web-rendering engine, the web server and the input keyboard. 
 
-Historically the difference between character sets and character encoding was minor, since a standard specified what characters were available as well as how they encoded. Unicode and ISO 10646 (Universal Character Set) changed this situation by clearly separating the two concepts. Such a separation is essential: on one hand you have the character sets you can manipulate and on the other hand you have how they are represented physically (encoded).
+In this section we'll present the two basic concepts you have to understand -'' character sets'' and ''character encodings''. This should help you avoid most problems. Then we will tell you how these are supported in Seaside. In addition, we strongly suggest to read the Chapter  about encodings written by Sven van Caekenberghe in the "Entreprise Pharo: a Web Perspective" book.
 
-In this section we'll present the two basic concepts you have to understand -'' character sets'' and ''character encodings''. This should help you avoid most problems. Then we will tell you how these are supported in Seaside. In addition, the reader should read the Chapter 
-about encodings written by Sven van Caekenberghe in the "Entreprise Pharo: a Web Perspective" book.
+Historically the difference between character sets and character encoding was minor, since a standard specified what characters were available as well as how they encoded. Unicode and ISO 10646 (Universal Character Set) changed this situation by clearly separating the two concepts. Such a separation is essential: on one hand you have the character sets you can manipulate and on the other hand you have how they are represented physically (encoded).
 
 
 !!!! Character Sets
