@@ -47,4 +47,6 @@ Finally, you will see a discussion of ``Slime\'', which despite its name is an e
 %${inputFile:Chapters/11-Sudoko/sudoko.pillar}$
 ${inputFile:Chapters/12-Serving/serving.pillar}$
 ${inputFile:Chapters/13-Sessions/sessions.pillar}$
+
+
 ! Advanced Topics
