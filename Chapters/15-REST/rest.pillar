@@ -23,12 +23,13 @@ Seaside takes a different approach by default: Seaside generates URIs automatica
 
 REST applications with Seaside can take two shapes: The first approach creates or extends the interoperability of an existing application by adding a REST API. Web browsers and other client applications can (programmatically) access the functionality and data of an application server, see *@fig:first-architecture*.
 
-%+first-architecture|width=80%+
 
++First architecture: adding REST to an existing application.>file://figures/1st-architecture.png|width=70|label=fig:first-architecture+
 
 A second approach consists of using REST as the back-end of an application and make it a fundamental element of its architecture. All objects are exposed via REST services to potential clients as well as to the other parts of the application such as its Seaside user-interface, see *@fig:second-architecture*.
 
-%+second-architecture|width=80%+
+
++Second architecture: REST centric core.>file://figures/2nd-architecture.png|width=70|label=fig:second-architecture+
 
 This second approach offers a low coupling and eases deployment. Load-balacing and fail-over mechanisms can easily be put in place and the application can be distributed over multiple machines.
 
@@ -73,6 +74,7 @@ Last we need to initialize our hander by defining a class-side initialization me
 ToDoHandler class >> initialize
    WAAdmin register: self at: 'todo-api'
 ]]]
+
 !!!! Defining a System
 
 The idea behind Seaside-REST is that each HTTP request triggers a method of the appropriate service implementation. All service methods are annotated with specific method annotations or pragmas. 
@@ -345,7 +347,7 @@ Sometimes there are several methods which Seaside-REST could choose for a reques
 
 So far, our REST service did not interact much with the existing Seaside todo application (other than through the shared model). Often it is however desired to have both \-- the application and the REST services \-- served from the same URL.
 
-+index:WARestfulFilter+ To achieve this we have to subclass ==WARestfulFilter== instead of ==WARestfulHandler==. The ==WARestfulFilter== simply wraps a Seaside application. That is, it handles REST requests exactly as the ==WARestfulHandler==, but it can also delegate to the wrapped Seaside application.
+To achieve this we have to subclass ==WARestfulFilter== instead of ==WARestfulHandler==. The ==WARestfulFilter== simply wraps a Seaside application. That is, it handles REST requests exactly as the ==WARestfulHandler==, but it can also delegate to the wrapped Seaside application.
 
 To update our existing service we rename ==ToDoHandler== to ==ToDoFilter== and change its superclass to ==WARestfulFilter==. Now the class definition should look like:
 
@@ -370,9 +372,10 @@ ToDoListView class >> initialize
       addFilter: ToDoFilter new
 ]]]
 
-After evaluating the initialization code, the ==ToDoFilter== is now executed whenever somebody accesses our application. The process is visualized in *ref:request-handling*. Whenever a request hits the filter (1), it processes the annotations (2). Eventually, if none of the annotated methods matched, it delegates to the wrapped application by invoking the method noRouteFound: (3). 
+After evaluating the initialization code, the ==ToDoFilter== is now executed whenever somebody accesses our application. The process is visualized in *@fig:request-handling*. Whenever a request hits the filter (1), it processes the annotations (2). Eventually, if none of the annotated methods matched, it delegates to the wrapped application by invoking the method noRouteFound: (3). 
 
 %+request-handling|width=50%+
++Request handling of ==WARestfulFilter== and ==WAApplication==.>file://figures/REST3.png|width=70|label=fig:request-handling+
 
 Unfortunately \-- if you followed the creation of the REST API in the previous sections \-- our ==#list== service hides the application by consuming all requests to *http://localhost:8080/todo*. We have two possibilities to fix the problem:
 
@@ -399,6 +402,7 @@ To access the request we can add the expression ==self requestContext request in
 When the method is executed, you get an inspector on the current request as shown in *@fig:headerhttp_linux.png*.
 
 %+headerhttp_linux.png|width=50%+
++Inspecting a request.>file://figures/headerhttp_linux.png|width=70|label=fig:headerhttp_linux.png+
 
 The following example uses the expression ==headers at: 'content-type'== that returns the ==Content-Type== present in the inspected HTTP client request. 
 

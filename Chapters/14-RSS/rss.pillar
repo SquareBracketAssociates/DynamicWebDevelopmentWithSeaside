@@ -1,10 +1,6 @@
 !! A Really Simple Syndication
 
- RSS is a special XML format used to publish frequently updated content, such as blog posts, news items or podcasts. Users don't need to check their favorite web site for updates. Rather, they can subscribe to a URL and be notified about changes automatically. This is can be done using a dedicated tool called ''feed reader'' or ''aggregator'', but most web browsers integrate this capability as part of their core functionality. If a web site offers an RSS feed, this is depicted with an icon like the one in below.
-
-%+rsslogo|width=25%+
-The Really Simple Syndication icon.
-
+ RSS is a special XML format used to publish frequently updated content, such as blog posts, news items or podcasts. Users don't need to check their favorite web site for updates. Rather, they can subscribe to a URL and be notified about changes automatically. This is can be done using a dedicated tool called ''feed reader'' or ''aggregator'', but most web browsers integrate this capability as part of their core functionality. 
 
 The RSS XML format is very much like XHTML, but much simpler. As standardised in the *RSS 2.0 Specification>http://cyber.law.harvard.edu/rss/rss.html*, RSS essentially is composed of two parts, the ''channel'' and the ''news item'' specifications. While the channel describes some general properties of the news feed, the items contain the actual stories that change over time. Below we see an example of such a feed. In Section *ref:subscribe-feed/feed-vienna* we see how the same feed is presented within a feed reader.
 
@@ -147,9 +143,10 @@ At the minimum, a title or a description must be present. All the other sub-elem
 
 !!! Subscribe to the Feed
 
-Now we have done all that is required to let users subscribe. Below you can see how the feed is presented to the user in the feed reader when the URL was added manually.
+Now we have done all that is required to let users subscribe. Figure *@feed-vienna*  shows
+how the feed is presented to the user in the feed reader when the URL was added manually.
 
-%+feed-vienna|width=90%+
++The ToDo Feed subscribed.>file://figures/feed-vienna.png|width=70|label=feed-vienna+
 
 One remaining thing to do is to tell the users of our todo application where they can subscribe to the RSS feed. Of course we could simply put an anchor at the bottom our web application, however there is a more elegant solution. We override the method  ==WAComponent>>updateRoot:== in our Seaside component to add a link to our feed into the XHTML head. Most modern web browser will pick up this tag and show the RSS logo in the toolbar to allow people to register for the feed with one click.
 
