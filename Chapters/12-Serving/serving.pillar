@@ -301,7 +301,11 @@ Examples of character sets are ASCII, ISO-8859-1, Unicode or UCS (Universal Char
 
 %+StringHierarchy|width=40%+
 
-""In Pharo."" Now let us see the concepts exist in Pharo. The ==String==, ==ByteString==, ==WideString== class hierarchy is roughly equivalent to the ==Integer==, ==SmallInteger==, ==LargeInteger== hierarchy. The class ==Integer== is the abstract superclass of ==SmallInteger== which represents number with ranges between -1073741824 and 1073741823, and ==LargeInteger== which represents all the other numbers. In Pharo, the class ==String== is the abstract superclass of the classes ==ByteString== (ISO-8859-1) and ==WideString== (Unicode minus ISO-8859-1). Such classes are about character sets and not encodings.
++The Pharo String Library.>file://figures/StringHierarchy.png|width=80|label=fig:StringHierarchy+
+
+
+!!!! In Pharo.
+ Now let us see the concepts exist in Pharo. The ==String==, ==ByteString==, ==WideString== class hierarchy is roughly equivalent to the ==Integer==, ==SmallInteger==, ==LargeInteger== hierarchy. The class ==Integer== is the abstract superclass of ==SmallInteger== which represents number with ranges between -1073741824 and 1073741823, and ==LargeInteger== which represents all the other numbers. In Pharo, the class ==String== is the abstract superclass of the classes ==ByteString== (ISO-8859-1) and ==WideString== (Unicode minus ISO-8859-1) as shown in Figure *@fig:StringHierarchy*. Such classes are about character sets and not encodings.
 
 !!!! Encodings
 
