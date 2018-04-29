@@ -1,11 +1,8 @@
 ${inputFile:Chapters/Introduction.pillar}$
 
 ! Getting Started
-
-This part will show you how to get a simple Seaside application up and running
-in less than 15 minutes. 
-
-If you’re new to Pharo, the instructions for Pharo will introduce you to the Seaside One Click Image, which is designed to get you up and running as quickly as possible.
+This part shows you how to get a simple Seaside application up and running
+in less than 15 minutes. If you’re new to Pharo, have a look at the Pharo by Example Seaside Chapter. You can also have a look at the excellent Pharo Mooc *http://mooc.pharo.org*. Watch the first video and the development session about the counter. 
 
 ${inputFile:Chapters/01-Pharo/Pharo.pillar}$
 %should do a pass for Zinc, redo screenshots
@@ -45,8 +42,31 @@ Finally, you will see a discussion of ``Slime\'', which despite its name is an e
 ! Seaside in Action
 %${inputFile:Chapters/04-ASimpleTodoApplication/ASimpleTodoApplication.pillar}$
 %${inputFile:Chapters/11-Sudoko/sudoko.pillar}$
-${inputFile:Chapters/12-Serving/serving.pillar}$
-${inputFile:Chapters/13-Sessions/sessions.pillar}$
+%I would group the two example together
 
+%${inputFile:Chapters/12-Serving/serving.pillar}$
+%${inputFile:Chapters/13-Sessions/sessions.pillar}$
+
+
+${inputFile:Chapters/14-RSS/rss.pillar}$
+%We should move it close to the Simple App
+${inputFile:Chapters/15-REST/rest.pillar}$
 
 ! Advanced Topics
+
+! Wish list of new chapter
+
+!! Javascript integration
+
+!!Bootstrap
+
+!! MDL
+	*https://github.com/DuneSt/MaterialDesignLite*
+	*https://mdl.ferlicot.fr*
+	
+!! Mustaside
+!! WebSockets
+
+
+
+

@@ -220,6 +220,7 @@ InnSession >> logout
 ]]]
 
 If the user tries to get back to the application, he is automatically redirected to a new session.
+
 !!! Summary
 
 Sessions are Seaside's central mechanism for remembering user specific interaction state. Sessions are identified using the ==_s== parameter in the URL. As an application developer there is normally no need to access or change the session, because it is used internally by Seaside to manage the callbacks and to store the component tree. In certain cases it might be useful to change the behavior of the default implementation or to make information accessible from anywhere in the application.
