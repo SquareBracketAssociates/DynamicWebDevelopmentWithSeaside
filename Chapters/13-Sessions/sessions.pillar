@@ -30,7 +30,7 @@ WARequestContext value session
 But again you should avoid accessing the session from outside of the component tree. 
 
 
-!!! Accessing the Session from the Debugger
+!!!! Accessing the Session from the Debugger
 
 In older versions of Seaside, session objects could not be inspected from the debugger as normal objects. If you tried to evaluate ==self session== the debugger would answer ==nil== instead of the expected session object. This is because sessions are only accessible from within your web application process, and the Smalltalk debugger lives somewhere else. In Seaside 3.0 this problem is fixed on most platforms.
 
@@ -85,10 +85,10 @@ Now you need to associate the session we just created with your existing applica
 
 ""Configuration Panel."" To access the configuration panel of your application go to *http://localhost:8080/config/*. In the list select your application (probably called `miniinn') and click on its associated ''configure'' link. You should get to the configuration panel which lists several things such as: the library your application uses (see *@ref:/book/web-20*); and its general configuration such as its root component (see *@cha:deployment*).  
 
-Click on the drop-down list by ''Session Class'' \-- if there is only text here, press the ''override'' link first . Among the choices you should find the class ==InnSession==. Select it and you should get the result shown in *ref:innSessionConfig*. Now ''Save'' your changes.
+Click on the drop-down list by ''Session Class'' \-- if there is only text here, press the ''override'' link first . Among the choices you should find the class ==InnSession==. Select it and you should get the result shown in *@fig:innSessionConfig*. Now ''Save'' your changes.
 
 %+innSessionConfig|width=70%+
-
++The session of miniInn is now InnSession.>file://figures/innSessionConfig.png|width=80|label=fig:innSessionConfig+
 
 ""Configuring the application programmatically."" To change the associated session of an application, we can set the preference ==#sessionClass== using the message ==WASession>>preferencesAt:put:==. We can do that by redefining the ''class'' ==initialize== method of the application as follows. Since this method is invoked automatically only when the application is loaded, make sure that you evaluate it manually after changing it.
 
@@ -151,9 +151,12 @@ MiniInn>>renderContentOn: html
         ifTrue: [ self renderSpecialPrice: html ]
 ]]]
 
-*@ref:Session1*, *@ref:Session2* and *@ref:Session3* illustrate the behavior we just implemented. The user may log in using the top level link. Once logged in, extra information is available to the user.
+Figures *@fig:Session1*, *@fig:Session2* and *@fig:Session3* illustrate the behavior we just implemented. The user may log in using the top level link. Once logged in, extra information is available to the user.
 
 %+Session1|width=50%+ 
++With Session.>file://figures/Session1.png|width=60|label=fig:Session1+
++ With Session: Enter your name.>file://figures/Session2.png|width=60|label=fig:Session2+
++With Session: Starting Date and Ending Date.>file://figures/Session3.png|width=60|label=fig:Session3+
 %+Session2|width=50%+
 %+Session3|width=50%+
 
@@ -168,11 +171,12 @@ It is important to understand the lifecycle of a session to know which hooks to 
 
 %+lifetime|width=70%+
 
++Life cycle of a session.>file://figures/lifetimeofsession.png|width=60|label=fig:lifetimeofsession+
+
 
 !!! Catching the Session Expiry Notification
 
-Sessions last a certain period of time if there are no requests coming in, after which they expire. The default is 600 seconds or 10 minutes. You can change this value to any other number using the configuration interface (see
-*ref:/book/getting-started/cincom-smalltalk/component/registering*), or programmatically using the following expression:
+Sessions last a certain period of time if there are no requests coming in, after which they expire. The default is 600 seconds or 10 minutes. You can change this value to any other number using the configuration interface, or programmatically using the following expression:
 
 [[[
 "Set the session timeout to 1200 seconds (20 minutes)"
