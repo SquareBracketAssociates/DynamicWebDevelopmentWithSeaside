@@ -427,48 +427,49 @@ Finally, we can optionally add the balancer manager application:
 
 [[[
 ProxyPass /balancer-manager !
-=<Location /balancer-manager>
-=   SetHandler balancer-manager
-=</Location>
+<Location /balancer-manager>
+   SetHandler balancer-manager
+</Location>
 ]]]
 As well as an optional application displaying the server status:
 
 [[[
 ProxyPass /server-status !
-=<Location /server-status>
-=   SetHandler server-status
-=</Location>
+<Location /server-status>
+   SetHandler server-status
+</Location>
 ]]]
 
 Putting all the parts together this gives an apache configuration like the following:
 
 [[[
 <VirtualHost *>
-=
-=   ProxyRequests Off
-=   ProxyStatus On
-=   ProxyPreserveHost On
-=   ProxyPass /balancer-manager !
-=   ProxyPass /server-status !
-=   ProxyPass / balancer://mycluster/ STICKYSESSION=_s|_s
-=   ProxyPassReverse / http://127.0.0.1:8881/
-=   ProxyPassReverse / http://127.0.0.1:8882/
-=   
-=   <Proxy balancer://mycluster>
-=      BalancerMember http://127.0.0.1:8881 route=first
-=      BalancerMember http://127.0.0.1:8882 route=second
-=   </Proxy>
-=   
-=   <Location /balancer-manager>
-=      SetHandler balancer-manager
-=   </Location>
-=   
-=   <Location /server-status>
-=      SetHandler server-status
-=   </Location>
-=
-=</VirtualHost>
+
+   ProxyRequests Off
+   ProxyStatus On
+   ProxyPreserveHost On
+   ProxyPass /balancer-manager !
+   ProxyPass /server-status !
+   ProxyPass / balancer://mycluster/ STICKYSESSION=_s|_s
+   ProxyPassReverse / http://127.0.0.1:8881/
+   ProxyPassReverse / http://127.0.0.1:8882/
+   
+   <Proxy balancer://mycluster>
+      BalancerMember http://127.0.0.1:8881 route=first
+      BalancerMember http://127.0.0.1:8882 route=second
+   </Proxy>
+   
+   <Location /balancer-manager>
+      SetHandler balancer-manager
+   </Location>
+   
+   <Location /server-status>
+      SetHandler server-status
+   </Location>
+
+</VirtualHost>
 ]]]
+
 The rest can be configured from within Seaside. First we need to load the package ==Seaside-Cluster== from *http://www.squeaksource.com/ajp/*. Then we need to configure each image individually with the correct route name. It is important that this matches the Apache configuration from above. The easiest way to do this is evaluate the expression:
 
 [[[
@@ -483,16 +484,148 @@ in the image on port 8882.
 
 %+balancer-manager.png|width=90%+
 
-This is it, the cluster is ready to go. If enabled the server manager can be found at *http://localhost/balancer-manager*, see *ref:balancer-manager.png*, and the server status can be queried on *http://localhost/server-status*. Note that before going to production these two admin applications need to be properly protected from unauthorized access.
++Apache Load Balancer Manager.>file://figures/balancer-manager.png|width=80|label=fig:balancer-manager+
+
+This is it, the cluster is ready to go. If enabled the server manager can be found at *http://localhost/balancer-manager*, see Figure *@fig:balancer-manager*, and the server status can be queried on *http://localhost/server-status*. Note that before going to production these two admin applications need to be properly protected from unauthorized access.
 
 !!! Using AJP
+
+AJPv13 is a binary protocol between Apache and Seaside. It was originally developed for Java Tomcat but there is nothing Java specific about it. Compared to conventional HTTP it has less overhead and better support for SSL.
+
+Starting with version Apache 2.2 the required module  *mod_proxy_ajp>http://httpd.apache.org/docs/2.2/mod/mod_proxy_ajp.html*
+is included with the default setup making it much simpler to use. The configuration looks almost the same as the one we saw in Section *ref:configure-apache*. The only difference is that you need to replace ==proxy_http== with ==proxy_ajp==, and that the protocol in the URL of the rewrite rule is ==ajp== instead of ==http==.
+
+The adapted configuration looks like this:
+
+[[[
+<VirtualHost *>
+
+    # set server name
+    ProxyPreserveHost On
+    ServerName www.appname.com
+
+    # rewrite incoming requests
+    RewriteEngine On
+    RewriteRule ^/(.*)$ ajp://localhost:8003/appname/$1 [proxy,last]
+
+</VirtualHost>
+]]]
+
+On the Smalltalk side you need to load the packages ==AJP-Core== and ==AJP-Pharo-Core== directly with Monticello from *http://www.squeaksource.com/ajp*. More conveniently you can also use the following Metacello script:
+
+[[[
+Gofer new
+    squeaksource: 'MetacelloRepository';
+    package: 'ConfigurationOfAjp';
+    load.
+(Smalltalk globals at: #ConfigurationOfAjp)
+    project latestVersion load: 'AJP-Core'
+]]]
+
+At that point you need to add and start the ==AJPPharoAdaptor== on the correct port from within your image (8003 in this example) and your web application is up and running with AJP.
+
 
 !!! Maintaining Deployed Images
 @ref:maintaining
 
+If you followed all the instructions up to now, you should have a working Seaside server based on Seaside, Apache and some other tools. Apache is handling the file requests and passing on other requests to your Seaside application server. This setup is straightforward and enough for smaller productive applications.
+
+As your web application becomes widely used, you want to regularly provide fixes and new features to your users. Also you might want to investigate and debug the deployed server. To do that, you need a way to get our hands on the running VM. There are several possibilities to do that, we are going to look at those in this section.
+
 !!!! Headful Pharo
+
+Instead of running the VM headless as we did previously, it is also possible to run it headful as you do during development. This is common practice on Windows servers, but it is rarely done on Unix. Normally servers doesn’t come with a windowing system for performance and security reasons. Managing a headful image is straightforward, so we will not be discussing this case further.
 
 !!!! VNC
 
+A common technique is to run a VNC server within your deployed image. VNC (Virtual Network Computing) is a graphical desktop sharing system, which allows one to visually control another computer. The server constantly sends graphical screen updates through the network using a remote frame buffer (RFB) protocol, and the client sends back keyboard and mouse events. VNC is platform independent and there are several open-source server and client implementations available.
+
+Pharo comes with a VNC client and server implementation, which can optionally be loaded. It is called ''Remote Frame Buffer (RFB)''. Unfortunately the project is not officially maintained anymore and the latest code is broken in Pharo, however you can get a working version from *http://source.lukas-renggli.ch/unsorted/*.
+
+@@todo Update 
+
+Install the RFB package, define a password and start the server. Now you are able to connect to the Pharo screen using any VNC client. Either using the built-in client from a different Pharo image, or more likely using any other native client. Now you are able to connect to the server image from anywhere in the world, and this even works if the image is started headless. This is very useful to be able to directly interact with server images, for example to update code or investigate and fix a problem in the running image.
+
+
+!!! Deployment tools
+
+Seaside comes with several tools included that help you with the management of deployed applications. The tools included with the Pharo distribution of Seaside includes:
+
+|{ Configuration | *http://localhost:8080/config* 
+|{ System Status | *http://localhost:8080/status*
+|{ Class Browser | *http://localhost:8080/tools/classbrowser*
+|{ Screenshot | *http://localhost:8080/tools/screenshot*
+|{ Version Uploader | *http://localhost:8080/tools/versionuploader*
+
+""Configuration."" The Seaside configuration interface is described throughout this book, especially in the previous sections so we are not going to discuss this further.
+
+""System Status."" The System status is a tool that provides useful information on the system. It includes information on the image (see *@fig:system-status*), the virtual machine, Seaside, the garbage collector and the running processes.
+
+
++System Status Tool.>file://figures/system-status.png|width=80|label=fig:system-status+
+
+
+
+""Class Browser."" The class browser provides access the source code of the system and allows you to edit any method or class while your application is running.
+
+""Screenshot."" The screenshot application provides a view into your image, even if it runs headless. Clicking on the screenshot even allows you to open menus and to interact with the tools within your deployed image.
+
+""Version Uploader."" The version uploader is a simple interface to Monticello. It allows you to check what code is loaded into the image and gives you the possibility to update the code on the fly.
+
+@@important If you plan to use any of these tools in a deployed image make sure that they are properly secured from unauthorized access. You don't want that any of your users accidentally stumble upon one of them and you don't want to give hackers the possibility to compromise your system.
+
+
+
 !!! Request Handler
 
+Another possibility to manage your headless images from the outside is to add a request handler that allows an administrator to access and manipulate the deployed application.
+
+@@advanced The technique described here is not limited to administering images, but can also be used for public services and data access using a RESTful API. Many web applications today provide such a functionality to interact with other web and desktop application.
+
+To get started we subclass ==WARequestHandler== and register it as a new entry point:
+
+[[[
+WARequestHandler subclass: #ManagementHandler
+     instanceVariableNames: ''
+     classVariableNames: ''
+     package: 'ManagementHandler'
+]]]
+
+[[[
+ManagementHandler class >> initialize
+     WAAdmin register: self at: 'manager'
+]]]
+
+The key method to override is ==#handleFiltered:==. If the URL ==manager== is accessed, then the registered handler receives ==aRequestContext== passed into this method and has the possibility to produce a response and pass it back to the web server.
+
+The most generic way of handling this is to provide a piece of code that can be called to evaluate Pharo code within the image:
+
+[[[
+ManagementHandler >> handleFiltered: aRequestContext
+    | source result |
+    source := aRequestContext request
+        at: 'code'
+        ifAbsent: [ self error: 'Missing code' ].
+    result := Compiler evaluate: source.
+    aRequestContext respond: [ :response |
+        response
+            contentType: WAMimeType textPlain;
+            nextPutAll: result asString ]
+]]]
+
+The first few lines of the code fetch the request parameter with the name code and store it into the temp ==source==. Then we call the compiler to evaluate the code and store it into ==result==. The last few lines generate a textual response and send it back to the web server.
+
+Now you can go to a web server and send commands to your image by navigating to an URL like: *http://localhost:8080/manager?code=SystemVersion current*. This will send the Smalltalk code ==SystemVersion current== to the image, evaluate it and send you back the result.
+
+Alternatively you might want to write some scripts that allow you to directly contact one or more images from the command line:
+
+[[[
+$ curl 'http://localhost:8080/manager?code=SystemVersion current'
+Pharo1.0rc1 of 19 October 2009 update 10492
+]]]
+
+If you install a request handler like the one presented here in your application make sure to properly protect it from unauthorized access, see *ref:/book/advanced/deployment/deployment-preparing*.
+
+!!! Summary
+
+We show how you can deploy your Seaside applications as well as maintained them over time. 
