@@ -1,4 +1,5 @@
 !! Deployment
+@cha:deploy
 
 At some point you certainly want to go public with your web application. This means you need to find a server that is publicly reachable and that can host your Seaside application. If your application is successful, you might need to scale it to handle thousands of concurrent users. All this requires some technical knowledge. 
 

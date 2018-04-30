@@ -1,4 +1,5 @@
 !! A Web Sudoku Player
+@cha:sudoko
 
 In this chapter we will build a Sudoku web application as shown in Figure *@fig:upTo6*. This gives us another opportunity to revisit how we build a simple application in Seaside.
 

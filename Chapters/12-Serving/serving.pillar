@@ -1,5 +1,5 @@
 !! Serving Files
-
+@cha:serving
 
 %+Just started playing.>file://figures/upTo6.png|width=70|label=fig:upTo6+
 
@@ -142,7 +142,7 @@ MyFileLibrary addFileAt: '/path/to/background.png'
 ]]]
 
 
-""Adding files via the config interface."" Open the config application at *http://localhost:8080/config* and click the ``configure\'' link for file libraries as shown in *ref:configureMyFileLibrary*. This will show which file libraries are available.  
+""Adding files via the config interface."" Open the config application at *http://localhost:8080/config* and click the ``configure\'' link for file libraries as shown in Figure *@ref:configureFiles*. This shows which file libraries are available.  
 
 %+configureFiles|width=70%+
 
@@ -169,9 +169,6 @@ Adding a file to a file library either programmatically or using the configurati
 Once your files have been imported into the file library they are maintained independently from the files on your computer's file system. If you modify your files you will have to re-add them to the file library.
 
 Once your files are stored in a FileLibrary they will be available to be served through Seaside.
-
-
-
 
 
 !!!! Referencing FileLibrary files by URL

@@ -155,13 +155,13 @@ ScrapBook >> renderContentOn: html
         html render: Date today ]
 ]]]
 
-Refresh your web browser, see *@ref:date*. The method==renderContentOn:== renders a string and the object representing the current date. It uses the method ==render:==. Most of the time you will use the method ==render:== to render objects or other components, see *ref:/book/components/embedding*.
+Refresh your web browser, you should see a situation similar to Figure *@ref:date*. The method==renderContentOn:== renders a string and the object representing the current date. It uses the method ==render:==. Most of the time you will use the method ==render:== to render objects or other components, see Chapter *cha:embedding*.
 
 
 +Rendering object with the ==render:== method.>file://figures/date.png|width=100|label=ref:date+
 
 
-We use a block as the argument of the ==paragraph:== because we want to specify that the string =='today '== and the textual representation of the current date are both within a paragraph. Seaside provides a shortcut for doing this. If you are sending only the message ==render:== inside a block, just use the renderable object as a parameter instead of the block. The following two methods are equivalent and we suggest you to use the second form, see *@ref:compact*.
+We use a block as the argument of the ==paragraph:== because we want to specify that the string =='today '== and the textual representation of the current date are both within a paragraph. Seaside provides a shortcut for doing this. If you are sending only the message ==render:== inside a block, just use the renderable object as a parameter instead of the block. The following two methods are equivalent and we suggest you to use the second form, see Figure *@ref:compact*.
 
 Two equivalent methods.
 
@@ -175,7 +175,7 @@ ScrapBook >> renderContentOn: html
     html paragraph: 'today: '
 ]]]
 
-+Rendering object with the ==render:== method.>file://figures/compact.png|width=100|label=ref:date+
++Rendering object with the ==render:== method.>file://figures/compact.png|width=100|label=ref:compact+
 
 
 ""About the method ==text:=="". You may see some Seaside code using the message ==WAHtmlCanvas>>text:== as follow.
@@ -275,7 +275,7 @@ html heading: 'Hello World'.
 ]]]
 since level 1 is the default level for a heading.
 
-As you can see, there are two cases where you can write more compact code. These are summarized in *@ref:brush-principle-compact*. There is a style checking tool called Slime that checks for such cases. Slime is explained in *ref:/book/components/slime*.
+As you can see, there are two cases where you can write more compact code. These are summarized in *@ref:brush-principle-compact*. There is a style checking tool called Slime that checks for such cases. Slime is explained in Chapter *ref:slime*.
 
 
 +Select brush, configure it, and render it.>file://figures/brushPrincipleCompact2.pdf|width=90|label=ref:brush-principle-compact+

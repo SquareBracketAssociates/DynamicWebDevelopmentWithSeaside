@@ -1,7 +1,3 @@
-
-%+Filling up our contact view.>file://figures/personal-information-view1.png|width=80|label=@ref:personalinformationview1+
-
-
 !! Calling Components
 @cha:components
 
@@ -68,7 +64,7 @@ Interact with this application now and follow the link. Fill out the resulting f
 !!! Call/Answer Explained
 
 
-+Call and Answer at Work.>file://figures/flow_basics|width=80|label=@ref:cal+
++Call and Answer at Work.>file://figures/flow_basics|width=80|label=ref:cal+
 
 *@ref:call* illustrates the call/answer principle. The application is showing our ==ContactListView== component. 
 

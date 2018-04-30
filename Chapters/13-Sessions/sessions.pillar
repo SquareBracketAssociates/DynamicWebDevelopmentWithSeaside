@@ -1,4 +1,5 @@
 !! Managing Sessions
+@cha:session
 
 When a user interacts with a Seaside application for the first time, a new ''session'' object is automatically instantiated. This instance lasts as long as the user interacts with the application. Eventually, after the user has not interacted with the session for a while, it will time-out \-- we say that the session ''expires''. The session is internally used by Seaside to remember page-views and action callbacks. Most of the time developers don't need to worry about sessions.
 
@@ -43,7 +44,7 @@ self session inspect; halt
 
 !!! Customizing the Session for Login
 
-We will now implement an extremely simple login facility to show how to use a custom session. We will enhance the ==miniInn== application we developed in *ref:/book/components/tasks* and add a login facility.
+We will now implement an extremely simple login facility to show how to use a custom session. We will enhance the ==miniInn== application we developed in Chapter *cha:tasks* and add a login facility.
 
 When a user interacts with a Seaside application for the first time, an instance of the application's session class is created. The class ==WASession== is the default session class, but this can be changed for each application, allowing you to store key information on this class.  Different parts of the system will then be able to take advantage of the information to offer different services to the user.
 

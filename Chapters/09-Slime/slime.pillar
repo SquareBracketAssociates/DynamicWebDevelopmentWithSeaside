@@ -1,7 +1,5 @@
 !! Writing good Seaside Code
-
-
-%+Embedding a ContactView into another component.>file://figures/iAddress-ListAndEditor.png|width=80|label=ref:listAndItem+
+@cha:slime
 
 This short chapter explains how you can improve the quality of your code and your programming skills in general by running ''Slime'', a Seaside-specific code critics tool. For example, Slime can detect if you do not follow the canonical forms for brush usage that we presented in Chapter *cha:rendering-components*. It will also help you identify other potential bugs early on, and help you produce better code. Furthermore, if you work on a Seaside library, it is able to point out portability issues between the different Smalltalk dialects.
 

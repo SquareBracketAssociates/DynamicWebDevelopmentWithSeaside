@@ -3,11 +3,9 @@
 
 In this chapter, we describe how to use XHTML forms and controls in Seaside. Controls such as text input fields, popup lists, radio buttons, check boxes, date inputs, and buttons are always created within an XHTML element. In this chapter we show how to create this element and how to use these common controls.
 
-
-
 !!! Text Input Fields and Buttons
 
-Let's continue with the same ==Contact== domain model class that we used in *cha:anchors*. We wish to create a form that allows the user to update the name and email address for a ==Contact==. Smalltalkers are generally very careful to separate presentation from the core of the data model, so we will create a component that will hold the user interface code to allow the user to edit the underlying ==Contact== instance:
+Let's continue with the same ==Contact== domain model class that we used in Chapter *cha:anchors*. We wish to create a form that allows the user to update the name and email address for a ==Contact==. Smalltalkers are generally very careful to separate presentation from the core of the data model, so we will create a component that will hold the user interface code to allow the user to edit the underlying ==Contact== instance:
 
 
 [[[
@@ -33,7 +31,7 @@ ContactView >> contact: aContact
 
 Next, we introduce our first new canvas message: the message  ==form==. This method returns an instance of  ==WAFormTag==. The only message in  ==WAFormTag== of interest to us right now is  ==with:== which, as we've seen before, takes an argument and renders that argument between the open and close XHTML tags (i.e. the ==<form>== and ==</form>== tags in this case). Controls such as input fields, buttons, popups, list boxes, and so on must all be placed inside a ==form== element.
 
-@@note Important Forgetting to add the form element is a common mistake. Controls such as input fields, buttons, popups, list boxes etc., must all be placed inside a ==form== tag. If not, they may not be rendered, or they may be rendered but then ignored by the browser.
+@@important Forgetting to add the form element is a common mistake. Controls such as input fields, buttons, popups, list boxes etc., must all be placed inside a ==form== tag. If not, they may not be rendered, or they may be rendered but then ignored by the browser.
 
 Our form will have three elements: two text boxes, one each for the name and the email address; and a button for the user to submit their changes.
 
@@ -69,13 +67,13 @@ ContactView >> save
 ]]]
 
 
-@@note In Seaside 3.0, the brushes ==submitButton== and ==textInput== you can also use the message ==value:== and ==with:== interchangeably. They both define the contents of the button of text input field.
+@@note The brushes ==submitButton== and ==textInput== you can also use the message ==value:== and ==with:== interchangeably. They both define the contents of the button of text input field.
 
 When the user's browser submits this form, first all the input callbacks are processed, then the (single) submit button callback will be processed. The order is important because the input callbacks set the corresponding field in the ==Contact== instance. The ==save== method expects those fields to be set before it is invoked.
 
 @@note Important You should remember that Seaside processes all input field callbacks before the submit button callback.
 
-Register this component as a new application called ``contact\'', see *ref:/pharo/first-component/registering* for details. Point your web browser to *http://localhost:8080/contact* and you should see the form as shown in *@ref:personalinformationview1*. Try entering values and submitting the form.
+Register this component as a new application called ``contact\'', see Section *@ref:registering* for details. Point your web browser to *http://localhost:8080/contact* and you should see the form as shown in Figure *@ref:personalinformationview1*. Try entering values and submitting the form.
 
 
 +Filling up our contact view.>file://figures/personal-information-view1.png|width=80|label=@ref:personalinformationview1+
@@ -119,6 +117,7 @@ html textInput
 [[[
 html submitButton on: #save of: self
 ]]]
+
 instead of all of this:
 
 [[[
@@ -151,7 +150,7 @@ ContactView >> renderContentOn: html
 
 All of the Seaside input components support both the ==on:of:== and the more primitive ==callback:== and ==value:== methods, so we will use whichever form makes our code the more readable. Anchors also support ==on:of:==.
 
-@@note Important As we mentioned above, controls such as input fields, buttons, popups, list boxes, and so on must all be placed inside a ==form== tag. Typically only a single ==form== tag is needed on a page. ==form== tags ''must not'' be nested but multiple ==form== tags can occur, one after another, on a single page. Only the contents of a single ==form== will be submitted by the web browser though (normally determined by the form in which the user clicked a submit button).
+@@important As we mentioned above, controls such as input fields, buttons, popups, list boxes, and so on must all be placed inside a ==form== tag. Typically only a single ==form== tag is needed on a page. ==form== tags ''must not'' be nested but multiple ==form== tags can occur, one after another, on a single page. Only the contents of a single ==form== will be submitted by the web browser though (normally determined by the form in which the user clicked a submit button).
 
 
 !!! Drop-Down Menus and List Boxes
@@ -229,13 +228,9 @@ ContactView >> save
         '--' , self contact gender
 ]]]
 
-Try the application now. You should see a drop-down menu to select the gender, as shown in *ref:personalInformationView3*.
+Try the application now. You should see a drop-down menu to select the gender, as shown in Figure *@ref:personalInformationView3*.
 
-%+personalInformationView3|width=90%+
-
-+Gender as a drop-down menu.>file://figures/personal-information-view3.png|width=80|label=@ref:personalinformationview3+
-
-
++Gender as a drop-down menu.>file://figures/personal-information-view3.png|width=80|label=ref:personalinformationview3+
 
 Modify the gender input so that it specifies a list size:
 
@@ -263,12 +258,11 @@ ContactView >> renderContentOn: html
         html submitButton on: #save of: self]
 ]]]
 
-@@note Advanced Experienced Smalltalkers will be getting concerned at the length of this method by now. Generally it is considered good practice in Smalltalk to keep your methods to a few lines at most. For the purposes of this exercise, we will be ignoring this good practice, but you may want to think about how you could split this method up.
+@@advanced Experienced Pharoers will be getting concerned at the length of this method by now. Generally it is considered good practice to keep your methods to a few lines at most. For the purposes of this exercise, we will be ignoring this good practice, but you may want to think about how you could split this method up.
 
 Now view the application in your browser. Most browsers will show a list rather than a drop-down menu, see *@ref:personalInformationview4*.
 
-%+personalInformationview4|width=90%+
-+With radio buttons.>file://figures/personal-information-view4.png|width=80|label=@ref:personalinformationview4+
++With radio buttons.>file://figures/personal-information-view4.png|width=80|label=ref:personalinformationview4+
 
 
 ""Select Brush Message Summary."" The following table shows a summary of the most important message of the ==select== brush. 
@@ -319,9 +313,7 @@ First, we ask the canvas to create a new group using ==radioGroup==. We then ask
 
 The ==callback:== method should be a zero argument callback block which is executed when the page is submitted with that radio button selected. Note the callback block is not called for options that were not selected.
 
-+Filling up our contact view.>file://figures/personal-information-view5.png|width=80|label=@ref:personalinformationview5+
-%+personalinformationview51|width=90%+
-
++Filling up our contact view.>file://figures/personal-information-view5.png|width=80|label=ref:personalinformationview5+
 
 ""Radio Button Brush Summary."" The following table gives a summary of the most important ==radioButton== brush messages.
 
@@ -387,7 +379,7 @@ ContactView >> renderContentOn: html
         html submitButton on: #save of: self ]
 ]]]
 
-Next, update the display method to show the value of this flag. *@ref:personal-information-view6* shows our new form.
+Next, update the display method to show the value of this flag. Figure *@ref:personalinformationview6* shows our new form.
 
 [[[
 ContactView >> save
@@ -399,9 +391,7 @@ ContactView >> save
 
 Try the application now. Fill out the form and submit it to see that the checkbox is working.
 
-+With Check boxes.>file://figures/personal-information-view6.png|width=80|label=@ref:personalinformationview6+
-
-
++With Check boxes.>file://figures/personal-information-view6.png|width=80|label=ref:personalinformationview6+
 
 ""Model adaptation."" It often requires some work to get the model and the UI (web or graphical) to communicate with each other effectively. For example, we can't write this inside the render method:
 
@@ -488,12 +478,9 @@ ContactView >> save
         '--' , self contact birthdate printString
 ]]]
 
-+Full contact view.>file://figures/personal-information-view7.png|width=80|label=@ref:personalinformationview7+
-%+personal-information-view7|width=90%+
-   
++Full contact view.>file://figures/personal-information-view7.png|width=80|label=ref:personalinformationview7+
 
-
-Because the ==birthdate== instance variable is ==nil==, the date is displayed with the current date. Your final version of the application should look something like *@ref:personal-information-view7*.
+Because the ==birthdate== instance variable is ==nil==, the date is displayed with the current date. Your final version of the application should look something like *@ref:personalinformationview7*.
 
 ""Date Message Summary."" The following table shows the messages of the ==dateInput== brush.
 
@@ -519,7 +506,7 @@ UploadForm >> renderContentOn: html
 	
 This code will produce a form, as shown in *@ref:file-upload-form*. Some browsers may also display a text input field so you can enter the file path. 
 
-+File uploads.>file://figures/file-upload-form.png|width=80|label=@ef:file-upload-form+
++File uploads.>file://figures/file-upload-form.png|width=80|label=ref:file-upload-form+
 
 
 @@note Important You must send the ==multipart== message to the form brush if you want to use the form for file uploads (as shown in this example). If you forget to do this, the upload won't work.

@@ -1,4 +1,5 @@
 !! Embedding Components
+@cha:embedding
 
 Building reusable components and frameworks is the goal of all developers in almost all parts of their applications. The dearth of truly reusable (canned) component libraries for most of the existing web development frameworks is a good indication that this is difficult to do.
 

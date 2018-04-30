@@ -7,7 +7,7 @@ The idea behind CSS is to decouple the presentation from the document itself. Th
 
 !!! CSS Principles
 
-Basically, a CSS specification contains a set of rules. A rule is a description of a stylistic aspect of one or more elements. A rule is composed of a ''selector'' and a ''declaration''. In the following rule ==h1== is a selector which specifies that the following declaration ==color: red== will be applied to all the first-level headings, see *@ref:cssstru*. The rule has the effect that all the first level headings will be red.
+Basically, a CSS specification contains a set of rules. A rule is a description of a stylistic aspect of one or more elements. A rule is composed of a ''selector'' and a ''declaration''. In the following rule ==h1== is a selector which specifies that the following declaration ==color: red== will be applied to all the first-level headings, see Figure *@cssstru*. The rule has the effect that all the first level headings will be red.
 
 [[[
 h1 { color: red; }
@@ -36,7 +36,7 @@ h1 { color: red; text-align: center; }
 ]]]
 
 
-+Essential CSS structural elements.>file://figures/CSSStructure.pdf|width=80|label=ref:cssstru+
++Essential CSS structural elements.>file://figures/CSSStructure.pdf|width=80|label=cssstru+
 
 
 
@@ -160,7 +160,7 @@ The generated XHTML code looks like this:
 <div id="error">Some error message</div>
 ]]]
 
-There are a couple of issues to be aware of when using IDs in your XHTML. IDs have to be unique on a XHTML page. If you use the same ID multiple times, some web browsers may not render your page as you expect, or may even refuse to render it at all. Furthermore some Javascript libraries dynamically apply their own IDs to identify page elements and these may override your carefully chosen IDs, causing your styling to fail in mysterious ways. See Chapter *@ref:web-20* on Javascript programming.
+There are a couple of issues to be aware of when using IDs in your XHTML. IDs have to be unique on a XHTML page. If you use the same ID multiple times, some web browsers may not render your page as you expect, or may even refuse to render it at all. Furthermore some Javascript libraries dynamically apply their own IDs to identify page elements and these may override your carefully chosen IDs, causing your styling to fail in mysterious ways. 
 
 @@important So, to avoid invalid XHTML and conflicts with JavaScript code, do not use IDs for styling. Exclusively use CSS classes for styling, even if the particular style is used only once.
 

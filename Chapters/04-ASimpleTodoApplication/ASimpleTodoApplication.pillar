@@ -230,7 +230,7 @@ ToDoListView >> renderContentOn: html
 
 As you see, we are rendering the todo items as an unordered list. We also conditionally assign CSS classes to each list item, depending on its state. To do this, we will use the handy method ==class:if:== since it allows us to write the condition and the class name in the cascade of the brush. Each item will get a class that indicates whether it is completed or overdue. The CSS will cause each item to be displayed with a color determined by its class. Because we haven't defined any CSS yet, if you refresh your browser now, you will see the plain list. 
 
-Next, we edit the style of this component either by clicking on the halos and the pencil and editing the style directly, or by defining the method ==style== on the class ==ToDoListView== in your code browser. Check Chapter *@ref:css* to learn more about the use of style-sheets and CSS classes.
+Next, we edit the style of this component either by clicking on the halos and the pencil and editing the style directly, or by defining the method ==style== on the class ==ToDoListView== in your code browser. Check Chapter *@cha:css* to learn more about the use of style-sheets and CSS classes.
 
 [[[
 ToDoListView >> style
