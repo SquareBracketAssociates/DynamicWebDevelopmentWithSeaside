@@ -213,7 +213,7 @@ WAAdmin register: ContactListView asApplicationAt: 'contacts'
 
 Already, with just a few lines of very readable code, you are able to load data from a (very simple) data store and list that data on a web page. Let's see how easy it is to start adding new records.
 
-@@Advanced It is actually bad design to refer to the ==Contact== class directly. It would be better to add a model instance variable to our component, but for now, we will stick with what we have in the interest of simplicity.
+@@advanced It is actually bad design to refer to the ==Contact== class directly. It would be better to add a model instance variable to our component, but for now, we will stick with what we have in the interest of simplicity.
 
 
 !!! Adding a Contact
