@@ -52,21 +52,18 @@ ${inputFile:Chapters/14-RSS/rss.pillar}$
 %We should move it close to the Simple App
 ${inputFile:Chapters/15-REST/rest.pillar}$
 
-! Advanced Topics
+${inputFile:Chapters/16-Deploy/deploy.pillar}$
 
-! Wish list of new chapter
 
-!! Javascript integration
+!! Wish list of new chapter
 
-!!Bootstrap
+!!!! Javascript integration
 
-!! MDL
+!!!! Bootstrap
+
+!!!!! MDL
 	*https://github.com/DuneSt/MaterialDesignLite*
 	*https://mdl.ferlicot.fr*
 	
-!! Mustaside
-!! WebSockets
-
-
-
-
+!!!! Mustaside
+!!!! WebSockets
