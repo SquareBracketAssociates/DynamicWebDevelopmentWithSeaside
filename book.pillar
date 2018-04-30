@@ -13,15 +13,15 @@ ${inputFile:Chapters/01-Pharo/Pharo.pillar}$
 !Fundamentals
 In this part we will introduce you to the manipulation of basic elements such as texts, anchors and callbacks as well as forms. It presents the notion of ''brushes'' that is central to the Seaside API. Understanding these concepts will be fundamental to your use of Seaside.
 
-%${inputFile:Chapters/02-RenderingComponents/RenderingComponents.pillar}$
+${inputFile:Chapters/02-RenderingComponents/RenderingComponents.pillar}$
 %ready to review and fix figures
 
-%${inputFile:Chapters/03-CSS/css.pillar}$
+${inputFile:Chapters/03-CSS/css.pillar}$
 %ready to review and fix figures
 
-%${inputFile:Chapters/04-Anchors/anchors.pillar}$
+${inputFile:Chapters/04-Anchors/anchors.pillar}$
 
-%${inputFile:Chapters/05-Forms/forms.pillar}$
+${inputFile:Chapters/05-Forms/forms.pillar}$
 
 
 ! Using Components
@@ -34,24 +34,23 @@ You will also see how a pre-defined component can be given different behaviour a
 
 Finally, you will see a discussion of ``Slime\'', which despite its name is an extremely useful library to check and validate your Seaside code.
 
-%${inputFile:Chapters/06-CallingComponents/callingComponents.pillar}$
-%${inputFile:Chapters/07-EmbeddingComponents/embeddingComponents.pillar}$
-%${inputFile:Chapters/08-Tasks/tasks.pillar}$
-%${inputFile:Chapters/09-Slime/slime.pillar}$
+${inputFile:Chapters/06-CallingComponents/callingComponents.pillar}$
+${inputFile:Chapters/07-EmbeddingComponents/embeddingComponents.pillar}$
+${inputFile:Chapters/08-Tasks/tasks.pillar}$
+${inputFile:Chapters/09-Slime/slime.pillar}$
 
 ! Seaside in Action
-%${inputFile:Chapters/04-ASimpleTodoApplication/ASimpleTodoApplication.pillar}$
-%${inputFile:Chapters/11-Sudoko/sudoko.pillar}$
+${inputFile:Chapters/04-ASimpleTodoApplication/ASimpleTodoApplication.pillar}$
+${inputFile:Chapters/11-Sudoko/sudoko.pillar}$
 %I would group the two example together
 
-%${inputFile:Chapters/12-Serving/serving.pillar}$
-%${inputFile:Chapters/13-Sessions/sessions.pillar}$
+${inputFile:Chapters/12-Serving/serving.pillar}$
+${inputFile:Chapters/13-Sessions/sessions.pillar}$
 
 
 ${inputFile:Chapters/14-RSS/rss.pillar}$
 %We should move it close to the Simple App
 ${inputFile:Chapters/15-REST/rest.pillar}$
-
 ${inputFile:Chapters/16-Deploy/deploy.pillar}$
 
 

@@ -325,7 +325,7 @@ Note that the solver uses backtracking, i.e., it finds a missing number by tryin
 
 !!! Back Button
 
-Now let's play a bit. Suppose we have entered the values 1 through 6 as shown in Figure *fig:upto6* and we want to replace the 6 with 7. If we press the ''Back'' button, change the 6 to 7 and press return, we get 6 instead of 7. The problem is that we need to copy the state of the Sudoku grid before making the cell assignment in ==setCell:to:==.
+Now let's play a bit. Suppose we have entered the values 1 through 6 as shown in Figure *@fig:upto6* and we want to replace the 6 with 7. If we press the ''Back'' button, change the 6 to 7 and press return, we get 6 instead of 7. The problem is that we need to copy the state of the Sudoku grid before making the cell assignment in ==setCell:to:==.
 
 [[[
 WebSudoku >> setCell: currentCell to: anInteger

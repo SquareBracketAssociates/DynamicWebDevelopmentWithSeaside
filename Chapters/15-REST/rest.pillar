@@ -55,7 +55,7 @@ Recent Seaside images already contain the REST packages preloaded.
 
 !!!! Defining a Handler
 
-We are going to extend the todo application from Chapter *@cha:todo* with a REST API. We will first build a service that returns a textual list of todo items.
+We are going to extend the todo application from Chapter *@cha:todoApp* with a REST API. We will first build a service that returns a textual list of todo items.
 
 Our REST handler, named ==ToDoHandler==, should be declared by defining a Seaside class which inherits from ==WARestfulHandler==. This way we indicate to Seaside that ==ToDoHandler== is a REST handler. The todo items will be accessed through the same model as the existing todo application: ==ToDoList default==. This means we do not need to specify additional state in our handler class.
 
