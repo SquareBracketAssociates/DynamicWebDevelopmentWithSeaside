@@ -48,7 +48,7 @@ Alternatively you can use the configuration interface: In the configuration of a
 # Set ''login'' and ''password'' in the ''Configuration'' section below.
 # Click on ''Save''.
 
-+Configure an application for deployment.>file://figures/configuration.png|width=80|label=fig:configuration+
++Configure an application for deployment.>file://figures/config.png|width=80|label=fig:configuration+
 
 
 If you want to programmatically change the password of the Seaside configure application, adapt and execute the following code:
@@ -625,7 +625,7 @@ $ curl 'http://localhost:8080/manager?code=SystemVersion current'
 Pharo1.0rc1 of 19 October 2009 update 10492
 ]]]
 
-If you install a request handler like the one presented here in your application make sure to properly protect it from unauthorized access, see *ref:/book/advanced/deployment/deployment-preparing*.
+If you install a request handler like the one presented here in your application make sure to properly protect it from unauthorized access, see Section *ref:deployment-preparing*.
 
 !!! Summary
 
