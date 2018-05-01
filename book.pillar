@@ -53,16 +53,18 @@ ${inputFile:Chapters/14-RSS/rss.pillar}$
 ${inputFile:Chapters/15-REST/rest.pillar}$
 ${inputFile:Chapters/16-Deploy/deploy.pillar}$
 
+!!! Should Migrate JQuery
 
 !! Wish list of new chapter
 
-!!!! Javascript integration
+!!! Willow?
 
-!!!! Bootstrap
+!!! Bootstrap
 
-!!!!! MDL
-	*https://github.com/DuneSt/MaterialDesignLite*
-	*https://mdl.ferlicot.fr*
+!!! MDL
+- *https://github.com/DuneSt/MaterialDesignLite*
+- *https://mdl.ferlicot.fr*
 	
-!!!! Mustaside
-!!!! WebSockets
+!!! Mustaside
+
+!!! WebSockets
