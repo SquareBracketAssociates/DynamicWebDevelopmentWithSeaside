@@ -1,0 +1,168 @@
+!! JQuery
+
+*jQuery>http://jquery.com* is one of the most popular open-source JavaScript frameworks today. jQuery was created by John Resig and focuses on simplifying HTML document traversing, event handling, animating, and AJAX interactions for rapid web development.
+
+There is a huge collection of *plugins>http://plugins.jquery.com/* available that extend the base framework with new functionality. One of the most popular of these plugins is *jQuery UI>http://jqueryui.com/*. It provides additional abstractions over low-level interaction and animation, advanced effects and high-level themeable widgets for building highly interactive web applications.
+
+jQuery and jQuery UI are both well integrated into Seaside 3.0. This allows you to access all aspects of the library from Smalltalk by writing Smalltalk code only. The Pharo side of the integration is automatically built from the excellent *jQuery documentation - http://docs.jquery.com>http://docs.jquery.com*, so you can be sure that the integration is up-to-date and feature-complete. 
+
++jQuery Demo and Functional Test Suite.>file://figures/functional-tests.png|width=80|label=fig:functional+
+
+!!! Getting Ready
+
+Make sure to have the packages Javascript-Core, JQuery-Core and JQuery-UI-Core loaded. For examples and functional tests also load the test packages Javascript-Tests-Core, JQuery-Tests-Core and JQuery-Tests-UI.
+
+To use the libraries in your applications, you will need to load them in the Seaside web configuration application. You will notice that the core JQuery and JQueryUI libraries come in three forms which may be installed interchangeably. The ==Development== versions have the full human-readable Javascript, and so are ideal for inspection and debugging during development; the ==Deployment== versions are minified and gzipped to about 1/10th of the size of the development libraries, and so are much faster-loading for end users; and the ==Google== versions link to copies of the libraries hosted by Google \-- as many sites reference these versions, your users may already have them cached, and so these can be the fastest loading versions.
+
+|{ ==JQDevelopmentLibrary== |{ JQuery | Full
+| ==JQDeploymentLibrary== | JQuery | Compressed
+| ==JQGoogleLibrary== | JQuery | Google
+| ==JQUiDevelopmentLibrary== | JQuery UI | Full
+| ==JQUiDeploymentLibrary== | JQuery UI | Compressed
+| ==JQUiGoogleLibrary== | JQuery UI | Google
+
+@@advanced For many of the most popular jQuery plugins there are ready-made Smalltalk wrappers in the Project *JQueryWidgetBox>http://www.squeaksource.com/JQueryWidgetBox* on SqueakSource available.
+
+!!! JQuery Basics
+
+jQuery has a simple but powerful model for its interactions. It always follows the same pattern depicted in Figure *@fig:jquery-lifecycle*.
+
++jQuery Demo and Functional Test Suite.>file://figures/jquery-lifecycle.png|width=80|label=fig:jquery-lifecycle+
+
+To instantiate a ==JQueryClass== you ask a factory object for a new instance by sending the message ==jQuery==. In most cases the factory object is your ==WAHtmlCanvas==, but it can also be a ==JSScript==.
+
+[[[
+html jQuery
+]]]
+
+While the ==JQueryClass== is conceptually a Javascript class, it is implemented as a Pharo instance. ==html jQuery== returns an instance of  ==JQueryClass==.
+
+!!!! Creating Queries
+To create a ==JQueryInstance== we specify a CSS selector that queries for certain DOM elements on the your web-page. For example, to select all HTML div tags with the CSS class ==special== one would write:
+
+[[[
+html jQuery expression: 'div.special'
+]]]
+
+This expression returns a ==JQueryInstance== object that represents all HTML tags matching the given CSS query ==div.special==. There is also a slightly shorter form that does exactly the same:
+
+[[[
+html jQuery: 'div.special'
+]]]
+
+You find more details on creating queries in Section *@ref:creating-queries*.
+
+!!!! Refining Queries
+
+If you browse the class ==JQueryInstance==, you will see that you can add more elements or filter out elements before applying the jQuery action. For example, to select the siblings of the currently selected elements you would write:
+
+[[[
+(html jQuery: 'div.special') siblings
+]]]
+
+You find more details on refining queries in Section *@ref:refining-queries*.
+
+!!!! Performing Actions
+
+Once you have identified the elements, you can specify the actions you wish to perform. These actions can delete, move, transform, animate or change the contents of the element. For example, to remove the elements we selected earlier we write:
+
+[[[
+(html jQuery: 'div.special') siblings; remove
+]]]
+
+There are over 180 actions provided by jQuery; these can be investigated by browsing the ==JQueryInstance== class in Smalltalk, and by visiting the jQuery documentation at *http://api.jquery.com/*.
+
+You find more details on performing actions in Section *@ref:performing-actions*.
+
+!!! Creating Queries
+@ref:creating-queries
+
+If you've already used jQuery (or followed the link to the documentation), you will already be familiar with the ==$()== syntax for specifying CSS queries to select DOM elements. ==JQueryClass>>expression:== exposes this same interface, but there are also a number of shortcut forms available to you. All the constructor methods return an instance of ==JQueryInstance==.
+
+!!!! $("div.hint")
+
+Normally a jQuery instance is setup with a CSS selector. You can either use the long form (1) or take the shortcut (2). Of course, both forms are absolutely equivalent, in practice you will mostly encounter the shorter second form:
+
+[[[
+html jQuery expression: 'div.hint'.      "(1)"
+html jQuery: 'div.hint'.                 "(2)"
+]]]
+
+!!!! $("#foo")
+
+Often you want to create a query with an element ID. Again we have different possibilities to instantiate that query. (1) and (3) use a normal CSS selector for element IDs. (2) uses the ==id:== selector, and (4) uses a shortcut using a symbol. Note that the forth form only works for symbols, if you pass a string it will be interpreted as a CSS selector.
+
+[[[
+html jQuery expression: '#foo'.          "(1)"
+html jQuery id: 'foo'.                   "(2)"
+html jQuery: '#foo'.                     "(3)"
+html jQuery: #foo.                       "(4)"
+]]]
+
+!! $("\*")
+
+The CSS selector to match all elements in the page is ==\*==. Again you have several equivalent possibilities to achieve the same in jQuery. The first two use a CSS selector, while the last one uses a convenience method:
+
+[[[
+html jQuery expression: '*'.
+html jQuery: '*'.
+html jQuery all.
+]]]
+
+!! $(this)
+
+If you want to refer to the  currently active DOM element from an event handler you can use ==new== or ==this==. 
+
+[[[
+html jQuery this.
+html jQuery new.
+]]]
+
+Note that the ==new== you call here is not the one implemented in the Smalltalk class ==Behavior==, but a custom one implemented on the instance side of ==JQueryClass==. Similar to all other constructor methods it returns an instance of ==JQueryInstance==.
+
+!! $("&lt;div>&lt;/div>")
+
+Furthermore, jQuery provides the possibility to create new HTML code on the fly, that inserted into an existing element. Again we have different equivalent possibilities to do this. The first one uses a raw HTML string, with Seaside we want to avoid this in most cases. The second and third variation uses a block with a new renderer that we can use with the normal Seaside rendering API.
+
+[[[
+html jQuery expression: '<div></div>'.
+html jQuery html: [ :r | r div ].
+html jQuery: [ :r | r div ].
+]]]
+
+!! $(function() { alert('Hello'); })
+
+Last but not least there is the case of the ==$()== syntax allows you to specify some action that should happen once the page is ready. This is done by attaching
+
+[[[
+html jQuery ready: (html javascript alert: 'Hello').
+html jQuery: (html javascript alert: 'Hello').
+]]]
+
+
+
+
+
+
+
+
+
+
+
+!!! Refining Queries
+@ref:refining-queries
+
+!!! Performing Actions 
+@ref:performing-actions
+
+
+
+!!! Adding JQuery
+
+!!! AJAX
+
+!!! How to 
+
+!!! Enhanced To Do Application
+
+
