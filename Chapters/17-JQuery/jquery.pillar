@@ -581,3 +581,7 @@ ToDoListView >> style
 ]]]
 
 !!! Summary
+
+This chapter showed how Seaside can interact with Javascript. 
+It opens a large spectrum of possibilities.
+
