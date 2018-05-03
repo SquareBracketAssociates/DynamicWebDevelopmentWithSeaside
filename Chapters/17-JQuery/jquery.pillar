@@ -225,7 +225,7 @@ Searches for all elements that match the specified expression.
 aQuery find: 'div'.
 ]]]
 
-!! Parents
+!!!! Parents
 
 Get a set of elements containing the unique parents of the matched set of elements.
 
@@ -263,24 +263,33 @@ There is a wide variety of actions that come supported with jQuery. jQuery UI an
 
 The following examples add, remove or toggle the CSS class ==important== given as the first argument. These methods are commonly used to change the appearance of one or more HTML elements for example to visualize a state change in the application.
 
-==aQuery addClass: 'important'.
-==aQuery removeClass: 'important'.
-==aQuery toggleClass: 'important'.
+[[[
+aQuery addClass: 'important'.
+aQuery removeClass: 'important'.
+aQuery toggleClass: 'important'.
+]]]
 
 Also you can query if a particular class is set:
 
-==aQuery hasClass: 'important'.
+[[[
+aQuery hasClass: 'important'.
+]]]
+
 
 !!!! Styles
 
 Similarly you can change the style of one or more HTML elements. By providing a dictionary you can change multiple CSS styles at once:
 
-==aQuery css: aDictionary.
+[[[
+aQuery css: aDictionary.
+]]]
 
 Alternatively you can use a dictionary-like protocol to read and write specific style properties:
 
-==aQuery cssAt: 'color'.
-==aQuery cssAt: 'color' put: '#ff0'.
+[[[
+aQuery cssAt: 'color'.
+aQuery cssAt: 'color' put: '#ff0'.
+]]]
 
 Note that in most cases it is preferred to use CSS classes instead of hardcoding your style settings into the application code.
 
@@ -288,12 +297,16 @@ Note that in most cases it is preferred to use CSS classes instead of hardcoding
 
 While the above methods change the ==class== and ==style== attribute of one or more DOM elements, there are also accessor methods to change arbitrary HTML attributes. By providing a dictionary of key-value pairs you can change multiple attributes at once:
 
-==aQuery attributes: aDictionary.
+[[[
+aQuery attributes: aDictionary.
+]]]
 
 Alternatively you can use a dictionary-like protocol to read and write attributes:
 
-==aQuery attributeAt: 'href'.
-==aQuery attributeAt: 'href' put: 'http://www.seaside.st/'.
+[[[
+aQuery attributeAt: 'href'.
+aQuery attributeAt: 'href' put: 'http://www.seaside.st/'.
+]]]
 
 !!!! Replace Contents
 
@@ -371,7 +384,7 @@ html anchor
 !!!! Execute at Load-Time
 
 Javascript proposes a way to execute a query at load-time using ==$(document).ready(...)==.
-With Seaside, you can forget about $(document).ready(...), since Seaside has its own mechanism there. 
+With Seaside, you can forget about ==$(document).ready(...)==, since Seaside has its own mechanism there. 
 
 [[[
 html document addLoadScript: (html jQuery: 'div') remove
@@ -402,7 +415,7 @@ anAjax html: [ :r | r div ].
 anAjax script: [ :s | s alert: 'Hello' ].
 ]]]
 
-!!Triggering Callbacks
+!!!!Triggering Callbacks
 
 Finally a query can be stored and triggered later.
 

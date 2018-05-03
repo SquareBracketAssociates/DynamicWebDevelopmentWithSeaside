@@ -1,4 +1,4 @@
-${inputFile:Chapters/Introduction.pillar}$
+%${inputFile:Chapters/Introduction.pillar}$
 
 ! Getting Started
 This part shows you how to get a simple Seaside application up and running
@@ -6,6 +6,7 @@ in less than 15 minutes. If you’re new to Pharo, have a look at the Pharo by E
 
 %${inputFile:Chapters/01-Pharo/Pharo.pillar}$
 %should do a pass for Zinc, redo screenshots
+${inputFile:Chapters/02-Gemstone/Gemstone.pillar}$
 
 !! Gemstone version
 %Should add Gemstone chapter
