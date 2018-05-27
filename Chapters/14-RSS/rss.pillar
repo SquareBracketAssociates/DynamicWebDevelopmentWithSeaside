@@ -31,7 +31,18 @@ The RSS XML format is very much like XHTML, but much simpler. As standardised in
 
 !!! Creating a News Feed
 
-There is a Seaside package extension that helps us to build such feeds in a manner similar to what we used to build XHTML for component rendering. Let's create a news feed for our todo items.
+There is a Seaside package extension that helps us to build such feeds in a manner similar to what we used to build XHTML for component rendering. 
+
+Load the packages ==RSS-Core==, ==RSS-Examples==, and ==RSS-Tests-Core== from the Seaside repository.
+
+[[[
+Metacello new
+	githubUser: 'SeasideSt' project: 'Seaside' commitish: 'master' path: 'repository';
+	baseline: 'Seaside3';
+	loads: #('RSS' 'RSS Tests' 'RSS Examples')
+]]]
+
+Let's create a news feed for our todo items.
 
 ""Define the Feed Component."" The package defines a root class named ==RRComponent== that allows you to describe both the news feed channel (title, description, language, date of publication) and also the news items. Therefore, the next step is to create a new subclass of ==RRComponent== named ==ToDoRssFeed==. This will be the entry point of our feed generator. In our example, we don't need extra instance variables.
 
