@@ -313,29 +313,29 @@ An encoding is a mapping between a character (or its code point) and a sequence 
 
 In the latest version of Pharo, the ==Character== class represents a character by storing its Unicode. Since Unicode is a superset of latin1, you can create latin1 strings by specifying their direct values. When a ==String== is composed only of ASCII or latin1 characters, it is encoded in a ==ByteString== (a collection of bytes each one representing a character).
 
-[[[
+[[[testcase=true
 String with: (Character value: 65) with: (Character value: 66)
 >>> 'AB'
 ]]]
 
 
-[[[
+[[[testcase=true
 'AB' class.
 >>> ByteString
 ]]]
 
-[[[
+[[[testcase=true
 String with: (Character value: 16r5B) with: (Character value: 16r5D)
 >>> '[]'
 ]]]
 
 
-[[[
+[[[testcase=true
 String with: (Character value: 16rA9)
 >>>  the copyright character &copy;
 ]]]
 
-[[[
+[[[testcase=true
 Character value: 16rFC.
 >>> the u-umlaut character &uuml;
 ]]]
