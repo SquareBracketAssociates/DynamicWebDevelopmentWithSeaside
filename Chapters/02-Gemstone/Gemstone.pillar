@@ -30,11 +30,10 @@ We recommend when you are ready to stop work, you suspend the appliance rather t
 The status of your GemStone/S system is refreshed every 10 seconds. All the GemStone processes listed in the right sidebar should have a green OK status as shown in *@ref:status-panel*. If not, use the ``GLASS Appliance\'' menu shown in *@ref:glass-menu* to start, stop, or restart GLASS or its individual components. 
 
 +GLASS Virtual Appliance status.>file://figures/gemstone-status-panel.png|width=100|label=ref:status-panel+
-%+status-panel|width=30%+
 
 You should now be able to explore the Seaside components installed in the GLASS Virtual appliance by clicking on the "GLASS:  Seaside" bookmark you can see in *@ref:seaside-dispatcher*. You can also view that web page from another computer on your network by using the "eth0:" IP address listed under "Network Information".
 
-%+GLASS Virtual Appliance Seaside page.>file://figures/gemstone-seaside-dispatcher.png|width=100|label=fig:seasideDesk
++GLASS Virtual Appliance Seaside page.>file://figures/gemstone-seaside-dispatcher.png|width=100|label=ref:seaside-dispatcher+
 
 
 Should you need to edit a file or perform other command line operations on the appliance, you can open a terminal session by clicking on the terminal icon in the toolbar. If you prefer, you can ==ssh== to the appliance by using the IP address mentioned above and the username/password glass/glass. To copy files to/from the appliance use the ==scp== command. Here's an example of using ==scp== to copy a seaside log file from the appliance to your current directory.
