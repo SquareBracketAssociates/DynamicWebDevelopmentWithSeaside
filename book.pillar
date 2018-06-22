@@ -1,10 +1,10 @@
-%${inputFile:path=Chapters/Introduction.pillar}$
+${inputFile:path=Chapters/Introduction.pillar}$
 
 ! Getting Started
 This part shows you how to get a simple Seaside application up and running
 in less than 15 minutes. If you’re new to Pharo, have a look at the Pharo by Example Seaside Chapter. You can also have a look at the excellent Pharo Mooc *http://mooc.pharo.org*. Watch the first video and the development session about the counter. 
 
-%${inputFile:path=Chapters/01-Pharo/Pharo.pillar}$
+${inputFile:path=Chapters/01-Pharo/Pharo.pillar}$
 %should do a pass for Zinc, redo screenshots
 ${inputFile:path=Chapters/02-Gemstone/Gemstone.pillar}$
 
@@ -14,15 +14,15 @@ ${inputFile:path=Chapters/02-Gemstone/Gemstone.pillar}$
 !Fundamentals
 In this part we will introduce you to the manipulation of basic elements such as texts, anchors and callbacks as well as forms. It presents the notion of ''brushes'' that is central to the Seaside API. Understanding these concepts will be fundamental to your use of Seaside.
 
-%${inputFile:path=Chapters/02-RenderingComponents/RenderingComponents.pillar}$
+${inputFile:path=Chapters/02-RenderingComponents/RenderingComponents.pillar}$
 %ready to review and fix figures
 
-%${inputFile:path=Chapters/03-CSS/css.pillar}$
+${inputFile:path=Chapters/03-CSS/css.pillar}$
 %ready to review and fix figures
 
-%${inputFile:path=Chapters/04-Anchors/anchors.pillar}$
+${inputFile:path=Chapters/04-Anchors/anchors.pillar}$
 
-%${inputFile:path=Chapters/05-Forms/forms.pillar}$
+${inputFile:path=Chapters/05-Forms/forms.pillar}$
 
 
 ! Using Components
@@ -35,26 +35,26 @@ You will also see how a pre-defined component can be given different behaviour a
 
 Finally, you will see a discussion of ``Slime\'', which despite its name is an extremely useful library to check and validate your Seaside code.
 
-%${inputFile:path=Chapters/06-CallingComponents/callingComponents.pillar}$
-%${inputFile:path=Chapters/07-EmbeddingComponents/embeddingComponents.pillar}$
-%${inputFile:path=Chapters/08-Tasks/tasks.pillar}$
-%${inputFile:path=Chapters/09-Slime/slime.pillar}$
+${inputFile:path=Chapters/06-CallingComponents/callingComponents.pillar}$
+${inputFile:path=Chapters/07-EmbeddingComponents/embeddingComponents.pillar}$
+${inputFile:path=Chapters/08-Tasks/tasks.pillar}$
+${inputFile:path=Chapters/09-Slime/slime.pillar}$
 
 ! Seaside in Action
-%${inputFile:path=Chapters/04-ASimpleTodoApplication/ASimpleTodoApplication.pillar}$
-%${inputFile:path=Chapters/11-Sudoko/sudoko.pillar}$
+${inputFile:path=Chapters/04-ASimpleTodoApplication/ASimpleTodoApplication.pillar}$
+${inputFile:path=Chapters/11-Sudoko/sudoko.pillar}$
 %I would group the two example together
 
-%${inputFile:path=Chapters/12-Serving/serving.pillar}$
-%${inputFile:path=Chapters/13-Sessions/sessions.pillar}$
+${inputFile:path=Chapters/12-Serving/serving.pillar}$
+${inputFile:path=Chapters/13-Sessions/sessions.pillar}$
 
 
-%${inputFile:value=Chapters/14-RSS/rss.pillar}$
+${inputFile:value=Chapters/14-RSS/rss.pillar}$
 %We should move it close to the Simple App
-%${inputFile:path=Chapters/15-REST/rest.pillar}$
-%${inputFile:path=Chapters/16-Deploy/deploy.pillar}$
+${inputFile:path=Chapters/15-REST/rest.pillar}$
+${inputFile:path=Chapters/16-Deploy/deploy.pillar}$
 
-%${inputFile:path=Chapters/17-JQuery/jquery.pillar}$
+${inputFile:path=Chapters/17-JQuery/jquery.pillar}$
 
 
 !! Wish list of new chapter
