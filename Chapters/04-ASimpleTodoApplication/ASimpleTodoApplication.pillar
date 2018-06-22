@@ -437,7 +437,7 @@ h1 {
 
 We just saw how one component can call another and that the other component will appear in place of the one calling it. How do we give back control to the caller or return a result? The method ==answer:== performs this task. It takes an object that we want to return as a parameter.
 
-Let's demonstrate how to use ${index:WAComponent!answer:}$ ==answer:==. We will add two buttons to the interface of the ==ToDoItemView==: one for cancelling the edit and one to return the modified item. Note that in one case we use a normal ${index:WARenderCanvas!submitButton}$ ==submitButton==, and in the other case we use ${index:WARenderCanvas!cancelButton}$ ==cancelButton==. 
+Let's demonstrate how to use ==answer:==. We will add two buttons to the interface of the ==ToDoItemView==: one for cancelling the edit and one to return the modified item. Note that in one case we use a normal ==submitButton==, and in the other case we use ==cancelButton==. 
 
 
 @@note Pay attention since the cancel button ''looks'' exactly the same as a submit button, but it avoids processing the input callbacks of the form that would modify our model. This means we don't need to copy the model as we did in *ref:/book/components/calling/answer*.

@@ -354,7 +354,7 @@ MLSudoku >> verifyPossibility: anInteger for: aCell
         ifFalse: [ Error signal ]
 ]]]
 
-In fact when you pressed the ''Back'' button, the Sudoku UI was refreshed but its model was still holding the old values. What we need to do is to indicate to Seaside that when we press the ''Back'' button the state of the model should be kept in sync and rollback to the corresponding older version. We do so by defining the method ${index:WAComponent!states}$ ==states== which returns the elements that should be kept in sync.
+In fact when you pressed the ''Back'' button, the Sudoku UI was refreshed but its model was still holding the old values. What we need to do is to indicate to Seaside that when we press the ''Back'' button the state of the model should be kept in sync and rollback to the corresponding older version. We do so by defining the method ==states== which returns the elements that should be kept in sync.
 
 [[[
 WebSudoku >> states
