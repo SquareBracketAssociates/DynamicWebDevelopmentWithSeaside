@@ -49,7 +49,7 @@ ${inputFile:path=Chapters/12-Serving/serving.pillar}$
 ${inputFile:path=Chapters/13-Sessions/sessions.pillar}$
 
 
-${inputFile:value=Chapters/14-RSS/rss.pillar}$
+${inputFile:path=Chapters/14-RSS/rss.pillar}$
 %We should move it close to the Simple App
 ${inputFile:path=Chapters/15-REST/rest.pillar}$
 ${inputFile:path=Chapters/16-Deploy/deploy.pillar}$
