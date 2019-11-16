@@ -5,31 +5,27 @@ os:
   - linux
 
 smalltalk:
-  - Pharo-7.0
+  - Pharo-stable
 
-# Unit tests run the normal pillar tests
-# Integration tests test that pillar itself can interact with generated files, pdf generation, etc.
-# System tests test that we can install and use pillar as a black box
 env:
-  matrix:
-  - JOB=test TYPE=System ARCHETYPE=book OUTPUT=pdf
+  global:
+    - PILLAR_RELEASE=v7.7.3
+    - PATH="$HOME/texlive/bin/x86_64-linux:$HOME/pillar/build:$PATH"
 
 install:
-  # Pillar installation
-  - git clone https://github.com/pillar-markup/pillar.git -b v7.4.1 # Clone pillar
-  - cd pillar && ./scripts/build.sh && cd ..                              # Run pillar build script. Pillar will be built in `pwd`/build!
-  - . pillar/scripts/ci/ensure_latex.sh                                   # Install latex
-  - ./pillar/scripts/ci/ensure_book_dependencies.sh                       # Install latex dependencies required by pillar
-  
-script:
-  - ./pillar/build/pillar build pdf
+  - git clone --branch "$PILLAR_RELEASE" https://github.com/pillar-markup/pillar.git "$HOME/pillar"
+  - ( cd $HOME/pillar; ./scripts/build.sh; )
+  - $HOME/pillar/scripts/ci/install-texlive
+  - ./_support/latex/ensure-deps.sh
 
-deploy:
-- provider: bintray
-  file: .bintray.json
-  on:
-    repo: SquareBracketAssociates/DynamicWebDevelopmentWithSeaside
-  skip_cleanup: true
-  user: ducasse
-  key:
-    secure: osYfgDLs11ifqkHfXXHzpTRD+k1ALVYjM4aDSKNwB0u32DLtL6GyMoDhLZH3ddSxto34TwgiRhnz5lH+PKyjhrnJ8UHe6+V6wIi3sFSIdVeqP8jT8cGi+8O1J+frjCHmEGZEWQQAxbhuJzydd0EfMM6OJE/rA8R/POLprXVdT9c=
+script:
+  - pillar build pdf
+
+after_success:
+  - wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
+  - mv _result/pdf/book.pdf DynamicWebDev-wip.pdf
+  - bash upload.sh DynamicWebDev-wip.pdf
+
+branches:
+  except:
+    - /^(?i:continuous)$/
