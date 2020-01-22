@@ -1,0 +1,57 @@
+Think of an application that does more time taking tasks (like generating a PDF that make take a while). What are current approaches with Seaside to show wait dialogs or other to the user until processing is ready?
+
+I have a situation like that, with a process that might take up to a minute.
+What I do is to handle that, is to display a "running" indication with setTimeout() that polls for updates, and if nothing happens schedules another setTimeout(). Once there is an update (either if the process ended successfully or failed) I update the "running" indicator with the result or a failure sign, and cancel the setTimeout().
+
+
+| theIntervalString |
+    theIntervalString := anId , 'Interval'
+        , Time now asMilliSeconds printString.
+    html div
+        id: anId , self imageSmallID;
+        onClick:
+            (html jQuery ajax
+                script: [ ...]);
+        script:
+            (((html jQuery id: anId) load
+                onComplete:
+                    ( (self clearIntervalJsString format: {theIntervalString}) js);
+                html: [ :h | self renderPlaceholderId: anId on: h ];
+                interval: 1 seconds) assignTo: theIntervalString);
+
+
+
+
+
+
+renderOngoingAnalysisOn: html
+
+    html div
+        class: 'center status';
+        with: 
+                [ html div
+                    class: 'status-icon';
+                    with: [html faIcon iconHourglassOutlined spin].
+                (html heading)
+                    level: 3;
+                    with: 'Foo baz is running' _LD.
+                html paragraph: 'Please wait until it finishes.' _LD.
+                html
+                    script: (((html jQuery ajax script: [:s | self scriptUpdaterOn: s])
+                            interval: 5 seconds) assignTo: self progressHandlerId)]
+
+scriptUpdaterOn: script
+
+    self hasOngoingAnalysis
+        ifTrue: ["do nothing"]
+        ifFalse: 
+            [self scriptValidatedReloadOn: script.
+            self scriptClearUpdaterOn: script]
+
+scriptClearUpdaterOn: script
+
+    script << (JSStream on: ('clearInterval(<1s>);<1s>=null;' expandMacrosWith: self progressHandlerId))
+scriptValidatedReloadOn: script
+  
+  "do some other stuff and then"      
+  script << ( ( script jQuery id: self ajaxId )    replaceWith: [ :h | self renderContentOn: h ] )
