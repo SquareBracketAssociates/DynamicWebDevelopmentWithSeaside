@@ -107,6 +107,7 @@ Another problem that new Seasiders might run into is that they try to change the
 
 
 !!! Contact Information Model
+@ref:contact-information
 
 In the next few chapters we will develop a simple application, named iAddress, which
 manages an email address book. We will begin by creating a new package ==iAddress==, and creating in this package a class whose instances will represent the contacts in our address book. 
@@ -293,7 +294,7 @@ The method ==confirm:== returns ==true== if the user answers ``Yes\'' and ==fals
 # The confirmation component handles this request, ``answering\'' ==true== if the user clicked ``Yes\'' and ==false== otherwise.
 # When the confirmation component answers, the ==ContactListView>>removeContact:== method ""resumes"" execution and processes the answer from ==confirm:==, deleting the contact item if the answer was ==true==.
 
-So, in Seaside, it is easy for a method to display another component, wait for the user to interact with it, and then resume execution when that component has completed its job. This is akin to ''modal dialogs'' in Graphical User Interface (GUI) applications, see Chapter *cha:components*.
+So, in Seaside, it is easy for a method to display another component, wait for the user to interact with it, and then resume execution when that component has completed its job. This is akin to ''modal dialogs'' in Graphical User Interface (GUI) applications, see Chapter *@cha:components*.
 
 !!! Creating a mailto: Anchor
 
@@ -316,7 +317,6 @@ ContactListView >> renderContact: aContact on: html
 
 Test this new component in your browser to see that your mailto: links are working correctly, see Figure *@ref:contacts-listing-with-removeandMail*.
 
-%+contacts-listing-with-removeandMail|width=90%+
 +With mailto anchor.>file://figures/contacts-listing-with-removeandMail.png|width=80|label=ref:contacts-listing-with-removeandMail+
 
 Note that rather than manipulating strings in this way, experienced Pharoers might want to actually define an ``email address\'' class to handle the different representations of email addresses. In fact, Seaside 3.0 already defines a class ==WAEmailAddress== which may be used for this very purpose.
