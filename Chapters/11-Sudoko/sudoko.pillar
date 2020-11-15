@@ -162,7 +162,7 @@ WebSudoku >> renderContentOn: html
 
 %+rowOfNumbers|width=50%+
 
-+The column labels look like this.>file://figures/rowOfNumbers.png|width=60|label=fig:rowOfNumbers+
++The column labels look like this.>file://figures/rowofnumbers.png|width=60|label=fig:rowOfNumbers+
 
 
 If you run the application again, you should see the column labels as shown in Figure *@fig:rowOfNumbers*.
