@@ -10,7 +10,7 @@ updated for the latest version of [Seaside](http://www.seaside.st/).
 
 [![Build status](https://travis-ci.com/SquareBracketAssociates/DynamicWebDevelopmentWithSeaside.svg?branch=master)](https://travis-ci.com/github/SquareBracketAssociates/DynamicWebDevelopmentWithSeaside)
 
-The result from the latest successful Travis build can be found [on Bintray (PDF)](https://bintray.com/squarebracketassociates/wip/download_file?file_path=Seaside-wip.pdf).
+The result from the latest successful Travis build can be found the release panel of this page.
 
 ## Roadmap
 The general plan of action is as follows.
