@@ -103,10 +103,6 @@ built with Seaside.
 ; ""Cmsbox"" (*http://www.cmsbox.ch>http://www.cmsbox.ch/*)
 : An AJAX-based content management system designed for usability. Here the navigation is more the kind we expect from a web application.
 
-; ""allstocker"" (*http://www.allstocker.jp>http://www.allstocker.jp/*)
-:  Applications to support the rent of machines. The architecture is explained
-in the blogpost xxx available from *http://pharoweekly.wordpress.com*
-
 There are also several open-source projects based on Seaside; we list two interesting ones, since you may use them when going through the book.
 
 ; ""Pier"" (*http://www.piercms.com>http://www.piercms.com/*)
@@ -520,7 +516,7 @@ you have brilliant ideas and a powerful language such as Smalltalk.
 
 
 
-
+s
 
 
 
