@@ -8,7 +8,8 @@ updated for the latest version of [Seaside](http://www.seaside.st/).
 
 ## Status
 
-[![Build status](https://travis-ci.com/SquareBracketAssociates/DynamicWebDevelopmentWithSeaside.svg?branch=master)](https://travis-ci.com/github/SquareBracketAssociates/DynamicWebDevelopmentWithSeaside)
+[![Download PDF](https://img.shields.io/badge/Download-PDF-9cf.svg)](https://github.com/SquareBracketAssociates/DynamicWebDevelopmentWithSeaside/releases/download/latest/DynamicWebDev-wip.pdf)
+[![Centralized book generation](https://github.com/SquareBracketAssociates/DynamicWebDevelopmentWithSeaside/actions/workflows/main.yml/badge.svg)](https://github.com/SquareBracketAssociates/DynamicWebDevelopmentWithSeaside/actions/workflows/main.yml)
 
 The result from the latest successful Travis build can be found the release panel of this page.
 
