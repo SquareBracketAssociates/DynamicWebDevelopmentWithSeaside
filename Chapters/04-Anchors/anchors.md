@@ -113,7 +113,7 @@ Another problem that new Seasiders might run into is that they try to change the
 ### Contact Information Model
 @ref:contact-information
 
-In the next few chapters we will develop a simple application, named iAddress, which
+In the next few chapters, we will develop a simple application, named iAddress, which
 manages an email address book. We will begin by creating a new package `iAddress`, and creating in this package a class whose instances will represent the contacts in our address book. 
 
 ```
