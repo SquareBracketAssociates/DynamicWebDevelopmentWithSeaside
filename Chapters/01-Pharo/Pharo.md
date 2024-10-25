@@ -16,7 +16,7 @@ In this book, we use Seaside 3.0.4, included in the _One Click Image_ which
 you can find on the Seaside website at [http://www.seaside.st/download](http://www.seaside.st/download). The
 _One Click Image_ is a bundle of everything you need to run Seaside. 
 
-![The Seaside development environment.%width=100&label=fig:seasideDesk](figures/seasideApplicationDesk.png)
+![The Seaside development environment.%width=100&anchor=fig:seasideDesk](figures/seasideApplicationDesk.png)
 
 You should see the Seaside development environment open in
 a single window on your desktop similar to the one presented in Figure *@fig:seasileDesk@*.
@@ -36,7 +36,7 @@ pointing your web browser to [http://localhost:8080/](http://localhost:8080/). Y
 like Figure *@fig:seasideServer@*. If you don’t see this page, it is possible
 that port 8080 is already in use by another application on your computer.
 
-![The Seaside server running.% width=100&label=fig:seasideServer](figures/seasideServer.png)
+![The Seaside server running.% width=100&anchor=fig:seasideServer](figures/seasideServer.png)
 
 **Changing the Seaside port number.**
 If you did not see Figure *@fig:seasideServer@*, you will need to try modifying
@@ -44,7 +44,7 @@ the workspace to restart the Comanche web server on a different port number
 \(like 8081\). The script *@scr:startServer@* asks the server to stop serving and start
 serving on port 8081.
 
-```language=smalltalk&label=scr:startServer&caption=Stop the server and start a new one.
+```language=smalltalk&anchor=scr:startServer&caption=Stop the server and start a new one.
 WAKom stop.
 WAKom startOn: 8081.
 ```
@@ -89,7 +89,7 @@ _component_ refers to any class which inherits from the class `WAComponent`
 To start creating your class, click on the `WebCounter` package you just
 created. The "class creation template" will appear in the source pane of the browser. Edit this template so that it looks as in the script *@scr:pharoClassTemplate@*
 
-```language=smalltalk&caption=Pharo class template for the `Web Counter`&label=scr:pharoClassTemplate
+```language=smalltalk&caption=Pharo class template for the `Web Counter`&anchor=scr:pharoClassTemplate
 WAComponent << #WebCounter
     slots: { #count }; 
     package: 'WebCounter'
@@ -109,14 +109,14 @@ pane to bring up the context menu, and select the menu item _Accept \(s\)_ as
 shown in Figure *@fig:createdClass@*. Accept in Pharo jargon means
 compile.
 
-![Creating the class `WebCounter`. % width=100&label=fig:createClass](figures/createClass.png)
+![Creating the class `WebCounter`. % width=100&anchor=fig:createClass](figures/createClass.png)
 
 Once you have accepted, your browser should look similar to the one shown in
 Figure *@fig:createdClass@*. The browser now shows the class that you have
 created in the class pane. Now we are ready to define some behaviour for our
 component.
 
-![The class has been created.% width=100&label=createdClass](figures/createdClass.png)
+![The class has been created.% width=100&anchor=createdClass](figures/createdClass.png)
 
 ### Defining Basic Methods
 
@@ -134,7 +134,7 @@ by using the message `new`, which will create the new instance and then send
 the message `initialize` to this new instance.
 
 
-```language=smalltalk&label=scr:WebCounterInitialize&caption=WebCounter initialize method.
+```language=smalltalk&anchor=scr:WebCounterInitialize&caption=WebCounter initialize method.
 WebCounter >> initialize
    super initialize.
    count := 0
@@ -153,11 +153,11 @@ At this point Pharo might ask you to enter your full name. This is for the
 source code version control system to keep track of the author that wrote this
 code.
 
-![Compiling a method. % width=100&label=fig:compilingMethod](figures/compilingMethod.png)
+![Compiling a method. % width=100&anchor=fig:compilingMethod](figures/compilingMethod.png)
 
 The method signature will also appear in the method pane as shown in Figure *@fig:compiledMethod@*.
 
-![The method has been compiled.%width=100&label=fig:compiledMethod](figures/compiledMethod.png )
+![The method has been compiled.%width=100&anchor=fig:compiledMethod](figures/compiledMethod.png )
 
 Now let’s review what this means. To create a method, we need to define two
 things, the name of the method and the code to be executed. The first line gives
@@ -168,13 +168,13 @@ variable to 0.
 To be ready to define Seaside-specific behaviour, define two more instance methods to change the counter state as in
 scripts *@scr:increaseMethod@* and *@scr:decreaseMethod@*. You can group them in a protocol 'action'.
 
-```language=smalltalk&caption=Increase method.&label=scr:increaseMethod
+```language=smalltalk&caption=Increase method.&anchor=scr:increaseMethod
 WebCounter >> increase
     count := count + 1
 ```
 
 
-```language=smalltalk&caption=Decrease method.&label=scr:decreaseMethod
+```language=smalltalk&caption=Decrease method.&anchor=scr:decreaseMethod
 WebCounter >> decrease
     count := count - 1
 ```
@@ -194,7 +194,7 @@ rendered.
 Add a new method category called rendering, and add the method definition in
 script *@scr:pharoRenderContentOn@*
 
-```language=smalltalk&caption=Example of `renderContentOn:` method&label=scr:pharoRenderContentOn
+```language=smalltalk&caption=Example of `renderContentOn:` method&anchor=scr:pharoRenderContentOn
 WebCounter>>renderContentOn: html
     html heading: count
 ```
@@ -207,7 +207,7 @@ message `heading:` to the html object that we were given as an argument.
 As we will see later, when we have completed our application, this method will
 give us output as shown in Figure *@fig:simpleCounter@*.
 
-![A simple counter. % width=100&label=simpleCounter](figures/simpleCounter.png)
+![A simple counter. % width=100&anchor=simpleCounter](figures/simpleCounter.png)
 
 #### Registering as a Seaside Application
 
@@ -226,7 +226,7 @@ we add to the `register:asApplicationAt:` message specifies the root component
 and the path that will be used to access the component from the web browser. You
 can reach the application under the URL [http://localhost:8080/webcounter](http://localhost:8080/webcounter).
 
-![Register a component as an application from a workspace.](figures/registerComponent.png width=100&label=fig:registerComponent)
+![Register a component as an application from a workspace.](figures/registerComponent.png width=100&anchor=fig:registerComponent)
 
 Now you can launch the application in your web browser by going to
 [http://localhost:8080/webcounter/](http://localhost:8080/webcounter/) and you will see your first Seaside
@@ -249,7 +249,7 @@ A _class_ `initialize` method is automatically invoked when the class is
 loaded from a file. The script *@scr:classInitialize@* the `initialize` class
 method definition.
 
-```language=smalltalk&caption=Automitically register your application with an initialize method.&label=scr:classInitialize
+```language=smalltalk&caption=Automitically register your application with an initialize method.&anchor=scr:classInitialize
 WebCounter class >> initialize
     WAAdmin register: self asApplicationAt: 'webcounter'
 ```
@@ -278,7 +278,7 @@ often use: it adds the expression to be executed as comment in the method. This
 way you just have to put your cursor after the first double quote, click once to
 select the expression and execute it using the _Do it \(d\)_ menu item or shortcut.
 
-![Adding the executable comment.% width=100&label=fig:executableComment](figures/executableComment.png)
+![Adding the executable comment.% width=100&anchor=fig:executableComment](figures/executableComment.png)
 
 #### Adding Behavior
 
@@ -290,12 +290,12 @@ callbacks attached to links (also known as anchors) displayed when the component
 is rendered in a web browser, as shown in Figure *@fig:addLink@*. Using callbacks
 allows us to define some code that will be executed when a link is clicked.
 
-![A simple counter with actions. % width=100&label=fig:addLink](figures/addLink.png)
+![A simple counter with actions. % width=100&anchor=fig:addLink](figures/addLink.png)
 
 We modify the method `WAComponent>>renderContentOn:` as in script
 *@scr:addCallback@*.
 
-```language=smalltalk&caption=Add anchors and callbacks to your counter&label=scr:addCallback
+```language=smalltalk&caption=Add anchors and callbacks to your counter&anchor=scr:addCallback
 WebCounter >> renderContentOn: html
     html heading: count.
     html anchor
@@ -319,7 +319,7 @@ the user clicks on the anchor.
 Click on the links to see that the counter get increased or decreased as shown
 in Figure *@fig:callbackResult@*.
 
-![A simple counter with a different value.% width=100&label=fig:callbackResult](figures/callbackResult.png)
+![A simple counter with a different value.% width=100&anchor=fig:callbackResult](figures/callbackResult.png)
 
 #### Adding a Class Comment
 @pharoClassComment
@@ -333,7 +333,7 @@ place to start reading. Classes that don’t have them require a lot more
 developer effort to figure out so get in the habit of adding these comments to
 all of your classes.
 
-![A class comment.% width=100&label=fig:classComment](figures/classComment.png)
+![A class comment.% width=100&anchor=fig:classComment](figures/classComment.png)
 
 Now you are set to code in Seaside. 
 
