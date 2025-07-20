@@ -12,11 +12,12 @@ This book is a port and update of the original
 ## Roadmap
 The general plan of action is as follows.
 
-1. Convert each chapter to Microdown format, link to figures/images.
+All chapters have been converted to Microdown (a nice markdown used by the Pillar compilation chain).
+Now here is what is left to do for a new version 
 
-2. Update/revise the chapters to match newer versions of Seaside.
+1. Update/revise the chapters to match newer versions of Seaside.
 
-3. Add/integrate new contents as it comes.
+2. Add/integrate new contents as it comes.
 
 ## Important Points	
 
